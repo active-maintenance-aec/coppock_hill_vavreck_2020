@@ -1,0 +1,473 @@
+---
+title: "Active Maintenance Report: coppock_hill_vavreck_2020"
+subtitle: "Coppock, Hill and Vavreck (2020, Science Advances): The Small Effects of Political Advertising are Small Regardless of Context, Message, Sender, or Receiver"
+date: "2026-08-01"
+format:
+  gfm:
+    output-file: README.md
+    toc: true
+  pdf:
+    output-file: coppock_hill_vavreck_2020_report.pdf
+    toc: true
+    toc-depth: 2
+    number-sections: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r setup}
+library(here)
+library(tidyverse)
+library(metafor)
+library(knitr)
+library(kableExtra)
+
+here::i_am("README.qmd")
+
+# kableExtra styling is LaTeX-only; the GitHub README build takes plain pipe tables.
+latex_out <- knitr::is_latex_output()
+
+latex_only <- function(k, f) if (latex_out) f(k) else k
+
+gt <- read_csv(here::here("ground_truth", "coppock_hill_vavreck_2020_ground_truth.csv"),
+               show_col_types = FALSE)
+manifest <- read_csv(here::here("original_manifest.csv"), show_col_types = FALSE)
+agreement <- read_csv(here::here("maintained", "output", "text_archive_agreement.csv"),
+                      show_col_types = FALSE)
+
+max_archive_gap <- signif(max(agreement$max_abs_diff_estimate,
+                              agreement$max_abs_diff_std_error), 2)
+```
+
+*Drafted by Claude Opus 5 under the supervision of Alex Coppock.*
+
+This repository holds the actively maintained replication code for Coppock, Hill and Vavreck (2020), together with the reproducibility report that documents what the original archive did and did not do. It is part of a program applying the maintenance proposal in Peer, Orr and Coppock (2021, *PS: Political Science & Politics*, doi [10.1017/S1049096521000366](https://doi.org/10.1017/S1049096521000366)) to a set of published archives.
+
+| | |
+|---|---|
+| Article | [10.1126/sciadv.abc4046](https://doi.org/10.1126/sciadv.abc4046) |
+| Replication archive | [10.7910/DVN/TN7KWR](https://doi.org/10.7910/DVN/TN7KWR) |
+| Pre-analysis plan | None |
+
+**The data are not redistributed here.** The deposit is `r round(sum(manifest$bytes) / 1e6, 1)` MB across `r nrow(manifest)` files and lives at Harvard Dataverse, which is the only copy this repository points at. `download_original.R` fetches it and verifies every file; `original_manifest.csv` pins the file identifiers, sizes and checksums, so the exact bytes this code was written against are recorded in version control even though the bytes themselves are not.
+
+**Repository layout.** `maintained/` is the maintained rewrite: one script per published table or figure, writing to `output/`, which is committed so a reader can compare a fresh run against it without downloading anything. `ground_truth/` ties every published number to the code that produces it. `original/` is created by the download script and is deliberately absent from the repository. This file is the reproducibility report, also available as a PDF in `report/`.
+
+**License.** CC0 1.0 Universal, matching the terms of the deposit this repository maintains. See `LICENSE`.
+
+**To reproduce.** Clone or download the repository, open `coppock_hill_vavreck_2020.Rproj`, and run:
+
+``` r
+source("run_all.R")
+```
+
+That fetches the deposit, verifies its `r nrow(manifest)` files, produces every table and figure into `maintained/output/`, and rebuilds the ground truth table from those outputs. Required packages: tidyverse, estimatr, metafor, modelsummary, janitor, broom, knitr, kableExtra, here. Paths resolve through `here`, so nothing depends on the working directory. The full run takes about ten seconds once the deposit is on disk, most of it in the four estimation scripts, which fit more than a thousand weighted regressions across weeks and partisanship-by-battleground subgroups; the first run also fetches 9.5 MB from Dataverse. A successful run overwrites `maintained/output/`, which is committed: **`git diff` on that folder is the reproduction check.**
+
+# Summary
+
+```{r summary_setup, include=FALSE}
+n_claims <- nrow(gt)
+n_archive_match <- sum(gt$match == 1)
+n_archive_fail <- sum(gt$match == 0)
+n_rewrite_match <- sum(gt$match_rewrite == 1)
+n_rewrite_fail <- sum(gt$match_rewrite == 0)
+```
+
+Two questions, answered before the detail.
+
+## Does the deposited archive run?
+
+Not any more, and the failure is silent about how much it costs. The four `estimate_*.R` scripts that build every intermediate estimate file end in `write_rds(x, path = "...")`. The `path` argument was soft-deprecated in readr 1.4 and removed in readr 2.2, so all four now stop with `argument "file" is missing, with no default` after the regressions have run. Changing `path =` to `file =` is the whole fix, and with it every script in the deposit runs to completion and reproduces its own deposited output object exactly.
+
+What makes the failure quiet is that the eight downstream scripts do not notice. The archive deposits the four `.rds` estimate files alongside the code that makes them, so `table_1.R`, `figure_1.R`, `figure_2.R`, `table_S2.R` and the rest read the deposited objects and run clean whether or not the estimation step succeeded. An archive that ships its own intermediates can look healthy while the half of it that does the work has stopped executing.
+
+Reproducing is a different question from running, and here the archive does reproduce. Of the `r n_claims` published quantities recorded in the ground truth, `r n_archive_match` are reproduced exactly by the deposited code once the four `path =` calls are repaired. The `r n_archive_fail` that do not match are not failures of the code: they are places where the article or its appendix states something the code does not produce, listed under the errata section below.
+
+## Does the maintained rewrite reproduce the paper?
+
+Yes. All `r n_rewrite_match` reproducible quantities match the published values to reported precision, and the `r n_rewrite_fail` that do not are the same published errata the archive fails on. The rewrite also agrees with the deposit itself. Its four per-week estimate files are the objects the archive deposits alongside its code, and they are the input to every published table and figure; across all 651 estimates in them the largest disagreement is `r max_archive_gap`, which is floating-point noise. `maintained/text_archive_agreement.R` measures that and writes it out, so the claim is a number in `output/` rather than a sentence here.
+
+The rewrite also removes the archive's one genuinely fragile dependency. The published pooling runs through `rmeta`, which has not been updated since March 2018 and which the archive props up with hand-written `tidy()` and `glance()` methods in its own `helpers.R`. The rewrite pools with `metafor` instead, which supports `broom` natively, so both the package and the glue holding it together are gone. No pooled estimate moves.
+
+# Paper overview
+
+**Citation**: Coppock, A., Hill, S. J. and Vavreck, L. (2020). "The small effects of political advertising are small regardless of context, message, sender, or receiver: Evidence from 59 real-time randomized experiments." *Science Advances*, 6(36), eabc4046. DOI: 10.1126/sciadv.abc4046
+
+**Summary**: Forty-nine real 2016 presidential campaign advertisements were tested in 59 advertisement-by-week experiments on 34,000 YouGov respondents across 29 weeks, from the primaries through election day. Each week a fresh national sample was assigned at random to watch one of that week's advertisements, both of them, or a placebo advertisement for car insurance, and then answered a short survey. Treatment effects are estimated week by week with covariate-adjusted weighted least squares and robust standard errors, then pooled by random-effects meta-analysis. The average effect on target candidate favorability is 0.049 scale points on a five-point scale and the average effect on vote intention is 0.7 percentage points. The paper's argument is about heterogeneity rather than about the averages: regressing the conditional effects on message, sender, receiver and context moderators (Table 1) turns up almost nothing, and the estimated standard deviation of true effects is 0.07 favorability points and 2 percentage points of vote intention. Small average effects are not concealing large offsetting ones.
+
+# Original archive reproducibility
+
+```{r repro_table}
+tibble(
+  Script = c(
+    "helpers.R",
+    "estimate_favorability_sates.R",
+    "estimate_favorability_cates.R",
+    "estimate_vote_choice_sates.R",
+    "estimate_vote_choice_cates.R",
+    "table_1.R",
+    "figure_1.R",
+    "figure_2.R",
+    "in_text_numbers.R",
+    "table_S1.R",
+    "table_S2.R",
+    "table_S3.R",
+    "figure_S1.R"
+  ),
+  Status = c(
+    "Sourced by five scripts; defines tidy() and glance() methods for rmeta objects",
+    "Error: write_rds(path =) removed in readr 2.2",
+    "Error: write_rds(path =) removed in readr 2.2",
+    "Error: write_rds(path =) removed in readr 2.2",
+    "Error: write_rds(path =) removed in readr 2.2",
+    "Clean; needs texreg, which installs from CRAN",
+    "Clean; drops two placeholder rows, as intended",
+    "Clean",
+    "Clean",
+    "Clean; deprecation notice from spread()",
+    "Clean; deprecation notice from do()",
+    "Clean",
+    "Clean; deprecation notice from do()"
+  ),
+  Resolution = c(
+    "No change required",
+    "write_rds(x, file = ...)",
+    "write_rds(x, file = ...)",
+    "write_rds(x, file = ...)",
+    "write_rds(x, file = ...)",
+    "install.packages('texreg')",
+    "No change required",
+    "No change required",
+    "No change required",
+    "No change required",
+    "No change required",
+    "No change required",
+    "No change required"
+  )
+) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Script", "Status on current R", "Resolution"),
+    caption = "Original archive reproducibility, checked against R 4.6.0 on 1 August 2026."
+  ) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 7) |>
+    column_spec(1, width = "4cm") |>
+    column_spec(2, width = "5cm") |>
+    column_spec(3, width = "3.5cm"))
+```
+
+Every package the archive names still installs from CRAN: `tidyverse`, `estimatr`, `texreg`, `xtable`, `rmeta`, `metafor` and `janitor`. `texreg` is the only one not already present in a standard installation, and version 1.39.5 installs without incident; the rewrite no longer needs it. `rmeta` is the fragile one, and the meta-analysis section below deals with it.
+
+The deprecation notices are not errors. `do()` still works in dplyr 1.2.1, as does `spread()` in tidyr 1.3.2; both are superseded rather than removed, and the rewrite replaces them anyway.
+
+One structural feature of the deposit is worth naming, because it shapes what can be checked. The only files any script writes are the four `.rds` estimate objects. Every table goes to the console as LaTeX through `print.xtable` or `texreg`, and every figure is printed to the default graphics device, which is why running the deposit leaves an `Rplots.pdf` holding whichever figure was drawn last. There is no deposited table or figure file to compare a re-run against, so the reproduction check has to run through the published document. The rewrite writes every table and every figure to `maintained/output/`, alongside a CSV of the values each figure plots, for that reason.
+
+## The archive overwrites its own deposit
+
+`estimate_favorability_sates.R` and its three siblings write `favorability_sates.rds`, `favorability_cates.rds`, `vote_choice_sates.rds` and `vote_choice_cates.rds` into the working directory. Those four filenames are themselves deposited files. Running the archive in place therefore overwrites four of its own 21 deposited objects, and running `figure_1.R` or `figure_2.R` in place leaves an `Rplots.pdf` that was never part of the deposit.
+
+Here that overwrite was harmless: the regenerated objects are value-identical to the deposited ones, which is the check that says the archive is internally reproducible. It is harmless only because the deposit was verified against Dataverse afterwards. The general form of the hazard is that a deposit can be silently replaced by the output of the code it contains, and `original/` in this repository is checked back against the served bytes before every commit for that reason.
+
+## Checksums
+
+```{r checksum_summary}
+tibble(
+  Quantity = c("Files in the deposit", "Total size",
+               "md5_served matches the local copy",
+               "md5_published disagrees with md5_served",
+               "Files Dataverse ingested as tabular"),
+  Value = c(
+    as.character(nrow(manifest)),
+    paste0(round(sum(manifest$bytes) / 1e6, 1), " MB"),
+    paste0(nrow(manifest), " of ", nrow(manifest)),
+    as.character(sum(manifest$md5_served != manifest$md5_published)),
+    as.character(sum(manifest$file != manifest$served_as))
+  )
+) |>
+  kable(booktabs = TRUE,
+        caption = "Deposit verification, 1 August 2026.") |>
+  latex_only(\(k) k |> kable_styling(latex_options = "hold_position"))
+```
+
+All `r nrow(manifest)` published checksums agree with the bytes `?format=original` returns, which is not something to assume: another deposit in this program carries three published checksums that verify neither the original file nor the tabular file derived from it. One file, `ad_df.csv`, was ingested into a `.tab` representation, so the manifest records `originalFileName` and `originalFileSize` rather than the names and sizes of the derived file.
+
+# Errata in the published article
+
+`r n_archive_fail` recorded quantities do not match. None of them is a defect in the code: in every case the deposited script and the maintained rewrite agree with each other, and the article or its appendix states something else. That is what `defect_locus` records in the ground truth, and every failing row carries the same value.
+
+```{r errata_table}
+gt |>
+  filter(match == 0) |>
+  select(table_figure, claim, value_paper, value_script, defect_locus, notes) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Location", "Quantity", "Published", "Code", "Locus", "Note"),
+    caption = "Published values the code does not produce."
+  ) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = c("hold_position", "repeat_header"), font_size = 6) |>
+    column_spec(2, width = "3.2cm") |>
+    column_spec(5, width = "7cm"))
+```
+
+Four of these are worth stating in prose.
+
+**The vote choice CATE homogeneity test.** The Results section reports "For the set of conditional average treatment effects (CATEs), P values are 0.0002 and 0.96." Table S2 of the same paper reports 0.0961 for the vote choice CATEs, which is what the code produces. The main text figure is off by a factor of ten, and it is the one that reads as decisive evidence of homogeneity.
+
+**Table 1's battleground coefficient.** The published table prints `−0.00` for the battleground coefficient in the first favorability model. The code gives −0.008, and the Results section on the facing column quotes the magnitude correctly as 0.008. The table cell lost a digit in typesetting.
+
+**The general election coefficient.** The Results section says general election advertisements move favorability "by 0.121 scale points more than primary advertisements." Table 1 prints 0.123, and 0.123 is what the code gives. The confidence bound quoted in the same sentence, "about 0.25," follows from 0.123 rather than from 0.121.
+
+**The appendix's advertisement counts.** Appendix section A says Table S1 shows "50 unique advertisements" and that, "including the ads we deployed more than once," the study tested 28 anti-Trump, nine anti-Clinton, nine pro-Clinton and three pro-Trump advertisements. The data hold 49 distinct campaign advertisements and one placebo, and the main text's 49 is right. The four counts match neither the distinct-advertisement counts (24, 11, 6, 3) nor the deployment counts (30, 11, 8, 3); the main text's own breakdown, 30/11/8/3, is the deployment count and is correct. Appendix section A also names eight advertisements as having run in multiple weeks; seven did, and "Man of People" ran once, on 14 March. Section B and Figure S1 both use the correct seven.
+
+The manipulation check range is a fifth, smaller case. The article says treated respondents claiming to have seen a campaign advertisement ranged from 92 to 95 percent. The unweighted range across the ten waves in which the question was asked is 91.4 to 95.5 percent, and weighting by the survey weights widens it to 90.2 to 95.9. The control range, stated as 2 to 4 percent, is right.
+
+# Number-by-number comparison
+
+```{r gt_table}
+gt |>
+  mutate(across(everything(), \(x) replace_na(as.character(x), ""))) |>
+  select(table_figure, claim, value_paper, value_script, match) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Location", "Quantity", "Paper", "Archive", "Match"),
+    caption = "Ground truth: published value against the value the deposited scripts produce on current R, once the four deprecated write calls are repaired."
+  ) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = c("hold_position", "repeat_header"), font_size = 5) |>
+    column_spec(2, width = "5cm"))
+```
+
+Every quantity the article or its appendix states is recorded: `r n_claims` of them, covering the abstract, the design description, the manipulation and attrition checks, both annotations on Figure 1, all twelve annotations on Figure 2, all 76 cells of Table 1, all 20 cells of Table S2, and the appendix's own design counts.
+
+Every published float is represented. The two tables and two figures that print coefficients are covered cell by cell. The other three print none, so each is checked on what it does state: Table S1 on the shape of the advertisement list, Table S3 on its ten published column totals, and Figure S1 on its seven panels and seventeen plotted estimates. The table is built by `ground_truth/build_ground_truth.R`, which reads every comparison value back out of `maintained/output/` and refuses to write a failing row that carries no `defect_locus`.
+
+# Maintained rewrite
+
+The rewrite lives in `maintained/`: fourteen scripts covering four estimation steps, four published tables, three figures, the in-text quantities, and the comparison against the deposit. It is a translation, not a reanalysis. Every estimator, specification and sample restriction is the one the paper used, including the two places where the archive's choices are not what a rule would predict: Figure S1 scores the pro-Clinton advertisement "Real Life" against Trump favorability while scoring the pro-Clinton advertisement "Love/Kindness" against Clinton favorability, and the rewrite keeps both.
+
+## Architecture
+
+`clean_favorability_sates.R` and its three siblings replace the archive's `estimate_*.R` scripts. Each fits the paper's covariate-adjusted weighted specification within every week, or within every partisanship-by-battleground-by-week cell, and writes a tidy estimate file to `maintained/output/`. Nothing downstream reads the archive's deposited `.rds` estimate files; they are rebuilt, which is what makes the reproduction check meaningful rather than circular.
+
+The archive's `estimate_ad_effects()` used `do(tidy(lm_robust(...)))` over a grouped frame. The rewrite uses `reframe(tidy(lm_robust(..., data = pick(everything()))))`, which is the supported replacement. The weights column in `exps.rds` is literally named `weights`, so `lm_robust` resolves it inside the data frame and the usual non-standard-evaluation trap does not arise here.
+
+Two helper functions survive into `helpers.R`, and no more. `estimate_ad_effects()` encapsulates the per-week regression, and `pool_effects()` encapsulates the meta-analysis. `pool_effects()` takes `method` with no default, so every call site names the estimator it is asking for rather than inheriting one. The archive's `add_parens()`, `format_num()` and `make_interval_entry()` were wrappers around a single `sprintf` call or were never called at all, and are gone; `texprep()` existed only to feed the `texreg` workaround described below and is gone with it.
+
+`text_archive_agreement.R` runs last among the analysis scripts and does the one thing the rewrite cannot claim for itself: it reads the archive's four deposited estimate objects back off disk and compares them, row for row, against the four the rewrite has just built. `run_all.R` then sources `ground_truth/build_ground_truth.R`, which assembles the comparison table from `output/` rather than from anything typed by hand.
+
+## Confidence bounds that lost their labels
+
+Every effect is signed so that a positive number means the advertisement worked, which for an attack advertisement means negating the estimate. All four of the archive's estimation scripts negate the two confidence bounds in place as well:
+
+``` r
+estimate  = if_else(attack == 1, estimate * -1, estimate),
+conf.low  = if_else(attack == 1, conf.low * -1, conf.low),
+conf.high = if_else(attack == 1, conf.high * -1, conf.high)
+```
+
+Negating an interval reverses it, so after those three lines `conf.low` holds the upper end and `conf.high` the lower one, on every attack advertisement's row. It affects `r sum(agreement$n_rows_bounds_relabelled)` of the `r sum(agreement$k)` estimates in the four deposited files.
+
+No published number moves. Each pooled quantity in the paper is built from the estimate and its standard error, neither of which is touched, and a line range is drawn between its two ends whichever way round they arrive, so both figures are unaffected. The cost is to a reader of the deposited estimate files, or of the plotted-values CSV this repository commits beside each figure, who would take the column names at face value. The rewrite swaps the two bounds so the names stay true, which is the only place its estimate files differ from the archive's beyond floating-point noise.
+
+## Deprecated patterns replaced
+
+```{r replacements_table}
+tibble(
+  Original = c(
+    "`write_rds(x, path = )`",
+    "`do(tidy(...))`",
+    "`do(with(., tidy(...)))`",
+    "`rmeta::meta.summaries(method = 'random')`",
+    "hand-written `tidy.meta.summaries()` / `glance.meta.summaries()`",
+    "`texreg` over dummy `lm` fits",
+    "`xtable` + `print.xtable`",
+    "`spread()`",
+    "`geom_errorbar(width = 0)`",
+    "`split(.$wave)`",
+    "`expand.grid()`",
+    "`cat()` for in-text quantities",
+    "magrittr pipe"
+  ),
+  Replacement = c(
+    "`write_rds(x, file = )`",
+    "`reframe(tidy(...))`",
+    "`reframe(pool_effects(...))`",
+    "`metafor::rma(method = 'DL')`",
+    "(omitted: broom supports rma natively)",
+    "`modelsummary(output = )` on the rma fits",
+    "`write_csv()` and `kable()` to `output/`",
+    "`pivot_wider()`",
+    "`geom_linerange()`",
+    "`split(exps_inc$wave)`",
+    "`tibble()`",
+    "a tibble written to `output/`",
+    "native pipe"
+  )
+) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Original pattern", "Replacement"),
+    caption = "Deprecated patterns and their replacements in the maintained rewrite."
+  ) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 8) |>
+    column_spec(1, width = "6.5cm") |>
+    column_spec(2, width = "6cm"))
+```
+
+## Table 1 without the texreg workaround
+
+The archive builds Table 1 by fitting each meta-regression twice: once with `metafor::rma.uni()`, which produces the numbers, and once with `lm()`, which produces an object `texreg` knows how to format. The `lm` coefficients are then overridden with the `rma` ones through `override.coef`, `override.se` and `override.pvalues`, and a helper called `texprep()` extracts the three vectors. The comment in the archive is candid about it: "These lm models are here to trick texreg."
+
+The trick is no longer necessary. `broom` provides `tidy.rma()` and `glance.rma()`, so `modelsummary` formats a list of `rma` objects directly, and the rewrite's `table_1_meta_regression.R` passes the four fits straight to `modelsummary(output = "...tex")` with a `coef_map` and nothing else. Two of the three failure modes the workaround carried disappear with it: the possibility that a `lm` fit and its `rma` twin drift apart in specification, and the possibility that a reader takes the printed sample size or fit statistic from the `lm` rather than from the meta-regression. The result reproduces all 76 published cells of Table 1, in the published row order, including the stars on the three significant coefficients.
+
+# Meta-analysis: rmeta to metafor
+
+Every pooled estimate in the paper comes from `rmeta::meta.summaries(estimate, std.error, method = "random")`. The package has not been updated since March 2018. The archive's `helpers.R` also carries hand-written `tidy.meta.summaries()` and `glance.meta.summaries()` functions, because `rmeta` predates `broom` and its objects are not tidiable; those two functions are the seam holding an unmaintained package into a tidyverse pipeline.
+
+`rmeta`'s random-effects estimator is DerSimonian-Laird, and its heterogeneity test is Woolf's, which the appendix names explicitly. Both have exact counterparts in `metafor`: `rma(yi, sei, method = "DL")` gives the same pooled estimate, the same standard error, the same normal-theory confidence interval, the same between-study variance, and a Q test whose p-value is the same number. The rewrite therefore drops `rmeta` and both hand-written methods, and `pool_effects()` in `helpers.R` returns all seven quantities from one `rma` fit.
+
+**No estimate moves.** Running both implementations on all four pooled sets, the largest absolute discrepancy across the estimate, the standard error, both confidence bounds, the heterogeneity p-value and tau-squared, 24 quantities in all, is 1.1e-16, which is floating-point noise. The check is deliberately not part of the pipeline, since running it would put `rmeta` back among the repository's dependencies, but it takes five lines and about two seconds:
+
+``` r
+d <- readRDS("maintained/output/favorability_sates.rds")
+m <- rmeta::meta.summaries(d$estimate, d$std.error, method = "random")
+r <- metafor::rma(yi = d$estimate, sei = d$std.error, method = "DL")
+c(m$summary - as.numeric(r$beta), m$se.summary - r$se,
+  m$het[3] - r$QEp, m$tau2 - r$tau2, summary(m)$summci[c(1, 3)] - c(r$ci.lb, r$ci.ub))
+```
+
+A general instruction to reproduce a published pooling with `method = "FE"`, reporting REML alongside, is the wrong instruction here: it presumes an archive that pooled by fixed effects, and this one did not. Fixed effects would have moved every published number, the favorability SATE from 0.049 to 0.052 and the vote choice SATE from 0.007 to 0.009. Match the estimator the archive used, which here is `"DL"`.
+
+Reporting REML alongside is still worth doing, because the choice of between-study variance estimator is invisible in the published table and it moves the estimates.
+
+```{r reml_table}
+s2 <- read_csv(here::here("maintained", "output", "table_s2_heterogeneity.csv"),
+               show_col_types = FALSE)
+
+s2 |>
+  mutate(
+    across(c(estimate, std.error, tau2, tau), \(x) sprintf("%.4f", x)),
+    p.value = sprintf("%.4f", p.value)
+  ) |>
+  select(estimand, dv, method, k, estimate, std.error, p.value, tau2, tau) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Estimand", "Outcome", "Estimator", "k", "Estimate", "SE", "Q p-value", "tau2", "tau"),
+    caption = "Table S2 as published (DL) with the REML fit of the same data beside it. The Q test does not depend on the variance estimator, so its p-value is common to both rows."
+  ) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = "hold_position", font_size = 8))
+```
+
+REML shrinks the estimated between-study variance in three of the four sets, most sharply for the favorability CATEs, where tau-squared falls from 0.0217 to 0.0074 and the implied standard deviation of true effects from 0.15 to 0.09. The paper's headline claim is that effects are homogeneous, so an estimator that finds less heterogeneity does not threaten it; a reader should nonetheless know that the 0.15 the Discussion quotes is the larger of two defensible numbers.
+
+# Figure verification
+
+Both main-text figures carry their estimates as printed annotations, and every one of the fourteen reproduces: the two on Figure 1 and all twelve on Figure 2.
+
+```{r fig_annotation_table}
+gt |>
+  filter(table_figure %in% c("figure_1", "figure_2")) |>
+  select(table_figure, claim, value_paper, value_rewrite, match_rewrite) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Figure", "Quantity", "Paper", "Rewrite", "Match"),
+    caption = "Figure annotations, transcribed from pages 3 and 5 of the article, against the maintained rewrite."
+  ) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = c("hold_position", "repeat_header"), font_size = 7))
+```
+
+## A layout that stopped reproducing
+
+Figure 1's values reproduce; its layout, drawn by the archive's own code on current R, does not. The archive draws the line marking the start of the general election campaign with a bare `geom_vline(xintercept = as.Date("2016-06-10"))`. Under ggplot2 3.3.2, where the paper was made, that layer sat outside the faceted data. Under ggplot2 4.x it joins the free x scale of every panel, so the meta-analysis facet, whose data span 30 days in January 2018, is stretched to a range of nineteen months; because the facet is laid out with `space = "free_x"`, the stretched panel then takes most of the plot width and the month labels of the weekly panel collapse into each other.
+
+The archive's own `figure_1.R` produces the same broken layout today, so this is drift in ggplot2 rather than a defect introduced in translation. The rewrite supplies the rule as a one-row data layer restricted to the weekly facet, which restores the published proportions and changes nothing that is plotted.
+
+```{r fig1_image, out.width="100%", fig.cap="Figure 1 as reproduced by the maintained rewrite."}
+knitr::include_graphics(
+  if (latex_out) {
+    here::here("maintained", "output", "figure_1_sate_time_series.pdf")
+  } else {
+    "maintained/output/figure_1_sate_time_series.png"
+  }
+)
+```
+
+```{r fig2_image, out.width="100%", fig.cap="Figure 2 as reproduced by the maintained rewrite."}
+knitr::include_graphics(
+  if (latex_out) {
+    here::here("maintained", "output", "figure_2_cate_partisan_match.pdf")
+  } else {
+    "maintained/output/figure_2_cate_partisan_match.png"
+  }
+)
+```
+
+Figure S1's seven panels carry no printed numbers. Its seventeen estimates agree with the archive's to within 3e-17, and the panel set is derived from the data rather than typed in: `figure_s1_repeat_ads.R` asserts that the seven advertisements it plots are exactly the advertisements the data show in more than one week.
+
+```{r figs1_image, out.width="85%", fig.cap="Figure S1 as reproduced by the maintained rewrite."}
+knitr::include_graphics(
+  if (latex_out) {
+    here::here("maintained", "output", "figure_s1_repeat_ads.pdf")
+  } else {
+    "maintained/output/figure_s1_repeat_ads.png"
+  }
+)
+```
+
+# Maintained rewrite verification
+
+```{r rewrite_verify}
+gt |>
+  mutate(across(everything(), \(x) replace_na(as.character(x), ""))) |>
+  select(table_figure, claim, value_paper, value_rewrite, match_rewrite, defect_locus) |>
+  kable(
+    booktabs = TRUE,
+    col.names = c("Location", "Quantity", "Paper", "Rewrite", "Match", "Locus"),
+    caption = "Maintained rewrite verification: published value against rewrite output."
+  ) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = c("hold_position", "repeat_header"), font_size = 5) |>
+    column_spec(2, width = "5cm"))
+```
+
+**`r n_rewrite_match`** of `r n_claims` published quantities are reproduced by the maintained rewrite to the precision the article reports. The `r n_rewrite_fail` that are not are the errata above, where the archive and the rewrite agree with each other and the article says something else.
+
+No published number appears anywhere in `maintained/` as an input to a computation. Every value in `maintained/output/` traces to `original/exps.rds`, `original/exps_with_incompletes.rds` or `original/ad_df.csv`. Published values appear only in `ground_truth/build_ground_truth.R`, where they are comparison targets and nothing reads them back.
+
+Running `run_all.R` twice returns every CSV, TeX, PNG and RDS file in `maintained/output/` byte-identical. Only the three figure PDFs differ, because a PDF records the time it was written.
+
+# R environment
+
+```{r env}
+si <- sessionInfo()
+tibble(
+  Item = c("R version", "Platform", "Date run"),
+  Value = c(
+    paste(si$R.version$major, si$R.version$minor, sep = "."),
+    si$platform,
+    format(Sys.Date())
+  )
+) |>
+  kable(booktabs = TRUE) |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = "hold_position"))
+```
+
+```{r env_pkgs}
+pkgs <- c("estimatr", "metafor", "modelsummary", "janitor", "broom",
+          "dplyr", "ggplot2", "tidyr", "purrr", "readr", "here")
+tibble(
+  Package = pkgs,
+  Version = map_chr(pkgs, \(p) as.character(packageVersion(p)))
+) |>
+  kable(booktabs = TRUE, caption = "Package versions used for the run behind this report.") |>
+  latex_only(\(k) k |>
+    kable_styling(latex_options = "hold_position"))
+```
