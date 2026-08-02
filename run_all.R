@@ -38,3 +38,10 @@ source(here::here("maintained", "text_archive_agreement.R"))
 # Reads the published values it compares against out of the outputs above, so the
 # table cannot drift from the pipeline. Runs last for that reason.
 source(here::here("ground_truth", "build_ground_truth.R"))
+
+# Deposited archive, again ----
+# The check at the top of this file is a precondition: it says original/ was intact
+# before anything ran. Nothing above writes to original/, and this second pass is what
+# demonstrates it rather than assuming it. Nothing is downloaded; the files are already
+# present and are re-checked against the manifest on checksum, byte size and membership.
+source(here::here("download_original.R"))
