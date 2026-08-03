@@ -1,0 +1,391 @@
+claim_id,location,claim_type,value_paper
+title_n_experiments,Title,pipeline,59
+abstract_election_year,Abstract,definitional,2016
+abstract_n_ads,Abstract,pipeline,49
+abstract_n_experiments,Abstract,pipeline,59
+abstract_n_respondents,Abstract,pipeline,34000
+intro_months_span,Introduction,pipeline,8
+intro_n_ads,Introduction,pipeline,49
+intro_election_year,Introduction,definitional,2016
+intro_n_ads_multiweek,Introduction,pipeline,49
+intro_fav_ate,Introduction,pipeline,0.05
+intro_favorability_scale,Introduction,definitional,5
+intro_fav_sd,Introduction,pipeline,0.07
+intro_vc_ate,Introduction,pipeline,0.7
+intro_vc_sd,Introduction,pipeline,2
+desc_effects_exclude_large,Introduction,descriptive,
+methods_election_year,Materials and Methods,definitional,2016
+methods_n_weeks,Materials and Methods,pipeline,29
+methods_weekly_n_small,Materials and Methods,pipeline,1000
+methods_weekly_n_large,Materials and Methods,pipeline,2000
+methods_irb_number,Materials and Methods,structural,16-000691
+methods_attrition_rate,Materials and Methods,pipeline,42
+methods_n_attrition_tests,Materials and Methods,pipeline,29
+methods_n_sig_unadjusted,Materials and Methods,pipeline,3
+methods_n_sig_holm,Materials and Methods,pipeline,0
+methods_n_sig_benjamini_hochberg,Materials and Methods,pipeline,0
+methods_n_deployments_anti_trump,Materials and Methods,pipeline,30
+methods_n_deployments_anti_clinton,Materials and Methods,pipeline,11
+methods_n_deployments_pro_clinton,Materials and Methods,pipeline,8
+methods_n_deployments_pro_trump,Materials and Methods,pipeline,3
+methods_primary_period_start,Materials and Methods,structural,14 March
+methods_primary_period_end,Materials and Methods,structural,6 June
+methods_n_primary_conditions,Materials and Methods,definitional,4
+methods_n_primary_videos,Materials and Methods,definitional,2
+methods_convention_period_start,Materials and Methods,structural,20 June
+methods_convention_period_end,Materials and Methods,structural,15 August
+methods_both_condition_reintroduced,Materials and Methods,structural,26 September
+methods_manip_control_min,Materials and Methods,pipeline,2
+methods_manip_control_max,Materials and Methods,pipeline,4
+methods_manip_treated_min,Materials and Methods,pipeline,92
+methods_manip_treated_max,Materials and Methods,pipeline,95
+methods_favorability_scale,Materials and Methods,definitional,5
+methods_pid_scale_points,Materials and Methods,definitional,7
+methods_ideology_scale_points,Materials and Methods,definitional,5
+methods_single_study_n,Materials and Methods,pipeline,1000
+results_ci_level_figure_1,Results,definitional,95
+results_n_experiments,Results,pipeline,59
+results_fav_meta_estimate,Results,pipeline,0.049
+results_favorability_scale_low,Results,definitional,1
+results_favorability_scale_high,Results,definitional,5
+desc_fav_meta_significant,Results,descriptive,
+results_vc_meta_estimate,Results,pipeline,0.7
+desc_vc_meta_not_significant,Results,descriptive,
+results_fav_homogeneity_p,Results,pipeline,0.09
+results_vc_homogeneity_p,Results,pipeline,0.07
+desc_large_negative_early_may,Results,descriptive,-0.5
+desc_large_positive_october,Results,descriptive,0.5
+desc_two_other_negative_october,Results,descriptive,2
+results_sample_size_small,Results,pipeline,1000
+results_sample_size_large,Results,pipeline,2000
+results_n_heterogeneity_sources,Results,structural,7
+results_n_receiver_features,Results,structural,1
+results_n_context_features,Results,structural,3
+results_n_message_features,Results,structural,3
+desc_partisan_ses_exceed_coefficients,Results,descriptive,
+desc_independents_not_more_malleable,Results,descriptive,
+desc_time_slope_negative_count,Results,descriptive,3
+desc_time_slope_significant_count,Results,descriptive,1
+results_battleground_difference,Results,pipeline,0.008
+results_general_election_coefficient,Results,pipeline,0.121
+desc_general_election_not_significant,Results,descriptive,
+results_ci_level_general_election,Results,definitional,95
+results_general_election_ci_upper,Results,pipeline,0.25
+results_favorability_scale_general,Results,definitional,5
+desc_attack_and_pac_not_significant,Results,descriptive,
+desc_pro_clinton_more_effective,Results,descriptive,
+desc_pro_clinton_differences_not_significant,Results,descriptive,
+desc_partisan_match_democrats,Results,descriptive,
+desc_partisan_match_republicans,Results,descriptive,
+results_s2_sate_fav_p,Results,pipeline,0.09
+results_s2_sate_vc_p,Results,pipeline,0.07
+results_s2_cate_fav_p,Results,pipeline,0.0002
+results_s2_cate_vc_p,Results,pipeline,0.96
+desc_fail_reject_three_of_four,Results,descriptive,3
+results_tau_sate_favorability,Results,pipeline,0.07
+results_tau_cate_favorability,Results,pipeline,0.15
+results_favorability_scale_tau,Results,definitional,5
+results_tau_sate_vote_choice,Results,pipeline,0.02
+results_tau_cate_vote_choice,Results,pipeline,0.02
+results_two_sds,Results,definitional,2
+discussion_n_experiments,Discussion,pipeline,59
+discussion_n_respondents,Discussion,pipeline,34000
+discussion_n_ads,Discussion,pipeline,49
+discussion_election_year,Discussion,definitional,2016
+figure_1_fav_estimate,Figure 1,pipeline,0.049
+figure_1_fav_se,Figure 1,pipeline,0.020
+figure_1_vc_estimate,Figure 1,pipeline,0.007
+figure_1_vc_se,Figure 1,pipeline,0.007
+figure_1_ci_level,Figure 1,definitional,95
+figure_1_axis_breaks,Figure 1,structural,
+table_1_m1_intrcpt_est,Table 1,pipeline,0.056
+table_1_m1_intrcpt_se,Table 1,pipeline,0.020
+table_1_m2_intrcpt_est,Table 1,pipeline,0.062
+table_1_m2_intrcpt_se,Table 1,pipeline,0.020
+table_1_m3_intrcpt_est,Table 1,pipeline,0.007
+table_1_m3_intrcpt_se,Table 1,pipeline,0.007
+table_1_m4_intrcpt_est,Table 1,pipeline,0.008
+table_1_m4_intrcpt_se,Table 1,pipeline,0.007
+table_1_m1_democrat_d_est,Table 1,pipeline,0.035
+table_1_m1_democrat_d_se,Table 1,pipeline,0.035
+table_1_m2_democrat_d_est,Table 1,pipeline,0.022
+table_1_m2_democrat_d_se,Table 1,pipeline,0.036
+table_1_m3_democrat_d_est,Table 1,pipeline,0.011
+table_1_m3_democrat_d_se,Table 1,pipeline,0.010
+table_1_m4_democrat_d_est,Table 1,pipeline,0.006
+table_1_m4_democrat_d_se,Table 1,pipeline,0.011
+table_1_m1_independent_d_est,Table 1,pipeline,0.023
+table_1_m1_independent_d_se,Table 1,pipeline,0.051
+table_1_m2_independent_d_est,Table 1,pipeline,0.015
+table_1_m2_independent_d_se,Table 1,pipeline,0.052
+table_1_m3_independent_d_est,Table 1,pipeline,0.009
+table_1_m3_independent_d_se,Table 1,pipeline,0.020
+table_1_m4_independent_d_est,Table 1,pipeline,0.007
+table_1_m4_independent_d_se,Table 1,pipeline,0.020
+table_1_m1_battleground_d_est,Table 1,pipeline,-0.00
+table_1_m1_battleground_d_se,Table 1,pipeline,0.033
+table_1_m2_battleground_d_est,Table 1,pipeline,-0.007
+table_1_m2_battleground_d_se,Table 1,pipeline,0.033
+table_1_m3_battleground_d_est,Table 1,pipeline,-0.017
+table_1_m3_battleground_d_se,Table 1,pipeline,0.010
+table_1_m4_battleground_d_est,Table 1,pipeline,-0.017
+table_1_m4_battleground_d_se,Table 1,pipeline,0.010
+table_1_m1_pac_d_est,Table 1,pipeline,-0.012
+table_1_m1_pac_d_se,Table 1,pipeline,0.043
+table_1_m2_pac_d_est,Table 1,pipeline,0.026
+table_1_m2_pac_d_se,Table 1,pipeline,0.047
+table_1_m3_pac_d_est,Table 1,pipeline,-0.023
+table_1_m3_pac_d_se,Table 1,pipeline,0.013
+table_1_m4_pac_d_est,Table 1,pipeline,-0.016
+table_1_m4_pac_d_se,Table 1,pipeline,0.014
+table_1_m1_date_d_est,Table 1,pipeline,-0.023
+table_1_m1_date_d_se,Table 1,pipeline,0.014
+table_1_m2_date_d_est,Table 1,pipeline,0.005
+table_1_m2_date_d_se,Table 1,pipeline,0.010
+table_1_m3_date_d_est,Table 1,pipeline,-0.009
+table_1_m3_date_d_se,Table 1,pipeline,0.004
+table_1_m4_date_d_est,Table 1,pipeline,-0.008
+table_1_m4_date_d_se,Table 1,pipeline,0.004
+table_1_m1_attack_d_est,Table 1,pipeline,-0.017
+table_1_m1_attack_d_se,Table 1,pipeline,0.046
+table_1_m3_attack_d_est,Table 1,pipeline,0.028
+table_1_m3_attack_d_se,Table 1,pipeline,0.016
+table_1_m1_general_d_est,Table 1,pipeline,0.123
+table_1_m1_general_d_se,Table 1,pipeline,0.067
+table_1_m2_pro_trump_d_est,Table 1,pipeline,-0.124
+table_1_m2_pro_trump_d_se,Table 1,pipeline,0.101
+table_1_m4_pro_trump_d_est,Table 1,pipeline,-0.016
+table_1_m4_pro_trump_d_se,Table 1,pipeline,0.034
+table_1_m2_anti_clinton_d_est,Table 1,pipeline,-0.105
+table_1_m2_anti_clinton_d_se,Table 1,pipeline,0.070
+table_1_m4_anti_clinton_d_est,Table 1,pipeline,0.012
+table_1_m4_anti_clinton_d_se,Table 1,pipeline,0.023
+table_1_m2_anti_trump_d_est,Table 1,pipeline,-0.041
+table_1_m2_anti_trump_d_se,Table 1,pipeline,0.058
+table_1_m4_anti_trump_d_est,Table 1,pipeline,0.026
+table_1_m4_anti_trump_d_se,Table 1,pipeline,0.021
+table_1_m2_pro_sanders_d_est,Table 1,pipeline,-0.075
+table_1_m2_pro_sanders_d_se,Table 1,pipeline,0.089
+table_1_m2_pro_cruz_d_est,Table 1,pipeline,0.047
+table_1_m2_pro_cruz_d_se,Table 1,pipeline,0.116
+table_1_m2_pro_kasich_d_est,Table 1,pipeline,-0.182
+table_1_m2_pro_kasich_d_se,Table 1,pipeline,0.145
+table_1_m1_nobs,Table 1,pipeline,354
+table_1_m2_nobs,Table 1,pipeline,354
+table_1_m3_nobs,Table 1,pipeline,204
+table_1_m4_nobs,Table 1,pipeline,204
+table_1_star_threshold,Table 1,definitional,0.05
+desc_table_1_m1_intrcpt_star,Table 1,descriptive,
+desc_table_1_m2_intrcpt_star,Table 1,descriptive,
+desc_table_1_m3_date_d_star,Table 1,descriptive,
+figure_2_fav_republican_prodem_est,Figure 2,pipeline,0.039
+figure_2_fav_republican_prodem_se,Figure 2,pipeline,0.036
+figure_2_fav_republican_prorep_est,Figure 2,pipeline,0.048
+figure_2_fav_republican_prorep_se,Figure 2,pipeline,0.039
+figure_2_fav_independent_prodem_est,Figure 2,pipeline,0.070
+figure_2_fav_independent_prodem_se,Figure 2,pipeline,0.068
+figure_2_fav_independent_prorep_est,Figure 2,pipeline,0.012
+figure_2_fav_independent_prorep_se,Figure 2,pipeline,0.087
+figure_2_fav_democratic_prodem_est,Figure 2,pipeline,0.106
+figure_2_fav_democratic_prodem_se,Figure 2,pipeline,0.027
+figure_2_fav_democratic_prorep_est,Figure 2,pipeline,-0.026
+figure_2_fav_democratic_prorep_se,Figure 2,pipeline,0.049
+figure_2_vc_republican_prodem_est,Figure 2,pipeline,0.007
+figure_2_vc_republican_prodem_se,Figure 2,pipeline,0.014
+figure_2_vc_republican_prorep_est,Figure 2,pipeline,-0.002
+figure_2_vc_republican_prorep_se,Figure 2,pipeline,0.009
+figure_2_vc_independent_prodem_est,Figure 2,pipeline,0.005
+figure_2_vc_independent_prodem_se,Figure 2,pipeline,0.024
+figure_2_vc_independent_prorep_est,Figure 2,pipeline,0.027
+figure_2_vc_independent_prorep_se,Figure 2,pipeline,0.029
+figure_2_vc_democratic_prodem_est,Figure 2,pipeline,0.027
+figure_2_vc_democratic_prodem_se,Figure 2,pipeline,0.008
+figure_2_vc_democratic_prorep_est,Figure 2,pipeline,-0.023
+figure_2_vc_democratic_prorep_se,Figure 2,pipeline,0.015
+figure_2_axis_breaks,Figure 2,structural,
+appendix_a_n_unique_ads,Appendix A,pipeline,50
+appendix_a_n_repeat_ads_named,Appendix A,pipeline,8
+appendix_a_n_anti_trump,Appendix A,pipeline,28
+appendix_a_n_anti_clinton,Appendix A,pipeline,9
+appendix_a_n_pro_clinton,Appendix A,pipeline,9
+appendix_a_n_pro_trump,Appendix A,pipeline,3
+table_s1_n_weeks,Table S1,pipeline,29
+table_s1_n_ad_entries,Table S1,pipeline,58
+table_s1_column_headings,Table S1,structural,3
+appendix_b_n_repeat_ads,Appendix B,pipeline,7
+desc_repeat_ads_no_significant_variation,Appendix B,descriptive,
+desc_repeat_ad_quotes_increases,Appendix B,descriptive,
+figure_s1_n_panels,Figure S1,pipeline,7
+figure_s1_n_weekly_estimates,Figure S1,pipeline,17
+figure_s1_ci_level,Figure S1,definitional,95
+figure_s1_axis_breaks,Figure S1,structural,
+table_s2_sates_favorability_est,Table S2,pipeline,0.0492
+table_s2_sates_favorability_se,Table S2,pipeline,0.0200
+table_s2_sates_favorability_p,Table S2,pipeline,0.0919
+table_s2_sates_favorability_tau2,Table S2,pipeline,0.0046
+table_s2_sates_favorability_tau,Table S2,pipeline,0.0682
+table_s2_sates_votechoice_est,Table S2,pipeline,0.0072
+table_s2_sates_votechoice_se,Table S2,pipeline,0.0073
+table_s2_sates_votechoice_p,Table S2,pipeline,0.0700
+table_s2_sates_votechoice_tau2,Table S2,pipeline,0.0005
+table_s2_sates_votechoice_tau,Table S2,pipeline,0.0222
+table_s2_cates_favorability_est,Table S2,pipeline,0.0585
+table_s2_cates_favorability_se,Table S2,pipeline,0.0178
+table_s2_cates_favorability_p,Table S2,pipeline,0.0002
+table_s2_cates_favorability_tau2,Table S2,pipeline,0.0217
+table_s2_cates_favorability_tau,Table S2,pipeline,0.1474
+table_s2_cates_votechoice_est,Table S2,pipeline,0.0083
+table_s2_cates_votechoice_se,Table S2,pipeline,0.0051
+table_s2_cates_votechoice_p,Table S2,pipeline,0.0961
+table_s2_cates_votechoice_tau2,Table S2,pipeline,0.0005
+table_s2_cates_votechoice_tau,Table S2,pipeline,0.0232
+appendix_c_tau_squared_symbol,Appendix C,structural,2
+appendix_d_man_of_people_fake_college,Appendix D,transcribed,5000
+appendix_d_week_headings,Appendix D,structural,29
+table_s3_march_14_control,Table S3,pipeline,268
+table_s3_march_14_anti_trump,Table S3,pipeline,732
+table_s3_march_14_total,Table S3,pipeline,1000
+table_s3_march_21_control,Table S3,pipeline,260
+table_s3_march_21_pro_clinton,Table S3,pipeline,249
+table_s3_march_21_anti_trump,Table S3,pipeline,253
+table_s3_march_21_two_ads,Table S3,pipeline,238
+table_s3_march_21_total,Table S3,pipeline,1000
+table_s3_march_28_control,Table S3,pipeline,253
+table_s3_march_28_pro_clinton,Table S3,pipeline,264
+table_s3_march_28_pro_sanders,Table S3,pipeline,241
+table_s3_march_28_two_ads,Table S3,pipeline,242
+table_s3_march_28_total,Table S3,pipeline,1000
+table_s3_april_05_control,Table S3,pipeline,251
+table_s3_april_05_pro_clinton,Table S3,pipeline,249
+table_s3_april_05_anti_trump,Table S3,pipeline,255
+table_s3_april_05_two_ads,Table S3,pipeline,245
+table_s3_april_05_total,Table S3,pipeline,1000
+table_s3_april_11_control,Table S3,pipeline,255
+table_s3_april_11_pro_clinton,Table S3,pipeline,252
+table_s3_april_11_pro_sanders,Table S3,pipeline,243
+table_s3_april_11_two_ads,Table S3,pipeline,250
+table_s3_april_11_total,Table S3,pipeline,1000
+table_s3_april_18_control,Table S3,pipeline,250
+table_s3_april_18_pro_cruz,Table S3,pipeline,252
+table_s3_april_18_pro_kasich,Table S3,pipeline,250
+table_s3_april_18_two_ads,Table S3,pipeline,248
+table_s3_april_18_total,Table S3,pipeline,1000
+table_s3_april_25_control,Table S3,pipeline,207
+table_s3_april_25_pro_trump,Table S3,pipeline,189
+table_s3_april_25_pro_cruz,Table S3,pipeline,207
+table_s3_april_25_two_ads,Table S3,pipeline,397
+table_s3_april_25_total,Table S3,pipeline,1000
+table_s3_may_09_control,Table S3,pipeline,198
+table_s3_may_09_anti_trump,Table S3,pipeline,411
+table_s3_may_09_two_ads,Table S3,pipeline,391
+table_s3_may_09_total,Table S3,pipeline,1000
+table_s3_may_16_control,Table S3,pipeline,204
+table_s3_may_16_pro_clinton,Table S3,pipeline,211
+table_s3_may_16_pro_sanders,Table S3,pipeline,189
+table_s3_may_16_two_ads,Table S3,pipeline,396
+table_s3_may_16_total,Table S3,pipeline,1000
+table_s3_may_23_control,Table S3,pipeline,201
+table_s3_may_23_anti_trump,Table S3,pipeline,414
+table_s3_may_23_two_ads,Table S3,pipeline,385
+table_s3_may_23_total,Table S3,pipeline,1000
+table_s3_may_30_control,Table S3,pipeline,206
+table_s3_may_30_pro_clinton,Table S3,pipeline,198
+table_s3_may_30_pro_sanders,Table S3,pipeline,207
+table_s3_may_30_two_ads,Table S3,pipeline,389
+table_s3_may_30_total,Table S3,pipeline,1000
+table_s3_june_06_control,Table S3,pipeline,200
+table_s3_june_06_anti_trump,Table S3,pipeline,404
+table_s3_june_06_two_ads,Table S3,pipeline,396
+table_s3_june_06_total,Table S3,pipeline,1000
+table_s3_june_20_control,Table S3,pipeline,664
+table_s3_june_20_pro_clinton,Table S3,pipeline,663
+table_s3_june_20_anti_trump,Table S3,pipeline,673
+table_s3_june_20_total,Table S3,pipeline,2000
+table_s3_july_04_control,Table S3,pipeline,665
+table_s3_july_04_anti_clinton,Table S3,pipeline,674
+table_s3_july_04_anti_trump,Table S3,pipeline,661
+table_s3_july_04_total,Table S3,pipeline,2000
+table_s3_july_18_control,Table S3,pipeline,678
+table_s3_july_18_anti_clinton,Table S3,pipeline,648
+table_s3_july_18_anti_trump,Table S3,pipeline,674
+table_s3_july_18_total,Table S3,pipeline,2000
+table_s3_august_01_control,Table S3,pipeline,683
+table_s3_august_01_anti_clinton,Table S3,pipeline,649
+table_s3_august_01_anti_trump,Table S3,pipeline,668
+table_s3_august_01_total,Table S3,pipeline,2000
+table_s3_august_15_control,Table S3,pipeline,657
+table_s3_august_15_anti_trump,Table S3,pipeline,1343
+table_s3_august_15_total,Table S3,pipeline,2000
+table_s3_august_22_control,Table S3,pipeline,340
+table_s3_august_22_pro_clinton,Table S3,pipeline,317
+table_s3_august_22_anti_clinton,Table S3,pipeline,343
+table_s3_august_22_total,Table S3,pipeline,1000
+table_s3_august_29_control,Table S3,pipeline,334
+table_s3_august_29_anti_clinton,Table S3,pipeline,333
+table_s3_august_29_anti_trump,Table S3,pipeline,333
+table_s3_august_29_total,Table S3,pipeline,1000
+table_s3_september_05_control,Table S3,pipeline,338
+table_s3_september_05_anti_trump,Table S3,pipeline,662
+table_s3_september_05_total,Table S3,pipeline,1000
+table_s3_september_12_control,Table S3,pipeline,337
+table_s3_september_12_anti_clinton,Table S3,pipeline,336
+table_s3_september_12_anti_trump,Table S3,pipeline,327
+table_s3_september_12_total,Table S3,pipeline,1000
+table_s3_september_19_control,Table S3,pipeline,321
+table_s3_september_19_pro_trump,Table S3,pipeline,342
+table_s3_september_19_anti_trump,Table S3,pipeline,337
+table_s3_september_19_total,Table S3,pipeline,1000
+table_s3_september_26_control,Table S3,pipeline,262
+table_s3_september_26_anti_clinton,Table S3,pipeline,255
+table_s3_september_26_anti_trump,Table S3,pipeline,242
+table_s3_september_26_two_ads,Table S3,pipeline,241
+table_s3_september_26_total,Table S3,pipeline,1000
+table_s3_october_03_control,Table S3,pipeline,246
+table_s3_october_03_anti_clinton,Table S3,pipeline,255
+table_s3_october_03_anti_trump,Table S3,pipeline,244
+table_s3_october_03_two_ads,Table S3,pipeline,255
+table_s3_october_03_total,Table S3,pipeline,1000
+table_s3_october_10_control,Table S3,pipeline,331
+table_s3_october_10_anti_trump,Table S3,pipeline,669
+table_s3_october_10_total,Table S3,pipeline,1000
+table_s3_october_17_control,Table S3,pipeline,256
+table_s3_october_17_anti_clinton,Table S3,pipeline,245
+table_s3_october_17_anti_trump,Table S3,pipeline,248
+table_s3_october_17_two_ads,Table S3,pipeline,251
+table_s3_october_17_total,Table S3,pipeline,1000
+table_s3_october_24_control,Table S3,pipeline,235
+table_s3_october_24_anti_clinton,Table S3,pipeline,259
+table_s3_october_24_anti_trump,Table S3,pipeline,245
+table_s3_october_24_two_ads,Table S3,pipeline,261
+table_s3_october_24_total,Table S3,pipeline,1000
+table_s3_october_31_control,Table S3,pipeline,275
+table_s3_october_31_pro_trump,Table S3,pipeline,233
+table_s3_october_31_anti_trump,Table S3,pipeline,250
+table_s3_october_31_two_ads,Table S3,pipeline,242
+table_s3_october_31_total,Table S3,pipeline,1000
+table_s3_november_07_control,Table S3,pipeline,267
+table_s3_november_07_anti_clinton,Table S3,pipeline,243
+table_s3_november_07_anti_trump,Table S3,pipeline,240
+table_s3_november_07_two_ads,Table S3,pipeline,250
+table_s3_november_07_total,Table S3,pipeline,1000
+table_s3_total_control,Table S3,pipeline,9642
+table_s3_total_pro_clinton,Table S3,pipeline,2403
+table_s3_total_anti_clinton,Table S3,pipeline,4240
+table_s3_total_pro_trump,Table S3,pipeline,764
+table_s3_total_anti_trump,Table S3,pipeline,10285
+table_s3_total_pro_cruz,Table S3,pipeline,459
+table_s3_total_pro_kasich,Table S3,pipeline,250
+table_s3_total_pro_sanders,Table S3,pipeline,880
+table_s3_total_two_ads,Table S3,pipeline,5077
+table_s3_total_total,Table S3,pipeline,34000
+appendix_f_survey_length_minutes,Appendix F,definitional,10
+appendix_f_ad_quality_scale_low,Appendix F,definitional,1
+appendix_f_ad_quality_scale_mid,Appendix F,definitional,50
+appendix_f_ad_quality_scale_high,Appendix F,definitional,100
+appendix_f_electoral_system_scale_low,Appendix F,definitional,1
+appendix_f_electoral_system_scale_mid,Appendix F,definitional,50
+appendix_f_electoral_system_scale_high,Appendix F,definitional,100
+appendix_f_open_response_word_limit,Appendix F,definitional,200
+appendix_f_tax_threshold,Appendix F,definitional,200000
+appendix_f_obama_2012_two_party_share,Appendix F,transcribed,52
+appendix_f_question_numbering,Appendix F,structural,27

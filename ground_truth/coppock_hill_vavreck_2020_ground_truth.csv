@@ -1,176 +1,343 @@
-paper_id,table_figure,claim,value_script,value_paper,match,value_rewrite,match_rewrite,defect_locus,notes
-coppock_hill_vavreck_2020,abstract,n_advertisements_tested,49,49,1,49,1,NA,"Distinct campaign advertisements, excluding ad_id 3, the placebo car insurance advertisement."
-coppock_hill_vavreck_2020,abstract,n_experiments,59,59,1,59,1,NA,Advertisement by week comparisons.
-coppock_hill_vavreck_2020,abstract,n_respondents,34000,34000,1,34000,1,NA,
-coppock_hill_vavreck_2020,methods,n_weeks,29,29,1,29,1,NA,
-coppock_hill_vavreck_2020,methods,n_deployments_anti_trump,30,30,1,30,1,NA,"The main text's counts of advertisements by target are counts of advertisement-week deployments, not of distinct advertisements; the distinct counts are 24, 11, 6 and 3."
-coppock_hill_vavreck_2020,methods,n_deployments_anti_clinton,11,11,1,11,1,NA,
-coppock_hill_vavreck_2020,methods,n_deployments_pro_clinton,8,8,1,8,1,NA,
-coppock_hill_vavreck_2020,methods,n_deployments_pro_trump,3,3,1,3,1,NA,
-coppock_hill_vavreck_2020,methods,manip_check_control_min,0.015625,0.02,1,0.015625,1,NA,Minimum across the ten waves in which the question was asked.
-coppock_hill_vavreck_2020,methods,manip_check_control_max,0.04014598540145985,0.04,1,0.04014598540145985,1,NA,
-coppock_hill_vavreck_2020,methods,manip_check_treated_min,0.914156626506024,0.92,0,0.914156626506024,0,paper_internal,"The unweighted range across waves 21 to 30 is 0.914 to 0.955, so the stated 92 to 95 per cent is one point narrow at each end. Weighting by the survey weights gives 0.902 to 0.959, wider still."
-coppock_hill_vavreck_2020,methods,manip_check_treated_max,0.955431754874652,0.95,0,0.955431754874652,0,paper_internal,
-coppock_hill_vavreck_2020,methods,attrition_rate,0.4244506889663811,0.42,1,0.4244506889663811,1,NA,
-coppock_hill_vavreck_2020,methods,n_attrition_tests,29,29,1,29,1,NA,
-coppock_hill_vavreck_2020,methods,n_sig_unadjusted,3,3,1,3,1,NA,
-coppock_hill_vavreck_2020,methods,n_sig_holm,0,0,1,0,1,NA,
-coppock_hill_vavreck_2020,methods,n_sig_benjamini_hochberg,0,0,1,0,1,NA,
-coppock_hill_vavreck_2020,figure_1,fav_sate_meta_estimate,0.04922782972267647,0.049,1,0.04922782972267647,1,NA,
-coppock_hill_vavreck_2020,figure_1,fav_sate_meta_se,0.02000094498066863,0.02,1,0.02000094498066863,1,NA,
-coppock_hill_vavreck_2020,figure_1,vc_sate_meta_estimate,0.00718114897405215,0.007,1,0.00718114897405215,1,NA,
-coppock_hill_vavreck_2020,figure_1,vc_sate_meta_se,0.00732724536941071,0.007,1,0.00732724536941071,1,NA,
-coppock_hill_vavreck_2020,text,fav_sate_avg_scale_points,0.04922782972267647,0.049,1,0.04922782972267647,1,NA,
-coppock_hill_vavreck_2020,text,fav_sate_sd_scale_points,0.06818561415005112,0.07,1,0.06818561415005112,1,NA,The SD across experiments is the tau reported in Table S2.
-coppock_hill_vavreck_2020,text,vc_sate_avg_percentage_points,0.00718114897405215,0.007,1,0.00718114897405215,1,NA,Stated in the text as 0.7 percentage points.
-coppock_hill_vavreck_2020,text,vc_sate_sd_percentage_points,0.02218665351717193,0.02,1,0.02218665351717193,1,NA,
-coppock_hill_vavreck_2020,text,fav_cate_sd_scale_points,0.14742296780858563,0.15,1,0.14742296780858563,1,NA,
-coppock_hill_vavreck_2020,text,vc_cate_sd_percentage_points,0.02320881094884138,0.02,1,0.02320881094884138,1,NA,
-coppock_hill_vavreck_2020,text,fav_sate_homogeneity_pval,0.09190442047183715,0.09,1,0.09190442047183715,1,NA,
-coppock_hill_vavreck_2020,text,vc_sate_homogeneity_pval,0.06995209824068573,0.07,1,0.06995209824068573,1,NA,
-coppock_hill_vavreck_2020,text,fav_cate_homogeneity_pval,1.6505690635520724e-4,2e-4,1,1.6505690635520724e-4,1,NA,
-coppock_hill_vavreck_2020,text,vc_cate_homogeneity_pval,0.09610393717584188,0.96,0,0.09610393717584188,0,paper_internal,"The Results section reports 0.96 for this test. Table S2 of the same article reports 0.0961, which is what the code produces, so the main text figure is off by a factor of ten."
-coppock_hill_vavreck_2020,text,general_election_coefficient,0.1226242983961047,0.121,0,0.1226242983961047,0,paper_internal,"The Results section says 0.121 scale points. Table 1 of the same article prints 0.123, which is what the code produces."
-coppock_hill_vavreck_2020,text,general_election_ci_upper,0.25375022678125136,0.25,1,0.25375022678125136,1,NA,The text says the upper bound is about 0.25.
-coppock_hill_vavreck_2020,text,battleground_difference,0.00768087181979859,0.008,1,0.00768087181979859,1,NA,"The Results section gives the magnitude, 0.008. Table 1 prints this same coefficient as -0.00."
-coppock_hill_vavreck_2020,table_1,m1_intrcpt_est,0.05595137462966906,0.056,1,0.05595137462966906,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_intrcpt_se,0.02030910945116821,0.02,1,0.02030910945116821,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_intrcpt_est,0.0619557871802226,0.062,1,0.0619557871802226,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_intrcpt_se,0.02045502731032077,0.02,1,0.02045502731032077,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_intrcpt_est,0.00717343917312331,0.007,1,0.00717343917312331,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_intrcpt_se,0.0071442025839593,0.007,1,0.0071442025839593,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_intrcpt_est,0.00761340879292043,0.008,1,0.00761340879292043,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_intrcpt_se,0.00721776470356415,0.007,1,0.00721776470356415,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_democrat_d_est,0.03523921631093598,0.035,1,0.03523921631093598,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_democrat_d_se,0.03468224196252516,0.035,1,0.03468224196252516,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_democrat_d_est,0.02176162194014372,0.022,1,0.02176162194014372,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_democrat_d_se,0.03610692357071977,0.036,1,0.03610692357071977,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_democrat_d_est,0.01080661972657098,0.011,1,0.01080661972657098,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_democrat_d_se,0.01003236631414101,0.01,1,0.01003236631414101,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_democrat_d_est,0.00607624424823846,0.006,1,0.00607624424823846,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_democrat_d_se,0.01119014590559956,0.011,1,0.01119014590559956,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_independent_d_est,0.02309941684035226,0.023,1,0.02309941684035226,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_independent_d_se,0.05149081728324464,0.051,1,0.05149081728324464,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_independent_d_est,0.01487952645729172,0.015,1,0.01487952645729172,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_independent_d_se,0.05182146533086734,0.052,1,0.05182146533086734,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_independent_d_est,0.00882756839601489,0.009,1,0.00882756839601489,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_independent_d_se,0.0196989007331031,0.02,1,0.0196989007331031,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_independent_d_est,0.00662959611432707,0.007,1,0.00662959611432707,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_independent_d_se,0.01992160480480935,0.02,1,0.01992160480480935,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_battleground_d_est,-0.00768087181979859,0,0,-0.00768087181979859,0,paper_internal,"The published table prints -0.00 in this cell. The code gives -0.008, and the Results section quotes the magnitude correctly as 0.008."
-coppock_hill_vavreck_2020,table_1,m1_battleground_d_se,0.03309933099976038,0.033,1,0.03309933099976038,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_battleground_d_est,-0.0072889741172583,-0.007,1,-0.0072889741172583,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_battleground_d_se,0.03312453083662407,0.033,1,0.03312453083662407,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_battleground_d_est,-0.01697377813558142,-0.017,1,-0.01697377813558142,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_battleground_d_se,0.00982144227142085,0.01,1,0.00982144227142085,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_battleground_d_est,-0.01700540421842944,-0.017,1,-0.01700540421842944,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_battleground_d_se,0.00996790251931272,0.01,1,0.00996790251931272,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_pac_d_est,-0.01249472757787245,-0.012,1,-0.01249472757787245,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_pac_d_se,0.04263087844760822,0.043,1,0.04263087844760822,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pac_d_est,0.02568930896046751,0.026,1,0.02568930896046751,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pac_d_se,0.04698518151974184,0.047,1,0.04698518151974184,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_pac_d_est,-0.0231494095931858,-0.023,1,-0.0231494095931858,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_pac_d_se,0.01283495597218764,0.013,1,0.01283495597218764,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_pac_d_est,-0.01566499984033211,-0.016,1,-0.01566499984033211,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_pac_d_se,0.0144268706850987,0.014,1,0.0144268706850987,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_date_d_est,-0.02300941662841815,-0.023,1,-0.02300941662841815,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_date_d_se,0.01405634018350106,0.014,1,0.01405634018350106,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_date_d_est,0.00455623211451787,0.005,1,0.00455623211451787,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_date_d_se,0.01010104688340387,0.01,1,0.01010104688340387,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_date_d_est,-0.00937763297831399,-0.009,1,-0.00937763297831399,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_date_d_se,0.00379382342908776,0.004,1,0.00379382342908776,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_date_d_est,-0.00774541926272451,-0.008,1,-0.00774541926272451,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_date_d_se,0.00426985776830752,0.004,1,0.00426985776830752,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_attack_d_est,-0.0171013743308075,-0.017,1,-0.0171013743308075,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_attack_d_se,0.04623707391558492,0.046,1,0.04623707391558492,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_attack_d_est,0.02796005024018374,0.028,1,0.02796005024018374,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_attack_d_se,0.01635585479026182,0.016,1,0.01635585479026182,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_general_d_est,0.1226242983961047,0.123,1,0.1226242983961047,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_general_d_se,0.06690221321384028,0.067,1,0.06690221321384028,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_trump_d_est,-0.12383690151390853,-0.124,1,-0.12383690151390853,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_trump_d_se,0.10111867542887638,0.101,1,0.10111867542887638,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_pro_trump_d_est,-0.01577271267227369,-0.016,1,-0.01577271267227369,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_pro_trump_d_se,0.03377671393878262,0.034,1,0.03377671393878262,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_anti_clinton_d_est,-0.10506738546567455,-0.105,1,-0.10506738546567455,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_anti_clinton_d_se,0.06988860906075982,0.07,1,0.06988860906075982,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_anti_clinton_d_est,0.01156873851790812,0.012,1,0.01156873851790812,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_anti_clinton_d_se,0.02296757258421005,0.023,1,0.02296757258421005,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_anti_trump_d_est,-0.04136769501090464,-0.041,1,-0.04136769501090464,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_anti_trump_d_se,0.05790668753051625,0.058,1,0.05790668753051625,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_anti_trump_d_est,0.02610143338613112,0.026,1,0.02610143338613112,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_anti_trump_d_se,0.02140915838153556,0.021,1,0.02140915838153556,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_sanders_d_est,-0.07492440968189663,-0.075,1,-0.07492440968189663,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_sanders_d_se,0.08853005507680942,0.089,1,0.08853005507680942,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_cruz_d_est,0.04706949192233966,0.047,1,0.04706949192233966,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_cruz_d_se,0.11619380556834476,0.116,1,0.11619380556834476,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_kasich_d_est,-0.18177785890921255,-0.182,1,-0.18177785890921255,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_pro_kasich_d_se,0.1447649378597601,0.145,1,0.1447649378597601,1,NA,
-coppock_hill_vavreck_2020,table_1,m1_nobs,354,354,1,354,1,NA,
-coppock_hill_vavreck_2020,table_1,m2_nobs,354,354,1,354,1,NA,
-coppock_hill_vavreck_2020,table_1,m3_nobs,204,204,1,204,1,NA,
-coppock_hill_vavreck_2020,table_1,m4_nobs,204,204,1,204,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_favorability_est,0.04922782972267647,0.0492,1,0.04922782972267647,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_favorability_se,0.02000094498066863,0.02,1,0.02000094498066863,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_favorability_p,0.09190442047183715,0.0919,1,0.09190442047183715,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_favorability_tau2,0.00464927797701965,0.0046,1,0.00464927797701965,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_favorability_tau,0.06818561415005112,0.0682,1,0.06818561415005112,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_votechoice_est,0.00718114897405215,0.0072,1,0.00718114897405215,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_votechoice_se,0.00732724536941071,0.0073,1,0.00732724536941071,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_votechoice_p,0.06995209824068573,0.07,1,0.06995209824068573,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_votechoice_tau2,4.922475942910378e-4,5e-4,1,4.922475942910378e-4,1,NA,
-coppock_hill_vavreck_2020,table_s2,sates_votechoice_tau,0.02218665351717193,0.0222,1,0.02218665351717193,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_favorability_est,0.05845227149794074,0.0585,1,0.05845227149794074,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_favorability_se,0.01783942762477388,0.0178,1,0.01783942762477388,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_favorability_p,1.6505690635520724e-4,2e-4,1,1.6505690635520724e-4,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_favorability_tau2,0.02173353143749127,0.0217,1,0.02173353143749127,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_favorability_tau,0.14742296780858563,0.1474,1,0.14742296780858563,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_votechoice_est,0.00826356365738539,0.0083,1,0.00826356365738539,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_votechoice_se,0.00514489865140912,0.0051,1,0.00514489865140912,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_votechoice_p,0.09610393717584188,0.0961,1,0.09610393717584188,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_votechoice_tau2,5.386489056590597e-4,5e-4,1,5.386489056590597e-4,1,NA,
-coppock_hill_vavreck_2020,table_s2,cates_votechoice_tau,0.02320881094884138,0.0232,1,0.02320881094884138,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_democratic_prodem_est,0.1064765736207072,0.106,1,0.1064765736207072,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_democratic_prodem_se,0.02745781870615061,0.027,1,0.02745781870615061,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_democratic_prorep_est,-0.02638333098454512,-0.026,1,-0.02638333098454512,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_democratic_prorep_se,0.04943198444453534,0.049,1,0.04943198444453534,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_independent_prodem_est,0.06999327365944055,0.07,1,0.06999327365944055,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_independent_prodem_se,0.06782033423093256,0.068,1,0.06782033423093256,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_independent_prorep_est,0.0121099394831963,0.012,1,0.0121099394831963,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_independent_prorep_se,0.08717368634083936,0.087,1,0.08717368634083936,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_republican_prodem_est,0.03865953961790649,0.039,1,0.03865953961790649,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_republican_prodem_se,0.03565816016712495,0.036,1,0.03565816016712495,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_republican_prorep_est,0.04801966652272864,0.048,1,0.04801966652272864,1,NA,
-coppock_hill_vavreck_2020,figure_2,fav_republican_prorep_se,0.03892303152077821,0.039,1,0.03892303152077821,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_democratic_prodem_est,0.02717592777428138,0.027,1,0.02717592777428138,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_democratic_prodem_se,0.00801715594366604,0.008,1,0.00801715594366604,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_democratic_prorep_est,-0.0233960926436279,-0.023,1,-0.0233960926436279,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_democratic_prorep_se,0.01478602837880542,0.015,1,0.01478602837880542,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_independent_prodem_est,0.00506265749355459,0.005,1,0.00506265749355459,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_independent_prodem_se,0.02374758866842946,0.024,1,0.02374758866842946,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_independent_prorep_est,0.02716273143722471,0.027,1,0.02716273143722471,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_independent_prorep_se,0.02914585034552123,0.029,1,0.02914585034552123,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_republican_prodem_est,0.0069909232014625,0.007,1,0.0069909232014625,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_republican_prodem_se,0.01393566308637443,0.014,1,0.01393566308637443,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_republican_prorep_est,-0.00216608514888706,-0.002,1,-0.00216608514888706,1,NA,
-coppock_hill_vavreck_2020,figure_2,vc_republican_prorep_se,0.00912830313876472,0.009,1,0.00912830313876472,1,NA,
-coppock_hill_vavreck_2020,table_s1,n_weeks_listed,29,29,1,29,1,NA,Table S1 lists one row per week of the study.
-coppock_hill_vavreck_2020,table_s1,n_ad_entries,58,58,1,58,1,NA,"Advertisement-week entries in the body of Table S1: three in the week of 14 March, one in the week of 5 September, two in each of the other 27 weeks."
-coppock_hill_vavreck_2020,table_s3,total_control,9642,9642,1,9642,1,NA,Published column totals of Table S3.
-coppock_hill_vavreck_2020,table_s3,total_pro_clinton,2403,2403,1,2403,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_anti_clinton,4240,4240,1,4240,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_pro_trump,764,764,1,764,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_anti_trump,10285,10285,1,10285,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_pro_cruz,459,459,1,459,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_pro_kasich,250,250,1,250,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_pro_sanders,880,880,1,880,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_two_ads,5077,5077,1,5077,1,NA,
-coppock_hill_vavreck_2020,table_s3,total_all,34000,34000,1,34000,1,NA,
-coppock_hill_vavreck_2020,figure_s1,n_panels,7,7,1,7,1,NA,"Figure S1 has one panel per advertisement fielded in more than one week. The panels print no numbers, so the panel count is what the figure states."
-coppock_hill_vavreck_2020,figure_s1,n_weekly_estimates,17,17,1,17,1,NA,"Points plotted across the seven panels, counted from the published figure."
-coppock_hill_vavreck_2020,appendix_a,n_unique_ads_stated,49,50,0,49,0,paper_internal,"Appendix section A says Table S1 shows 50 unique advertisements. The data hold 49 campaign advertisements plus the placebo, and the main text's 49 is right."
-coppock_hill_vavreck_2020,appendix_a,n_anti_trump_stated,30,28,0,30,0,paper_internal,"Appendix section A gives 28, 9, 9 and 3 for anti-Trump, anti-Clinton, pro-Clinton and pro-Trump advertisements 'including the ads we deployed more than once'. The deployment counts are 30, 11, 8 and 3 and the distinct-advertisement counts are 24, 11, 6 and 3, so the appendix breakdown matches neither."
-coppock_hill_vavreck_2020,appendix_a,n_anti_clinton_stated,11,9,0,11,0,paper_internal,
-coppock_hill_vavreck_2020,appendix_a,n_pro_clinton_stated,8,9,0,8,0,paper_internal,
-coppock_hill_vavreck_2020,appendix_a,n_pro_trump_stated,3,3,1,3,1,NA,
-coppock_hill_vavreck_2020,appendix_a,n_repeat_ads_named,7,8,0,7,0,paper_internal,Appendix section A names eight advertisements as shown in multiple weeks. Seven were: 'Man of People' was fielded only in the week of 14 March.
-coppock_hill_vavreck_2020,appendix_b,n_repeat_ads_stated,7,7,1,7,1,NA,"Appendix section B and Figure S1 both use seven, which is correct."
+paper_id,claim_id,table_figure,claim_type,claim,value_script,value_paper,match,value_rewrite,match_rewrite,defect_locus,notes
+coppock_hill_vavreck_2020,title_n_experiments,Title,pipeline,Advertisement-week experiments,59,59,1,59,1,NA,The article prints 59 and the pipeline gives 59.
+coppock_hill_vavreck_2020,abstract_n_ads,Abstract,pipeline,Distinct campaign advertisements tested,49,49,1,49,1,NA,"The article prints 49 and the pipeline gives 49. Excludes ad_id 3, the placebo car insurance advertisement."
+coppock_hill_vavreck_2020,abstract_n_experiments,Abstract,pipeline,Advertisement-week experiments,59,59,1,59,1,NA,The article prints 59 and the pipeline gives 59.
+coppock_hill_vavreck_2020,abstract_n_respondents,Abstract,pipeline,Respondents completing a survey,34000,34000,1,34000,1,NA,The article prints 34000 and the pipeline gives 34000.
+coppock_hill_vavreck_2020,intro_months_span,Introduction,pipeline,Months spanned by the fielding period,7.819301848049282,8,1,7.819301848049282,1,NA,"The article prints 8 and the pipeline gives 8. 14 March to 7 November 2016, in months of 30.4375 days."
+coppock_hill_vavreck_2020,intro_n_ads,Introduction,pipeline,Distinct campaign advertisements tested,49,49,1,49,1,NA,The article prints 49 and the pipeline gives 49.
+coppock_hill_vavreck_2020,intro_n_ads_multiweek,Introduction,pipeline,"Distinct campaign advertisements, restated",49,49,1,49,1,NA,The article prints 49 and the pipeline gives 49.
+coppock_hill_vavreck_2020,intro_fav_ate,Introduction,pipeline,Pooled favorability effect (scale points),0.04922782972267647,0.05,1,0.04922782972267647,1,NA,The article prints 0.05 and the pipeline gives 0.05.
+coppock_hill_vavreck_2020,intro_fav_sd,Introduction,pipeline,SD of favorability effects across experiments (scale points),0.06818561415005112,0.07,1,0.06818561415005112,1,NA,The article prints 0.07 and the pipeline gives 0.07. The SD across experiments is the tau of Table S2.
+coppock_hill_vavreck_2020,intro_vc_ate,Introduction,pipeline,Pooled vote choice effect (percentage points),0.718114897405215,0.7,1,0.718114897405215,1,NA,The article prints 0.7 and the pipeline gives 0.7.
+coppock_hill_vavreck_2020,intro_vc_sd,Introduction,pipeline,SD of vote choice effects (percentage points),2.2186653517171933,2,1,2.2186653517171933,1,NA,The article prints 2 and the pipeline gives 2.
+coppock_hill_vavreck_2020,desc_effects_exclude_large,Introduction,descriptive,Weekly estimates exclude large persuasive effects,NA,NA,NA,NA,NA,NA,"The sentence sets no threshold, so no verdict is computed. Weekly SATEs run from -0.521 to 0.432 on the five-point favorability scale and from -0.084 to 0.097 on vote choice"
+coppock_hill_vavreck_2020,methods_n_weeks,Materials and Methods,pipeline,Weeks of fielding,29,29,1,29,1,NA,The article prints 29 and the pipeline gives 29.
+coppock_hill_vavreck_2020,methods_weekly_n_small,Materials and Methods,pipeline,Smallest weekly sample,1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,methods_weekly_n_large,Materials and Methods,pipeline,Largest weekly sample,2000,2000,1,2000,1,NA,The article prints 2000 and the pipeline gives 2000.
+coppock_hill_vavreck_2020,methods_attrition_rate,Materials and Methods,pipeline,Share starting but not finishing (%),42.44506889663811,42,1,42.44506889663811,1,NA,The article prints 42 and the pipeline gives 42.
+coppock_hill_vavreck_2020,methods_n_attrition_tests,Materials and Methods,pipeline,Attrition tests conducted,29,29,1,29,1,NA,The article prints 29 and the pipeline gives 29.
+coppock_hill_vavreck_2020,methods_n_sig_unadjusted,Materials and Methods,pipeline,Attrition tests significant unadjusted,3,3,1,3,1,NA,The article prints 3 and the pipeline gives 3.
+coppock_hill_vavreck_2020,methods_n_sig_holm,Materials and Methods,pipeline,Attrition tests significant after Holm,0,0,1,0,1,NA,The article prints 0 and the pipeline gives 0.
+coppock_hill_vavreck_2020,methods_n_sig_benjamini_hochberg,Materials and Methods,pipeline,Attrition tests significant after Benjamini-Hochberg,0,0,1,0,1,NA,The article prints 0 and the pipeline gives 0.
+coppock_hill_vavreck_2020,methods_n_deployments_anti_trump,Materials and Methods,pipeline,Anti-Trump advertisement deployments,30,30,1,30,1,NA,"The article prints 30 and the pipeline gives 30. The main text counts advertisement-week deployments, not distinct advertisements; the distinct counts are 24, 11, 6 and 3."
+coppock_hill_vavreck_2020,methods_n_deployments_anti_clinton,Materials and Methods,pipeline,Anti-Clinton advertisement deployments,11,11,1,11,1,NA,The article prints 11 and the pipeline gives 11.
+coppock_hill_vavreck_2020,methods_n_deployments_pro_clinton,Materials and Methods,pipeline,Pro-Clinton advertisement deployments,8,8,1,8,1,NA,The article prints 8 and the pipeline gives 8.
+coppock_hill_vavreck_2020,methods_n_deployments_pro_trump,Materials and Methods,pipeline,Pro-Trump advertisement deployments,3,3,1,3,1,NA,The article prints 3 and the pipeline gives 3.
+coppock_hill_vavreck_2020,methods_manip_control_min,Materials and Methods,pipeline,"Control group manipulation check, minimum (%)",1.5625,2,1,1.5625,1,NA,The article prints 2 and the pipeline gives 2. Minimum across the ten waves in which the question was asked.
+coppock_hill_vavreck_2020,methods_manip_control_max,Materials and Methods,pipeline,"Control group manipulation check, maximum (%)",4.014598540145984,4,1,4.014598540145984,1,NA,The article prints 4 and the pipeline gives 4.
+coppock_hill_vavreck_2020,methods_manip_treated_min,Materials and Methods,pipeline,"Treatment group manipulation check, minimum (%)",91.4156626506024,92,0,91.4156626506024,0,paper_internal,"The article prints 92 and the pipeline gives 91. Unweighted, as in the deposited code. Weighting by the survey weights widens the range to 90.2 to 95.9 per cent."
+coppock_hill_vavreck_2020,methods_manip_treated_max,Materials and Methods,pipeline,"Treatment group manipulation check, maximum (%)",95.5431754874652,95,0,95.5431754874652,0,paper_internal,The article prints 95 and the pipeline gives 96.
+coppock_hill_vavreck_2020,methods_single_study_n,Materials and Methods,pipeline,Respondents in a single weekly study,1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,results_n_experiments,Results,pipeline,Experimental comparisons plotted in Figure 1,59,59,1,59,1,NA,The article prints 59 and the pipeline gives 59.
+coppock_hill_vavreck_2020,results_fav_meta_estimate,Results,pipeline,Pooled favorability effect (scale points),0.04922782972267647,0.049,1,0.04922782972267647,1,NA,The article prints 0.049 and the pipeline gives 0.049.
+coppock_hill_vavreck_2020,desc_fav_meta_significant,Results,descriptive,The pooled favorability effect is statistically significant,1,NA,1,1,1,NA,"The pipeline supports this claim. Pooled favorability effect 0.0492 with a 95 per cent interval of [0.0100, 0.0884]"
+coppock_hill_vavreck_2020,results_vc_meta_estimate,Results,pipeline,Pooled vote choice effect (percentage points),0.718114897405215,0.7,1,0.718114897405215,1,NA,The article prints 0.7 and the pipeline gives 0.7.
+coppock_hill_vavreck_2020,desc_vc_meta_not_significant,Results,descriptive,The pooled vote choice effect is not statistically significant,1,NA,1,1,1,NA,"The pipeline supports this claim. Pooled vote choice effect 0.0072 with a 95 per cent interval of [-0.0072, 0.0215]"
+coppock_hill_vavreck_2020,results_fav_homogeneity_p,Results,pipeline,Favorability SATE homogeneity p-value,0.09190442047183715,0.09,1,0.09190442047183715,1,NA,The article prints 0.09 and the pipeline gives 0.09.
+coppock_hill_vavreck_2020,results_vc_homogeneity_p,Results,pipeline,Vote choice SATE homogeneity p-value,0.06995209824068573,0.07,1,0.06995209824068573,1,NA,The article prints 0.07 and the pipeline gives 0.07.
+coppock_hill_vavreck_2020,desc_large_negative_early_may,Results,descriptive,Largest significant negative favorability estimate in May,-0.5209436030694634,-0.5,1,-0.5209436030694634,1,NA,"The article prints -0.5 and the pipeline gives -0.5. Unifier, week of 2016-05-09, -0.521 [-0.906, -0.136]"
+coppock_hill_vavreck_2020,desc_large_positive_october,Results,descriptive,Largest significant positive favorability estimate in October,0.43202600389017987,0.5,0,0.43202600389017987,0,paper_internal,"The article prints 0.5 and the pipeline gives 0.4. Example, week of 2016-10-31, 0.432 [0.152, 0.712]. The largest favorability estimate anywhere in the study is 0.432"
+coppock_hill_vavreck_2020,desc_two_other_negative_october,Results,descriptive,Other significant negative favorability estimates in October,2,2,1,2,1,NA,The article prints 2 and the pipeline gives 2. Consumer Benefit (-0.313); Change (-0.279)
+coppock_hill_vavreck_2020,results_sample_size_small,Results,pipeline,Smallest weekly sample,1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,results_sample_size_large,Results,pipeline,Largest weekly sample,2000,2000,1,2000,1,NA,The article prints 2000 and the pipeline gives 2000.
+coppock_hill_vavreck_2020,desc_partisan_ses_exceed_coefficients,Results,descriptive,Partisanship cells of Table 1 whose standard error exceeds the coefficient,6,NA,0,6,0,paper_internal,The pipeline does not support this claim. Candidate favorability (1) democrat_d: 0.0352 (0.0347); Candidate favorability (1) independent_d: 0.0231 (0.0515); Candidate favorability (2) democrat_d: 0.0218 (0.0361); Candidate favorability (2) independent_d: 0.0149 (0.0518); Vote choice (3) democrat_d: 0.0108 (0.0100); Vote choice (3) independent_d: 0.0088 (0.0197); Vote choice (4) democrat_d: 0.0061 (0.0112); Vote choice (4) independent_d: 0.0066 (0.0199)
+coppock_hill_vavreck_2020,desc_independents_not_more_malleable,Results,descriptive,No partisanship coefficient in Table 1 is distinguishable from zero,0,NA,1,0,1,NA,The pipeline supports this claim. Candidate favorability (1) democrat_d: p = 0.310; Candidate favorability (1) independent_d: p = 0.654; Candidate favorability (2) democrat_d: p = 0.547; Candidate favorability (2) independent_d: p = 0.774; Vote choice (3) democrat_d: p = 0.281; Vote choice (3) independent_d: p = 0.654; Vote choice (4) democrat_d: p = 0.587; Vote choice (4) independent_d: p = 0.739
+coppock_hill_vavreck_2020,desc_time_slope_negative_count,Results,descriptive,Specifications in which the time slope is negative,3,3,1,3,1,NA,The article prints 3 and the pipeline gives 3. Candidate favorability (1): -0.0230; Candidate favorability (2): 0.0046; Vote choice (3): -0.0094; Vote choice (4): -0.0077
+coppock_hill_vavreck_2020,desc_time_slope_significant_count,Results,descriptive,Specifications in which the time slope is distinguishable from zero,1,1,1,1,1,NA,The article prints 1 and the pipeline gives 1. Candidate favorability (1): p = 0.102; Candidate favorability (2): p = 0.652; Vote choice (3): p = 0.013; Vote choice (4): p = 0.070
+coppock_hill_vavreck_2020,results_battleground_difference,Results,pipeline,"Battleground difference in favorability, magnitude",0.00768087181979859,0.008,1,0.00768087181979859,1,NA,The article prints 0.008 and the pipeline gives 0.008. The Results section gives the magnitude. Table 1 prints the same coefficient as -0.00.
+coppock_hill_vavreck_2020,results_general_election_coefficient,Results,pipeline,General election coefficient (scale points),0.1226242983961047,0.121,0,0.1226242983961047,0,paper_internal,"The article prints 0.121 and the pipeline gives 0.123. Table 1 of the same article prints 0.123, which is what the code produces."
+coppock_hill_vavreck_2020,desc_general_election_not_significant,Results,descriptive,The general election coefficient is not statistically significant,1,NA,1,1,1,NA,The pipeline supports this claim. General election coefficient 0.1226 (p = 0.0668)
+coppock_hill_vavreck_2020,results_general_election_ci_upper,Results,pipeline,Upper bound of the general election interval,0.25375022678125136,0.25,1,0.25375022678125136,1,NA,The article prints 0.25 and the pipeline gives 0.25.
+coppock_hill_vavreck_2020,desc_attack_and_pac_not_significant,Results,descriptive,No tone or sponsor coefficient in Table 1 is distinguishable from zero,0,NA,1,0,1,NA,The pipeline supports this claim. Candidate favorability (1) attack_d: p = 0.711; Candidate favorability (1) pac_d: p = 0.769; Candidate favorability (2) pac_d: p = 0.585; Vote choice (3) attack_d: p = 0.087; Vote choice (3) pac_d: p = 0.071; Vote choice (4) pac_d: p = 0.278
+coppock_hill_vavreck_2020,desc_pro_clinton_more_effective,Results,descriptive,Target candidate coefficients relative to the omitted pro-Clinton category,6,NA,NA,6,NA,NA,"The sentence sets no threshold, so no verdict is computed. Candidate favorability (2) pro_sanders_d: -0.0749; Candidate favorability (2) pro_trump_d: -0.1238; Candidate favorability (2) pro_cruz_d: 0.0471; Candidate favorability (2) pro_kasich_d: -0.1818; Candidate favorability (2) anti_clinton_d: -0.1051; Candidate favorability (2) anti_trump_d: -0.0414; Vote choice (4) pro_trump_d: -0.0158; Vote choice (4) anti_clinton_d: 0.0116; Vote choice (4) anti_trump_d: 0.0261"
+coppock_hill_vavreck_2020,desc_pro_clinton_differences_not_significant,Results,descriptive,No target candidate coefficient in Table 1 is distinguishable from zero,0,NA,1,0,1,NA,The pipeline supports this claim. Candidate favorability (2) pro_sanders_d: p = 0.397; Candidate favorability (2) pro_trump_d: p = 0.221; Candidate favorability (2) pro_cruz_d: p = 0.685; Candidate favorability (2) pro_kasich_d: p = 0.209; Candidate favorability (2) anti_clinton_d: p = 0.133; Candidate favorability (2) anti_trump_d: p = 0.475; Vote choice (4) pro_trump_d: p = 0.641; Vote choice (4) anti_clinton_d: p = 0.614; Vote choice (4) anti_trump_d: p = 0.223
+coppock_hill_vavreck_2020,desc_partisan_match_democrats,Results,descriptive,Democratic respondents respond more strongly to pro-Democratic than pro-Republican advertisements,1,NA,1,1,1,NA,The pipeline supports this claim. Favorability 0.106 versus -0.026; vote choice 0.027 versus -0.023
+coppock_hill_vavreck_2020,desc_partisan_match_republicans,Results,descriptive,Republican respondents respond similarly to pro-Democratic and pro-Republican advertisements,NA,NA,NA,NA,NA,NA,"The sentence sets no threshold, so no verdict is computed. Favorability 0.039 versus 0.048, neither distinguishable from zero; vote choice 0.007 versus -0.002, the second of which is negative. The sentence does not say which outcome it describes"
+coppock_hill_vavreck_2020,results_s2_sate_fav_p,Results,pipeline,"SATE favorability homogeneity p-value, restated",0.09190442047183715,0.09,1,0.09190442047183715,1,NA,The article prints 0.09 and the pipeline gives 0.09.
+coppock_hill_vavreck_2020,results_s2_sate_vc_p,Results,pipeline,"SATE vote choice homogeneity p-value, restated",0.06995209824068573,0.07,1,0.06995209824068573,1,NA,The article prints 0.07 and the pipeline gives 0.07.
+coppock_hill_vavreck_2020,results_s2_cate_fav_p,Results,pipeline,CATE favorability homogeneity p-value,1.6505690635520724e-4,0.0002,1,1.6505690635520724e-4,1,NA,The article prints 0.0002 and the pipeline gives 0.0002.
+coppock_hill_vavreck_2020,results_s2_cate_vc_p,Results,pipeline,CATE vote choice homogeneity p-value,0.09610393717584188,0.96,0,0.09610393717584188,0,paper_internal,"The article prints 0.96 and the pipeline gives 0.10. Table S2 of the same article prints 0.0961 for this test, which is what the code produces, so the Results section is off by a factor of ten."
+coppock_hill_vavreck_2020,desc_fail_reject_three_of_four,Results,descriptive,Homogeneity tests in Table S2 that fail to reject at the 5 per cent level,3,3,1,3,1,NA,The article prints 3 and the pipeline gives 3. sates Favorability: p = 0.0919; sates Vote Choice: p = 0.0700; cates Favorability: p = 0.0002; cates Vote Choice: p = 0.0961
+coppock_hill_vavreck_2020,results_tau_sate_favorability,Results,pipeline,"Tau, favorability SATEs",0.06818561415005112,0.07,1,0.06818561415005112,1,NA,The article prints 0.07 and the pipeline gives 0.07.
+coppock_hill_vavreck_2020,results_tau_cate_favorability,Results,pipeline,"Tau, favorability CATEs",0.14742296780858563,0.15,1,0.14742296780858563,1,NA,The article prints 0.15 and the pipeline gives 0.15.
+coppock_hill_vavreck_2020,results_tau_sate_vote_choice,Results,pipeline,"Tau, vote choice SATEs",0.02218665351717193,0.02,1,0.02218665351717193,1,NA,The article prints 0.02 and the pipeline gives 0.02.
+coppock_hill_vavreck_2020,results_tau_cate_vote_choice,Results,pipeline,"Tau, vote choice CATEs",0.02320881094884138,0.02,1,0.02320881094884138,1,NA,The article prints 0.02 and the pipeline gives 0.02.
+coppock_hill_vavreck_2020,discussion_n_experiments,Discussion,pipeline,Advertisement-week experiments,59,59,1,59,1,NA,The article prints 59 and the pipeline gives 59.
+coppock_hill_vavreck_2020,discussion_n_respondents,Discussion,pipeline,Respondents completing a survey,34000,34000,1,34000,1,NA,The article prints 34000 and the pipeline gives 34000.
+coppock_hill_vavreck_2020,discussion_n_ads,Discussion,pipeline,Distinct campaign advertisements tested,49,49,1,49,1,NA,The article prints 49 and the pipeline gives 49.
+coppock_hill_vavreck_2020,figure_1_fav_estimate,Figure 1,pipeline,Favorability meta-analytic estimate,0.04922782972267647,0.049,1,0.04922782972267647,1,NA,The article prints 0.049 and the pipeline gives 0.049.
+coppock_hill_vavreck_2020,figure_1_fav_se,Figure 1,pipeline,Favorability meta-analytic standard error,0.02000094498066863,0.020,1,0.02000094498066863,1,NA,The article prints 0.020 and the pipeline gives 0.020.
+coppock_hill_vavreck_2020,figure_1_vc_estimate,Figure 1,pipeline,Vote choice meta-analytic estimate,0.00718114897405215,0.007,1,0.00718114897405215,1,NA,The article prints 0.007 and the pipeline gives 0.007.
+coppock_hill_vavreck_2020,figure_1_vc_se,Figure 1,pipeline,Vote choice meta-analytic standard error,0.00732724536941071,0.007,1,0.00732724536941071,1,NA,The article prints 0.007 and the pipeline gives 0.007.
+coppock_hill_vavreck_2020,table_1_m1_intrcpt_est,Table 1,pipeline,"Table 1, model 1, intrcpt, estimate",0.05595137462966906,0.056,1,0.05595137462966906,1,NA,The article prints 0.056 and the pipeline gives 0.056.
+coppock_hill_vavreck_2020,table_1_m1_intrcpt_se,Table 1,pipeline,"Table 1, model 1, intrcpt, std.error",0.02030910945116821,0.020,1,0.02030910945116821,1,NA,The article prints 0.020 and the pipeline gives 0.020.
+coppock_hill_vavreck_2020,table_1_m2_intrcpt_est,Table 1,pipeline,"Table 1, model 2, intrcpt, estimate",0.0619557871802226,0.062,1,0.0619557871802226,1,NA,The article prints 0.062 and the pipeline gives 0.062.
+coppock_hill_vavreck_2020,table_1_m2_intrcpt_se,Table 1,pipeline,"Table 1, model 2, intrcpt, std.error",0.02045502731032077,0.020,1,0.02045502731032077,1,NA,The article prints 0.020 and the pipeline gives 0.020.
+coppock_hill_vavreck_2020,table_1_m3_intrcpt_est,Table 1,pipeline,"Table 1, model 3, intrcpt, estimate",0.00717343917312331,0.007,1,0.00717343917312331,1,NA,The article prints 0.007 and the pipeline gives 0.007.
+coppock_hill_vavreck_2020,table_1_m3_intrcpt_se,Table 1,pipeline,"Table 1, model 3, intrcpt, std.error",0.0071442025839593,0.007,1,0.0071442025839593,1,NA,The article prints 0.007 and the pipeline gives 0.007.
+coppock_hill_vavreck_2020,table_1_m4_intrcpt_est,Table 1,pipeline,"Table 1, model 4, intrcpt, estimate",0.00761340879292043,0.008,1,0.00761340879292043,1,NA,The article prints 0.008 and the pipeline gives 0.008.
+coppock_hill_vavreck_2020,table_1_m4_intrcpt_se,Table 1,pipeline,"Table 1, model 4, intrcpt, std.error",0.00721776470356415,0.007,1,0.00721776470356415,1,NA,The article prints 0.007 and the pipeline gives 0.007.
+coppock_hill_vavreck_2020,table_1_m1_democrat_d_est,Table 1,pipeline,"Table 1, model 1, democrat_d, estimate",0.03523921631093598,0.035,1,0.03523921631093598,1,NA,The article prints 0.035 and the pipeline gives 0.035.
+coppock_hill_vavreck_2020,table_1_m1_democrat_d_se,Table 1,pipeline,"Table 1, model 1, democrat_d, std.error",0.03468224196252516,0.035,1,0.03468224196252516,1,NA,The article prints 0.035 and the pipeline gives 0.035.
+coppock_hill_vavreck_2020,table_1_m2_democrat_d_est,Table 1,pipeline,"Table 1, model 2, democrat_d, estimate",0.02176162194014372,0.022,1,0.02176162194014372,1,NA,The article prints 0.022 and the pipeline gives 0.022.
+coppock_hill_vavreck_2020,table_1_m2_democrat_d_se,Table 1,pipeline,"Table 1, model 2, democrat_d, std.error",0.03610692357071977,0.036,1,0.03610692357071977,1,NA,The article prints 0.036 and the pipeline gives 0.036.
+coppock_hill_vavreck_2020,table_1_m3_democrat_d_est,Table 1,pipeline,"Table 1, model 3, democrat_d, estimate",0.01080661972657098,0.011,1,0.01080661972657098,1,NA,The article prints 0.011 and the pipeline gives 0.011.
+coppock_hill_vavreck_2020,table_1_m3_democrat_d_se,Table 1,pipeline,"Table 1, model 3, democrat_d, std.error",0.01003236631414101,0.010,1,0.01003236631414101,1,NA,The article prints 0.010 and the pipeline gives 0.010.
+coppock_hill_vavreck_2020,table_1_m4_democrat_d_est,Table 1,pipeline,"Table 1, model 4, democrat_d, estimate",0.00607624424823846,0.006,1,0.00607624424823846,1,NA,The article prints 0.006 and the pipeline gives 0.006.
+coppock_hill_vavreck_2020,table_1_m4_democrat_d_se,Table 1,pipeline,"Table 1, model 4, democrat_d, std.error",0.01119014590559956,0.011,1,0.01119014590559956,1,NA,The article prints 0.011 and the pipeline gives 0.011.
+coppock_hill_vavreck_2020,table_1_m1_independent_d_est,Table 1,pipeline,"Table 1, model 1, independent_d, estimate",0.02309941684035226,0.023,1,0.02309941684035226,1,NA,The article prints 0.023 and the pipeline gives 0.023.
+coppock_hill_vavreck_2020,table_1_m1_independent_d_se,Table 1,pipeline,"Table 1, model 1, independent_d, std.error",0.05149081728324464,0.051,1,0.05149081728324464,1,NA,The article prints 0.051 and the pipeline gives 0.051.
+coppock_hill_vavreck_2020,table_1_m2_independent_d_est,Table 1,pipeline,"Table 1, model 2, independent_d, estimate",0.01487952645729172,0.015,1,0.01487952645729172,1,NA,The article prints 0.015 and the pipeline gives 0.015.
+coppock_hill_vavreck_2020,table_1_m2_independent_d_se,Table 1,pipeline,"Table 1, model 2, independent_d, std.error",0.05182146533086734,0.052,1,0.05182146533086734,1,NA,The article prints 0.052 and the pipeline gives 0.052.
+coppock_hill_vavreck_2020,table_1_m3_independent_d_est,Table 1,pipeline,"Table 1, model 3, independent_d, estimate",0.00882756839601489,0.009,1,0.00882756839601489,1,NA,The article prints 0.009 and the pipeline gives 0.009.
+coppock_hill_vavreck_2020,table_1_m3_independent_d_se,Table 1,pipeline,"Table 1, model 3, independent_d, std.error",0.0196989007331031,0.020,1,0.0196989007331031,1,NA,The article prints 0.020 and the pipeline gives 0.020.
+coppock_hill_vavreck_2020,table_1_m4_independent_d_est,Table 1,pipeline,"Table 1, model 4, independent_d, estimate",0.00662959611432707,0.007,1,0.00662959611432707,1,NA,The article prints 0.007 and the pipeline gives 0.007.
+coppock_hill_vavreck_2020,table_1_m4_independent_d_se,Table 1,pipeline,"Table 1, model 4, independent_d, std.error",0.01992160480480935,0.020,1,0.01992160480480935,1,NA,The article prints 0.020 and the pipeline gives 0.020.
+coppock_hill_vavreck_2020,table_1_m1_battleground_d_est,Table 1,pipeline,"Table 1, model 1, battleground_d, estimate",-0.00768087181979859,-0.00,0,-0.00768087181979859,0,paper_internal,"The article prints -0.00 and the pipeline gives -0.01. The published table prints -0.00 in this cell. The code gives -0.008, and the Results section quotes the magnitude correctly as 0.008."
+coppock_hill_vavreck_2020,table_1_m1_battleground_d_se,Table 1,pipeline,"Table 1, model 1, battleground_d, std.error",0.03309933099976038,0.033,1,0.03309933099976038,1,NA,The article prints 0.033 and the pipeline gives 0.033.
+coppock_hill_vavreck_2020,table_1_m2_battleground_d_est,Table 1,pipeline,"Table 1, model 2, battleground_d, estimate",-0.0072889741172583,-0.007,1,-0.0072889741172583,1,NA,The article prints -0.007 and the pipeline gives -0.007.
+coppock_hill_vavreck_2020,table_1_m2_battleground_d_se,Table 1,pipeline,"Table 1, model 2, battleground_d, std.error",0.03312453083662407,0.033,1,0.03312453083662407,1,NA,The article prints 0.033 and the pipeline gives 0.033.
+coppock_hill_vavreck_2020,table_1_m3_battleground_d_est,Table 1,pipeline,"Table 1, model 3, battleground_d, estimate",-0.01697377813558142,-0.017,1,-0.01697377813558142,1,NA,The article prints -0.017 and the pipeline gives -0.017.
+coppock_hill_vavreck_2020,table_1_m3_battleground_d_se,Table 1,pipeline,"Table 1, model 3, battleground_d, std.error",0.00982144227142085,0.010,1,0.00982144227142085,1,NA,The article prints 0.010 and the pipeline gives 0.010.
+coppock_hill_vavreck_2020,table_1_m4_battleground_d_est,Table 1,pipeline,"Table 1, model 4, battleground_d, estimate",-0.01700540421842944,-0.017,1,-0.01700540421842944,1,NA,The article prints -0.017 and the pipeline gives -0.017.
+coppock_hill_vavreck_2020,table_1_m4_battleground_d_se,Table 1,pipeline,"Table 1, model 4, battleground_d, std.error",0.00996790251931272,0.010,1,0.00996790251931272,1,NA,The article prints 0.010 and the pipeline gives 0.010.
+coppock_hill_vavreck_2020,table_1_m1_pac_d_est,Table 1,pipeline,"Table 1, model 1, pac_d, estimate",-0.01249472757787245,-0.012,1,-0.01249472757787245,1,NA,The article prints -0.012 and the pipeline gives -0.012.
+coppock_hill_vavreck_2020,table_1_m1_pac_d_se,Table 1,pipeline,"Table 1, model 1, pac_d, std.error",0.04263087844760822,0.043,1,0.04263087844760822,1,NA,The article prints 0.043 and the pipeline gives 0.043.
+coppock_hill_vavreck_2020,table_1_m2_pac_d_est,Table 1,pipeline,"Table 1, model 2, pac_d, estimate",0.02568930896046751,0.026,1,0.02568930896046751,1,NA,The article prints 0.026 and the pipeline gives 0.026.
+coppock_hill_vavreck_2020,table_1_m2_pac_d_se,Table 1,pipeline,"Table 1, model 2, pac_d, std.error",0.04698518151974184,0.047,1,0.04698518151974184,1,NA,The article prints 0.047 and the pipeline gives 0.047.
+coppock_hill_vavreck_2020,table_1_m3_pac_d_est,Table 1,pipeline,"Table 1, model 3, pac_d, estimate",-0.0231494095931858,-0.023,1,-0.0231494095931858,1,NA,The article prints -0.023 and the pipeline gives -0.023.
+coppock_hill_vavreck_2020,table_1_m3_pac_d_se,Table 1,pipeline,"Table 1, model 3, pac_d, std.error",0.01283495597218764,0.013,1,0.01283495597218764,1,NA,The article prints 0.013 and the pipeline gives 0.013.
+coppock_hill_vavreck_2020,table_1_m4_pac_d_est,Table 1,pipeline,"Table 1, model 4, pac_d, estimate",-0.01566499984033211,-0.016,1,-0.01566499984033211,1,NA,The article prints -0.016 and the pipeline gives -0.016.
+coppock_hill_vavreck_2020,table_1_m4_pac_d_se,Table 1,pipeline,"Table 1, model 4, pac_d, std.error",0.0144268706850987,0.014,1,0.0144268706850987,1,NA,The article prints 0.014 and the pipeline gives 0.014.
+coppock_hill_vavreck_2020,table_1_m1_date_d_est,Table 1,pipeline,"Table 1, model 1, date_d, estimate",-0.02300941662841815,-0.023,1,-0.02300941662841815,1,NA,The article prints -0.023 and the pipeline gives -0.023.
+coppock_hill_vavreck_2020,table_1_m1_date_d_se,Table 1,pipeline,"Table 1, model 1, date_d, std.error",0.01405634018350106,0.014,1,0.01405634018350106,1,NA,The article prints 0.014 and the pipeline gives 0.014.
+coppock_hill_vavreck_2020,table_1_m2_date_d_est,Table 1,pipeline,"Table 1, model 2, date_d, estimate",0.00455623211451787,0.005,1,0.00455623211451787,1,NA,The article prints 0.005 and the pipeline gives 0.005.
+coppock_hill_vavreck_2020,table_1_m2_date_d_se,Table 1,pipeline,"Table 1, model 2, date_d, std.error",0.01010104688340387,0.010,1,0.01010104688340387,1,NA,The article prints 0.010 and the pipeline gives 0.010.
+coppock_hill_vavreck_2020,table_1_m3_date_d_est,Table 1,pipeline,"Table 1, model 3, date_d, estimate",-0.00937763297831399,-0.009,1,-0.00937763297831399,1,NA,The article prints -0.009 and the pipeline gives -0.009.
+coppock_hill_vavreck_2020,table_1_m3_date_d_se,Table 1,pipeline,"Table 1, model 3, date_d, std.error",0.00379382342908776,0.004,1,0.00379382342908776,1,NA,The article prints 0.004 and the pipeline gives 0.004.
+coppock_hill_vavreck_2020,table_1_m4_date_d_est,Table 1,pipeline,"Table 1, model 4, date_d, estimate",-0.00774541926272451,-0.008,1,-0.00774541926272451,1,NA,The article prints -0.008 and the pipeline gives -0.008.
+coppock_hill_vavreck_2020,table_1_m4_date_d_se,Table 1,pipeline,"Table 1, model 4, date_d, std.error",0.00426985776830752,0.004,1,0.00426985776830752,1,NA,The article prints 0.004 and the pipeline gives 0.004.
+coppock_hill_vavreck_2020,table_1_m1_attack_d_est,Table 1,pipeline,"Table 1, model 1, attack_d, estimate",-0.0171013743308075,-0.017,1,-0.0171013743308075,1,NA,The article prints -0.017 and the pipeline gives -0.017.
+coppock_hill_vavreck_2020,table_1_m1_attack_d_se,Table 1,pipeline,"Table 1, model 1, attack_d, std.error",0.04623707391558492,0.046,1,0.04623707391558492,1,NA,The article prints 0.046 and the pipeline gives 0.046.
+coppock_hill_vavreck_2020,table_1_m3_attack_d_est,Table 1,pipeline,"Table 1, model 3, attack_d, estimate",0.02796005024018374,0.028,1,0.02796005024018374,1,NA,The article prints 0.028 and the pipeline gives 0.028.
+coppock_hill_vavreck_2020,table_1_m3_attack_d_se,Table 1,pipeline,"Table 1, model 3, attack_d, std.error",0.01635585479026182,0.016,1,0.01635585479026182,1,NA,The article prints 0.016 and the pipeline gives 0.016.
+coppock_hill_vavreck_2020,table_1_m1_general_d_est,Table 1,pipeline,"Table 1, model 1, general_d, estimate",0.1226242983961047,0.123,1,0.1226242983961047,1,NA,The article prints 0.123 and the pipeline gives 0.123.
+coppock_hill_vavreck_2020,table_1_m1_general_d_se,Table 1,pipeline,"Table 1, model 1, general_d, std.error",0.06690221321384028,0.067,1,0.06690221321384028,1,NA,The article prints 0.067 and the pipeline gives 0.067.
+coppock_hill_vavreck_2020,table_1_m2_pro_trump_d_est,Table 1,pipeline,"Table 1, model 2, pro_trump_d, estimate",-0.12383690151390853,-0.124,1,-0.12383690151390853,1,NA,The article prints -0.124 and the pipeline gives -0.124.
+coppock_hill_vavreck_2020,table_1_m2_pro_trump_d_se,Table 1,pipeline,"Table 1, model 2, pro_trump_d, std.error",0.10111867542887638,0.101,1,0.10111867542887638,1,NA,The article prints 0.101 and the pipeline gives 0.101.
+coppock_hill_vavreck_2020,table_1_m4_pro_trump_d_est,Table 1,pipeline,"Table 1, model 4, pro_trump_d, estimate",-0.01577271267227369,-0.016,1,-0.01577271267227369,1,NA,The article prints -0.016 and the pipeline gives -0.016.
+coppock_hill_vavreck_2020,table_1_m4_pro_trump_d_se,Table 1,pipeline,"Table 1, model 4, pro_trump_d, std.error",0.03377671393878262,0.034,1,0.03377671393878262,1,NA,The article prints 0.034 and the pipeline gives 0.034.
+coppock_hill_vavreck_2020,table_1_m2_anti_clinton_d_est,Table 1,pipeline,"Table 1, model 2, anti_clinton_d, estimate",-0.10506738546567455,-0.105,1,-0.10506738546567455,1,NA,The article prints -0.105 and the pipeline gives -0.105.
+coppock_hill_vavreck_2020,table_1_m2_anti_clinton_d_se,Table 1,pipeline,"Table 1, model 2, anti_clinton_d, std.error",0.06988860906075982,0.070,1,0.06988860906075982,1,NA,The article prints 0.070 and the pipeline gives 0.070.
+coppock_hill_vavreck_2020,table_1_m4_anti_clinton_d_est,Table 1,pipeline,"Table 1, model 4, anti_clinton_d, estimate",0.01156873851790812,0.012,1,0.01156873851790812,1,NA,The article prints 0.012 and the pipeline gives 0.012.
+coppock_hill_vavreck_2020,table_1_m4_anti_clinton_d_se,Table 1,pipeline,"Table 1, model 4, anti_clinton_d, std.error",0.02296757258421005,0.023,1,0.02296757258421005,1,NA,The article prints 0.023 and the pipeline gives 0.023.
+coppock_hill_vavreck_2020,table_1_m2_anti_trump_d_est,Table 1,pipeline,"Table 1, model 2, anti_trump_d, estimate",-0.04136769501090464,-0.041,1,-0.04136769501090464,1,NA,The article prints -0.041 and the pipeline gives -0.041.
+coppock_hill_vavreck_2020,table_1_m2_anti_trump_d_se,Table 1,pipeline,"Table 1, model 2, anti_trump_d, std.error",0.05790668753051625,0.058,1,0.05790668753051625,1,NA,The article prints 0.058 and the pipeline gives 0.058.
+coppock_hill_vavreck_2020,table_1_m4_anti_trump_d_est,Table 1,pipeline,"Table 1, model 4, anti_trump_d, estimate",0.02610143338613112,0.026,1,0.02610143338613112,1,NA,The article prints 0.026 and the pipeline gives 0.026.
+coppock_hill_vavreck_2020,table_1_m4_anti_trump_d_se,Table 1,pipeline,"Table 1, model 4, anti_trump_d, std.error",0.02140915838153556,0.021,1,0.02140915838153556,1,NA,The article prints 0.021 and the pipeline gives 0.021.
+coppock_hill_vavreck_2020,table_1_m2_pro_sanders_d_est,Table 1,pipeline,"Table 1, model 2, pro_sanders_d, estimate",-0.07492440968189663,-0.075,1,-0.07492440968189663,1,NA,The article prints -0.075 and the pipeline gives -0.075.
+coppock_hill_vavreck_2020,table_1_m2_pro_sanders_d_se,Table 1,pipeline,"Table 1, model 2, pro_sanders_d, std.error",0.08853005507680942,0.089,1,0.08853005507680942,1,NA,The article prints 0.089 and the pipeline gives 0.089.
+coppock_hill_vavreck_2020,table_1_m2_pro_cruz_d_est,Table 1,pipeline,"Table 1, model 2, pro_cruz_d, estimate",0.04706949192233966,0.047,1,0.04706949192233966,1,NA,The article prints 0.047 and the pipeline gives 0.047.
+coppock_hill_vavreck_2020,table_1_m2_pro_cruz_d_se,Table 1,pipeline,"Table 1, model 2, pro_cruz_d, std.error",0.11619380556834476,0.116,1,0.11619380556834476,1,NA,The article prints 0.116 and the pipeline gives 0.116.
+coppock_hill_vavreck_2020,table_1_m2_pro_kasich_d_est,Table 1,pipeline,"Table 1, model 2, pro_kasich_d, estimate",-0.18177785890921255,-0.182,1,-0.18177785890921255,1,NA,The article prints -0.182 and the pipeline gives -0.182.
+coppock_hill_vavreck_2020,table_1_m2_pro_kasich_d_se,Table 1,pipeline,"Table 1, model 2, pro_kasich_d, std.error",0.1447649378597601,0.145,1,0.1447649378597601,1,NA,The article prints 0.145 and the pipeline gives 0.145.
+coppock_hill_vavreck_2020,table_1_m1_nobs,Table 1,pipeline,"Table 1, model 1, number of observations",354,354,1,354,1,NA,The article prints 354 and the pipeline gives 354.
+coppock_hill_vavreck_2020,table_1_m2_nobs,Table 1,pipeline,"Table 1, model 2, number of observations",354,354,1,354,1,NA,The article prints 354 and the pipeline gives 354.
+coppock_hill_vavreck_2020,table_1_m3_nobs,Table 1,pipeline,"Table 1, model 3, number of observations",204,204,1,204,1,NA,The article prints 204 and the pipeline gives 204.
+coppock_hill_vavreck_2020,table_1_m4_nobs,Table 1,pipeline,"Table 1, model 4, number of observations",204,204,1,204,1,NA,The article prints 204 and the pipeline gives 204.
+coppock_hill_vavreck_2020,desc_table_1_m1_intrcpt_star,Table 1,descriptive,Table 1 marks the model 1 average effect as significant at the 5 per cent level,1,NA,1,1,1,NA,The pipeline supports this claim. p = 0.00587
+coppock_hill_vavreck_2020,desc_table_1_m2_intrcpt_star,Table 1,descriptive,Table 1 marks the model 2 average effect as significant at the 5 per cent level,1,NA,1,1,1,NA,The pipeline supports this claim. p = 0.00245
+coppock_hill_vavreck_2020,desc_table_1_m3_date_d_star,Table 1,descriptive,Table 1 marks the model 3 time slope as significant at the 5 per cent level,1,NA,1,1,1,NA,The pipeline supports this claim. p = 0.01344
+coppock_hill_vavreck_2020,figure_2_fav_republican_prodem_est,Figure 2,pipeline,"Figure 2, Favorability, Republican respondents, pro-Democratic ad, estimate",0.03865953961790649,0.039,1,0.03865953961790649,1,NA,The article prints 0.039 and the pipeline gives 0.039.
+coppock_hill_vavreck_2020,figure_2_fav_republican_prodem_se,Figure 2,pipeline,"Figure 2, Favorability, Republican respondents, pro-Democratic ad, std.error",0.03565816016712495,0.036,1,0.03565816016712495,1,NA,The article prints 0.036 and the pipeline gives 0.036.
+coppock_hill_vavreck_2020,figure_2_fav_republican_prorep_est,Figure 2,pipeline,"Figure 2, Favorability, Republican respondents, pro-Republican ad, estimate",0.04801966652272864,0.048,1,0.04801966652272864,1,NA,The article prints 0.048 and the pipeline gives 0.048.
+coppock_hill_vavreck_2020,figure_2_fav_republican_prorep_se,Figure 2,pipeline,"Figure 2, Favorability, Republican respondents, pro-Republican ad, std.error",0.03892303152077821,0.039,1,0.03892303152077821,1,NA,The article prints 0.039 and the pipeline gives 0.039.
+coppock_hill_vavreck_2020,figure_2_fav_independent_prodem_est,Figure 2,pipeline,"Figure 2, Favorability, Independent respondents, pro-Democratic ad, estimate",0.06999327365944055,0.070,1,0.06999327365944055,1,NA,The article prints 0.070 and the pipeline gives 0.070.
+coppock_hill_vavreck_2020,figure_2_fav_independent_prodem_se,Figure 2,pipeline,"Figure 2, Favorability, Independent respondents, pro-Democratic ad, std.error",0.06782033423093256,0.068,1,0.06782033423093256,1,NA,The article prints 0.068 and the pipeline gives 0.068.
+coppock_hill_vavreck_2020,figure_2_fav_independent_prorep_est,Figure 2,pipeline,"Figure 2, Favorability, Independent respondents, pro-Republican ad, estimate",0.0121099394831963,0.012,1,0.0121099394831963,1,NA,The article prints 0.012 and the pipeline gives 0.012.
+coppock_hill_vavreck_2020,figure_2_fav_independent_prorep_se,Figure 2,pipeline,"Figure 2, Favorability, Independent respondents, pro-Republican ad, std.error",0.08717368634083936,0.087,1,0.08717368634083936,1,NA,The article prints 0.087 and the pipeline gives 0.087.
+coppock_hill_vavreck_2020,figure_2_fav_democratic_prodem_est,Figure 2,pipeline,"Figure 2, Favorability, Democratic respondents, pro-Democratic ad, estimate",0.1064765736207072,0.106,1,0.1064765736207072,1,NA,The article prints 0.106 and the pipeline gives 0.106.
+coppock_hill_vavreck_2020,figure_2_fav_democratic_prodem_se,Figure 2,pipeline,"Figure 2, Favorability, Democratic respondents, pro-Democratic ad, std.error",0.02745781870615061,0.027,1,0.02745781870615061,1,NA,The article prints 0.027 and the pipeline gives 0.027.
+coppock_hill_vavreck_2020,figure_2_fav_democratic_prorep_est,Figure 2,pipeline,"Figure 2, Favorability, Democratic respondents, pro-Republican ad, estimate",-0.02638333098454512,-0.026,1,-0.02638333098454512,1,NA,The article prints -0.026 and the pipeline gives -0.026.
+coppock_hill_vavreck_2020,figure_2_fav_democratic_prorep_se,Figure 2,pipeline,"Figure 2, Favorability, Democratic respondents, pro-Republican ad, std.error",0.04943198444453534,0.049,1,0.04943198444453534,1,NA,The article prints 0.049 and the pipeline gives 0.049.
+coppock_hill_vavreck_2020,figure_2_vc_republican_prodem_est,Figure 2,pipeline,"Figure 2, Vote choice, Republican respondents, pro-Democratic ad, estimate",0.0069909232014625,0.007,1,0.0069909232014625,1,NA,The article prints 0.007 and the pipeline gives 0.007.
+coppock_hill_vavreck_2020,figure_2_vc_republican_prodem_se,Figure 2,pipeline,"Figure 2, Vote choice, Republican respondents, pro-Democratic ad, std.error",0.01393566308637443,0.014,1,0.01393566308637443,1,NA,The article prints 0.014 and the pipeline gives 0.014.
+coppock_hill_vavreck_2020,figure_2_vc_republican_prorep_est,Figure 2,pipeline,"Figure 2, Vote choice, Republican respondents, pro-Republican ad, estimate",-0.00216608514888706,-0.002,1,-0.00216608514888706,1,NA,The article prints -0.002 and the pipeline gives -0.002.
+coppock_hill_vavreck_2020,figure_2_vc_republican_prorep_se,Figure 2,pipeline,"Figure 2, Vote choice, Republican respondents, pro-Republican ad, std.error",0.00912830313876472,0.009,1,0.00912830313876472,1,NA,The article prints 0.009 and the pipeline gives 0.009.
+coppock_hill_vavreck_2020,figure_2_vc_independent_prodem_est,Figure 2,pipeline,"Figure 2, Vote choice, Independent respondents, pro-Democratic ad, estimate",0.00506265749355459,0.005,1,0.00506265749355459,1,NA,The article prints 0.005 and the pipeline gives 0.005.
+coppock_hill_vavreck_2020,figure_2_vc_independent_prodem_se,Figure 2,pipeline,"Figure 2, Vote choice, Independent respondents, pro-Democratic ad, std.error",0.02374758866842946,0.024,1,0.02374758866842946,1,NA,The article prints 0.024 and the pipeline gives 0.024.
+coppock_hill_vavreck_2020,figure_2_vc_independent_prorep_est,Figure 2,pipeline,"Figure 2, Vote choice, Independent respondents, pro-Republican ad, estimate",0.02716273143722471,0.027,1,0.02716273143722471,1,NA,The article prints 0.027 and the pipeline gives 0.027.
+coppock_hill_vavreck_2020,figure_2_vc_independent_prorep_se,Figure 2,pipeline,"Figure 2, Vote choice, Independent respondents, pro-Republican ad, std.error",0.02914585034552123,0.029,1,0.02914585034552123,1,NA,The article prints 0.029 and the pipeline gives 0.029.
+coppock_hill_vavreck_2020,figure_2_vc_democratic_prodem_est,Figure 2,pipeline,"Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, estimate",0.02717592777428138,0.027,1,0.02717592777428138,1,NA,The article prints 0.027 and the pipeline gives 0.027.
+coppock_hill_vavreck_2020,figure_2_vc_democratic_prodem_se,Figure 2,pipeline,"Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, std.error",0.00801715594366604,0.008,1,0.00801715594366604,1,NA,The article prints 0.008 and the pipeline gives 0.008.
+coppock_hill_vavreck_2020,figure_2_vc_democratic_prorep_est,Figure 2,pipeline,"Figure 2, Vote choice, Democratic respondents, pro-Republican ad, estimate",-0.0233960926436279,-0.023,1,-0.0233960926436279,1,NA,The article prints -0.023 and the pipeline gives -0.023.
+coppock_hill_vavreck_2020,figure_2_vc_democratic_prorep_se,Figure 2,pipeline,"Figure 2, Vote choice, Democratic respondents, pro-Republican ad, std.error",0.01478602837880542,0.015,1,0.01478602837880542,1,NA,The article prints 0.015 and the pipeline gives 0.015.
+coppock_hill_vavreck_2020,appendix_a_n_unique_ads,Appendix A,pipeline,Distinct campaign advertisements,49,50,0,49,0,paper_internal,"The article prints 50 and the pipeline gives 49. Appendix section A says Table S1 shows 50 unique advertisements. The data hold 49 campaign advertisements plus the placebo, and the main text's 49 is right. Two of the 49 share the title Sacrifice and the week of 5 September, so the table's body carries 48 distinct names."
+coppock_hill_vavreck_2020,appendix_a_n_repeat_ads_named,Appendix A,pipeline,Advertisements fielded in more than one week,7,8,0,7,0,paper_internal,The article prints 8 and the pipeline gives 7. Appendix section A names eight advertisements as shown in multiple weeks. Seven were: Man of People was fielded only in the week of 14 March.
+coppock_hill_vavreck_2020,appendix_a_n_anti_trump,Appendix A,pipeline,Anti-Trump deployments,30,28,0,30,0,paper_internal,"The article prints 28 and the pipeline gives 30. Appendix section A gives 28, 9, 9 and 3 for anti-Trump, anti-Clinton, pro-Clinton and pro-Trump advertisements 'including the ads we deployed more than once'. The deployment counts are 30, 11, 8 and 3, which is what the main text states, and the distinct-advertisement counts are 24, 11, 6 and 3."
+coppock_hill_vavreck_2020,appendix_a_n_anti_clinton,Appendix A,pipeline,Anti-Clinton deployments,11,9,0,11,0,paper_internal,The article prints 9 and the pipeline gives 11.
+coppock_hill_vavreck_2020,appendix_a_n_pro_clinton,Appendix A,pipeline,Pro-Clinton deployments,8,9,0,8,0,paper_internal,The article prints 9 and the pipeline gives 8.
+coppock_hill_vavreck_2020,appendix_a_n_pro_trump,Appendix A,pipeline,Pro-Trump deployments,3,3,1,3,1,NA,The article prints 3 and the pipeline gives 3.
+coppock_hill_vavreck_2020,table_s1_n_weeks,Table S1,pipeline,Weeks listed,29,29,1,29,1,NA,The article prints 29 and the pipeline gives 29. Table S1 lists one row per week of the study.
+coppock_hill_vavreck_2020,table_s1_n_ad_entries,Table S1,pipeline,Advertisement-week entries,58,58,1,58,1,NA,"The article prints 58 and the pipeline gives 58. Three entries in the week of 14 March, one in the week of 5 September, two in each of the other 27 weeks."
+coppock_hill_vavreck_2020,appendix_b_n_repeat_ads,Appendix B,pipeline,Advertisements fielded more than once,7,7,1,7,1,NA,"The article prints 7 and the pipeline gives 7. Appendix section B and Figure S1 both use seven, which is correct."
+coppock_hill_vavreck_2020,desc_repeat_ads_no_significant_variation,Appendix B,descriptive,Repeat advertisements whose effect varies significantly across weeks,0,NA,1,0,1,NA,The pipeline supports this claim. Quotes: p = 0.329; Real Life: p = 0.442; America: p = 0.790; Love/Kindness: p = 0.387; Speak: p = 0.232; Role Model: p = 0.322; Mirrors: p = 0.095
+coppock_hill_vavreck_2020,desc_repeat_ad_quotes_increases,Appendix B,descriptive,Weekly estimates for the advertisement Quotes,NA,NA,NA,NA,NA,NA,"The sentence sets no threshold, so no verdict is computed. 2016-03-21: -0.185; 2016-04-05: -0.152; 2016-05-23: 0.067; 2016-10-10: 0.028"
+coppock_hill_vavreck_2020,figure_s1_n_panels,Figure S1,pipeline,Panels,7,7,1,7,1,NA,"The article prints 7 and the pipeline gives 7. One panel per advertisement fielded in more than one week. The panels print no numbers, so the panel count is what the figure states."
+coppock_hill_vavreck_2020,figure_s1_n_weekly_estimates,Figure S1,pipeline,Weekly estimates plotted,17,17,1,17,1,NA,The article prints 17 and the pipeline gives 17.
+coppock_hill_vavreck_2020,table_s2_sates_favorability_est,Table S2,pipeline,"Table S2, sates, Favorability, estimate",0.04922782972267647,0.0492,1,0.04922782972267647,1,NA,The article prints 0.0492 and the pipeline gives 0.0492.
+coppock_hill_vavreck_2020,table_s2_sates_favorability_se,Table S2,pipeline,"Table S2, sates, Favorability, std.error",0.02000094498066863,0.0200,1,0.02000094498066863,1,NA,The article prints 0.0200 and the pipeline gives 0.0200.
+coppock_hill_vavreck_2020,table_s2_sates_favorability_p,Table S2,pipeline,"Table S2, sates, Favorability, p.value",0.09190442047183715,0.0919,1,0.09190442047183715,1,NA,The article prints 0.0919 and the pipeline gives 0.0919.
+coppock_hill_vavreck_2020,table_s2_sates_favorability_tau2,Table S2,pipeline,"Table S2, sates, Favorability, tau2",0.00464927797701965,0.0046,1,0.00464927797701965,1,NA,The article prints 0.0046 and the pipeline gives 0.0046.
+coppock_hill_vavreck_2020,table_s2_sates_favorability_tau,Table S2,pipeline,"Table S2, sates, Favorability, tau",0.06818561415005112,0.0682,1,0.06818561415005112,1,NA,The article prints 0.0682 and the pipeline gives 0.0682.
+coppock_hill_vavreck_2020,table_s2_sates_votechoice_est,Table S2,pipeline,"Table S2, sates, Vote Choice, estimate",0.00718114897405215,0.0072,1,0.00718114897405215,1,NA,The article prints 0.0072 and the pipeline gives 0.0072.
+coppock_hill_vavreck_2020,table_s2_sates_votechoice_se,Table S2,pipeline,"Table S2, sates, Vote Choice, std.error",0.00732724536941071,0.0073,1,0.00732724536941071,1,NA,The article prints 0.0073 and the pipeline gives 0.0073.
+coppock_hill_vavreck_2020,table_s2_sates_votechoice_p,Table S2,pipeline,"Table S2, sates, Vote Choice, p.value",0.06995209824068573,0.0700,1,0.06995209824068573,1,NA,The article prints 0.0700 and the pipeline gives 0.0700.
+coppock_hill_vavreck_2020,table_s2_sates_votechoice_tau2,Table S2,pipeline,"Table S2, sates, Vote Choice, tau2",4.922475942910378e-4,0.0005,1,4.922475942910378e-4,1,NA,The article prints 0.0005 and the pipeline gives 0.0005.
+coppock_hill_vavreck_2020,table_s2_sates_votechoice_tau,Table S2,pipeline,"Table S2, sates, Vote Choice, tau",0.02218665351717193,0.0222,1,0.02218665351717193,1,NA,The article prints 0.0222 and the pipeline gives 0.0222.
+coppock_hill_vavreck_2020,table_s2_cates_favorability_est,Table S2,pipeline,"Table S2, cates, Favorability, estimate",0.05845227149794074,0.0585,1,0.05845227149794074,1,NA,The article prints 0.0585 and the pipeline gives 0.0585.
+coppock_hill_vavreck_2020,table_s2_cates_favorability_se,Table S2,pipeline,"Table S2, cates, Favorability, std.error",0.01783942762477388,0.0178,1,0.01783942762477388,1,NA,The article prints 0.0178 and the pipeline gives 0.0178.
+coppock_hill_vavreck_2020,table_s2_cates_favorability_p,Table S2,pipeline,"Table S2, cates, Favorability, p.value",1.6505690635520724e-4,0.0002,1,1.6505690635520724e-4,1,NA,The article prints 0.0002 and the pipeline gives 0.0002.
+coppock_hill_vavreck_2020,table_s2_cates_favorability_tau2,Table S2,pipeline,"Table S2, cates, Favorability, tau2",0.02173353143749127,0.0217,1,0.02173353143749127,1,NA,The article prints 0.0217 and the pipeline gives 0.0217.
+coppock_hill_vavreck_2020,table_s2_cates_favorability_tau,Table S2,pipeline,"Table S2, cates, Favorability, tau",0.14742296780858563,0.1474,1,0.14742296780858563,1,NA,The article prints 0.1474 and the pipeline gives 0.1474.
+coppock_hill_vavreck_2020,table_s2_cates_votechoice_est,Table S2,pipeline,"Table S2, cates, Vote Choice, estimate",0.00826356365738539,0.0083,1,0.00826356365738539,1,NA,The article prints 0.0083 and the pipeline gives 0.0083.
+coppock_hill_vavreck_2020,table_s2_cates_votechoice_se,Table S2,pipeline,"Table S2, cates, Vote Choice, std.error",0.00514489865140912,0.0051,1,0.00514489865140912,1,NA,The article prints 0.0051 and the pipeline gives 0.0051.
+coppock_hill_vavreck_2020,table_s2_cates_votechoice_p,Table S2,pipeline,"Table S2, cates, Vote Choice, p.value",0.09610393717584188,0.0961,1,0.09610393717584188,1,NA,The article prints 0.0961 and the pipeline gives 0.0961.
+coppock_hill_vavreck_2020,table_s2_cates_votechoice_tau2,Table S2,pipeline,"Table S2, cates, Vote Choice, tau2",5.386489056590597e-4,0.0005,1,5.386489056590597e-4,1,NA,The article prints 0.0005 and the pipeline gives 0.0005.
+coppock_hill_vavreck_2020,table_s2_cates_votechoice_tau,Table S2,pipeline,"Table S2, cates, Vote Choice, tau",0.02320881094884138,0.0232,1,0.02320881094884138,1,NA,The article prints 0.0232 and the pipeline gives 0.0232.
+coppock_hill_vavreck_2020,table_s3_march_14_control,Table S3,pipeline,"Table S3, March 14, Control",268,268,1,268,1,NA,The article prints 268 and the pipeline gives 268.
+coppock_hill_vavreck_2020,table_s3_march_14_anti_trump,Table S3,pipeline,"Table S3, March 14, Anti Trump",732,732,1,732,1,NA,The article prints 732 and the pipeline gives 732.
+coppock_hill_vavreck_2020,table_s3_march_14_total,Table S3,pipeline,"Table S3, March 14, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_march_21_control,Table S3,pipeline,"Table S3, March 21, Control",260,260,1,260,1,NA,The article prints 260 and the pipeline gives 260.
+coppock_hill_vavreck_2020,table_s3_march_21_pro_clinton,Table S3,pipeline,"Table S3, March 21, Pro Clinton",249,249,1,249,1,NA,The article prints 249 and the pipeline gives 249.
+coppock_hill_vavreck_2020,table_s3_march_21_anti_trump,Table S3,pipeline,"Table S3, March 21, Anti Trump",253,253,1,253,1,NA,The article prints 253 and the pipeline gives 253.
+coppock_hill_vavreck_2020,table_s3_march_21_two_ads,Table S3,pipeline,"Table S3, March 21, Two Ads",238,238,1,238,1,NA,The article prints 238 and the pipeline gives 238.
+coppock_hill_vavreck_2020,table_s3_march_21_total,Table S3,pipeline,"Table S3, March 21, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_march_28_control,Table S3,pipeline,"Table S3, March 28, Control",253,253,1,253,1,NA,The article prints 253 and the pipeline gives 253.
+coppock_hill_vavreck_2020,table_s3_march_28_pro_clinton,Table S3,pipeline,"Table S3, March 28, Pro Clinton",264,264,1,264,1,NA,The article prints 264 and the pipeline gives 264.
+coppock_hill_vavreck_2020,table_s3_march_28_pro_sanders,Table S3,pipeline,"Table S3, March 28, Pro Sanders",241,241,1,241,1,NA,The article prints 241 and the pipeline gives 241.
+coppock_hill_vavreck_2020,table_s3_march_28_two_ads,Table S3,pipeline,"Table S3, March 28, Two Ads",242,242,1,242,1,NA,The article prints 242 and the pipeline gives 242.
+coppock_hill_vavreck_2020,table_s3_march_28_total,Table S3,pipeline,"Table S3, March 28, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_april_05_control,Table S3,pipeline,"Table S3, April 05, Control",251,251,1,251,1,NA,The article prints 251 and the pipeline gives 251.
+coppock_hill_vavreck_2020,table_s3_april_05_pro_clinton,Table S3,pipeline,"Table S3, April 05, Pro Clinton",249,249,1,249,1,NA,The article prints 249 and the pipeline gives 249.
+coppock_hill_vavreck_2020,table_s3_april_05_anti_trump,Table S3,pipeline,"Table S3, April 05, Anti Trump",255,255,1,255,1,NA,The article prints 255 and the pipeline gives 255.
+coppock_hill_vavreck_2020,table_s3_april_05_two_ads,Table S3,pipeline,"Table S3, April 05, Two Ads",245,245,1,245,1,NA,The article prints 245 and the pipeline gives 245.
+coppock_hill_vavreck_2020,table_s3_april_05_total,Table S3,pipeline,"Table S3, April 05, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_april_11_control,Table S3,pipeline,"Table S3, April 11, Control",255,255,1,255,1,NA,The article prints 255 and the pipeline gives 255.
+coppock_hill_vavreck_2020,table_s3_april_11_pro_clinton,Table S3,pipeline,"Table S3, April 11, Pro Clinton",252,252,1,252,1,NA,The article prints 252 and the pipeline gives 252.
+coppock_hill_vavreck_2020,table_s3_april_11_pro_sanders,Table S3,pipeline,"Table S3, April 11, Pro Sanders",243,243,1,243,1,NA,The article prints 243 and the pipeline gives 243.
+coppock_hill_vavreck_2020,table_s3_april_11_two_ads,Table S3,pipeline,"Table S3, April 11, Two Ads",250,250,1,250,1,NA,The article prints 250 and the pipeline gives 250.
+coppock_hill_vavreck_2020,table_s3_april_11_total,Table S3,pipeline,"Table S3, April 11, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_april_18_control,Table S3,pipeline,"Table S3, April 18, Control",250,250,1,250,1,NA,The article prints 250 and the pipeline gives 250.
+coppock_hill_vavreck_2020,table_s3_april_18_pro_cruz,Table S3,pipeline,"Table S3, April 18, Pro Cruz",252,252,1,252,1,NA,The article prints 252 and the pipeline gives 252.
+coppock_hill_vavreck_2020,table_s3_april_18_pro_kasich,Table S3,pipeline,"Table S3, April 18, Pro Kasich",250,250,1,250,1,NA,The article prints 250 and the pipeline gives 250.
+coppock_hill_vavreck_2020,table_s3_april_18_two_ads,Table S3,pipeline,"Table S3, April 18, Two Ads",248,248,1,248,1,NA,The article prints 248 and the pipeline gives 248.
+coppock_hill_vavreck_2020,table_s3_april_18_total,Table S3,pipeline,"Table S3, April 18, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_april_25_control,Table S3,pipeline,"Table S3, April 25, Control",207,207,1,207,1,NA,The article prints 207 and the pipeline gives 207.
+coppock_hill_vavreck_2020,table_s3_april_25_pro_trump,Table S3,pipeline,"Table S3, April 25, Pro Trump",189,189,1,189,1,NA,The article prints 189 and the pipeline gives 189.
+coppock_hill_vavreck_2020,table_s3_april_25_pro_cruz,Table S3,pipeline,"Table S3, April 25, Pro Cruz",207,207,1,207,1,NA,The article prints 207 and the pipeline gives 207.
+coppock_hill_vavreck_2020,table_s3_april_25_two_ads,Table S3,pipeline,"Table S3, April 25, Two Ads",397,397,1,397,1,NA,The article prints 397 and the pipeline gives 397.
+coppock_hill_vavreck_2020,table_s3_april_25_total,Table S3,pipeline,"Table S3, April 25, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_may_09_control,Table S3,pipeline,"Table S3, May 09, Control",198,198,1,198,1,NA,The article prints 198 and the pipeline gives 198.
+coppock_hill_vavreck_2020,table_s3_may_09_anti_trump,Table S3,pipeline,"Table S3, May 09, Anti Trump",411,411,1,411,1,NA,The article prints 411 and the pipeline gives 411.
+coppock_hill_vavreck_2020,table_s3_may_09_two_ads,Table S3,pipeline,"Table S3, May 09, Two Ads",391,391,1,391,1,NA,The article prints 391 and the pipeline gives 391.
+coppock_hill_vavreck_2020,table_s3_may_09_total,Table S3,pipeline,"Table S3, May 09, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_may_16_control,Table S3,pipeline,"Table S3, May 16, Control",204,204,1,204,1,NA,The article prints 204 and the pipeline gives 204.
+coppock_hill_vavreck_2020,table_s3_may_16_pro_clinton,Table S3,pipeline,"Table S3, May 16, Pro Clinton",211,211,1,211,1,NA,The article prints 211 and the pipeline gives 211.
+coppock_hill_vavreck_2020,table_s3_may_16_pro_sanders,Table S3,pipeline,"Table S3, May 16, Pro Sanders",189,189,1,189,1,NA,The article prints 189 and the pipeline gives 189.
+coppock_hill_vavreck_2020,table_s3_may_16_two_ads,Table S3,pipeline,"Table S3, May 16, Two Ads",396,396,1,396,1,NA,The article prints 396 and the pipeline gives 396.
+coppock_hill_vavreck_2020,table_s3_may_16_total,Table S3,pipeline,"Table S3, May 16, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_may_23_control,Table S3,pipeline,"Table S3, May 23, Control",201,201,1,201,1,NA,The article prints 201 and the pipeline gives 201.
+coppock_hill_vavreck_2020,table_s3_may_23_anti_trump,Table S3,pipeline,"Table S3, May 23, Anti Trump",414,414,1,414,1,NA,The article prints 414 and the pipeline gives 414.
+coppock_hill_vavreck_2020,table_s3_may_23_two_ads,Table S3,pipeline,"Table S3, May 23, Two Ads",385,385,1,385,1,NA,The article prints 385 and the pipeline gives 385.
+coppock_hill_vavreck_2020,table_s3_may_23_total,Table S3,pipeline,"Table S3, May 23, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_may_30_control,Table S3,pipeline,"Table S3, May 30, Control",206,206,1,206,1,NA,The article prints 206 and the pipeline gives 206.
+coppock_hill_vavreck_2020,table_s3_may_30_pro_clinton,Table S3,pipeline,"Table S3, May 30, Pro Clinton",198,198,1,198,1,NA,The article prints 198 and the pipeline gives 198.
+coppock_hill_vavreck_2020,table_s3_may_30_pro_sanders,Table S3,pipeline,"Table S3, May 30, Pro Sanders",207,207,1,207,1,NA,The article prints 207 and the pipeline gives 207.
+coppock_hill_vavreck_2020,table_s3_may_30_two_ads,Table S3,pipeline,"Table S3, May 30, Two Ads",389,389,1,389,1,NA,The article prints 389 and the pipeline gives 389.
+coppock_hill_vavreck_2020,table_s3_may_30_total,Table S3,pipeline,"Table S3, May 30, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_june_06_control,Table S3,pipeline,"Table S3, June 06, Control",200,200,1,200,1,NA,The article prints 200 and the pipeline gives 200.
+coppock_hill_vavreck_2020,table_s3_june_06_anti_trump,Table S3,pipeline,"Table S3, June 06, Anti Trump",404,404,1,404,1,NA,The article prints 404 and the pipeline gives 404.
+coppock_hill_vavreck_2020,table_s3_june_06_two_ads,Table S3,pipeline,"Table S3, June 06, Two Ads",396,396,1,396,1,NA,The article prints 396 and the pipeline gives 396.
+coppock_hill_vavreck_2020,table_s3_june_06_total,Table S3,pipeline,"Table S3, June 06, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_june_20_control,Table S3,pipeline,"Table S3, June 20, Control",664,664,1,664,1,NA,The article prints 664 and the pipeline gives 664.
+coppock_hill_vavreck_2020,table_s3_june_20_pro_clinton,Table S3,pipeline,"Table S3, June 20, Pro Clinton",663,663,1,663,1,NA,The article prints 663 and the pipeline gives 663.
+coppock_hill_vavreck_2020,table_s3_june_20_anti_trump,Table S3,pipeline,"Table S3, June 20, Anti Trump",673,673,1,673,1,NA,The article prints 673 and the pipeline gives 673.
+coppock_hill_vavreck_2020,table_s3_june_20_total,Table S3,pipeline,"Table S3, June 20, Total",2000,2000,1,2000,1,NA,The article prints 2000 and the pipeline gives 2000.
+coppock_hill_vavreck_2020,table_s3_july_04_control,Table S3,pipeline,"Table S3, July 04, Control",665,665,1,665,1,NA,The article prints 665 and the pipeline gives 665.
+coppock_hill_vavreck_2020,table_s3_july_04_anti_clinton,Table S3,pipeline,"Table S3, July 04, Anti Clinton",674,674,1,674,1,NA,The article prints 674 and the pipeline gives 674.
+coppock_hill_vavreck_2020,table_s3_july_04_anti_trump,Table S3,pipeline,"Table S3, July 04, Anti Trump",661,661,1,661,1,NA,The article prints 661 and the pipeline gives 661.
+coppock_hill_vavreck_2020,table_s3_july_04_total,Table S3,pipeline,"Table S3, July 04, Total",2000,2000,1,2000,1,NA,The article prints 2000 and the pipeline gives 2000.
+coppock_hill_vavreck_2020,table_s3_july_18_control,Table S3,pipeline,"Table S3, July 18, Control",678,678,1,678,1,NA,The article prints 678 and the pipeline gives 678.
+coppock_hill_vavreck_2020,table_s3_july_18_anti_clinton,Table S3,pipeline,"Table S3, July 18, Anti Clinton",648,648,1,648,1,NA,The article prints 648 and the pipeline gives 648.
+coppock_hill_vavreck_2020,table_s3_july_18_anti_trump,Table S3,pipeline,"Table S3, July 18, Anti Trump",674,674,1,674,1,NA,The article prints 674 and the pipeline gives 674.
+coppock_hill_vavreck_2020,table_s3_july_18_total,Table S3,pipeline,"Table S3, July 18, Total",2000,2000,1,2000,1,NA,The article prints 2000 and the pipeline gives 2000.
+coppock_hill_vavreck_2020,table_s3_august_01_control,Table S3,pipeline,"Table S3, August 01, Control",683,683,1,683,1,NA,The article prints 683 and the pipeline gives 683.
+coppock_hill_vavreck_2020,table_s3_august_01_anti_clinton,Table S3,pipeline,"Table S3, August 01, Anti Clinton",649,649,1,649,1,NA,The article prints 649 and the pipeline gives 649.
+coppock_hill_vavreck_2020,table_s3_august_01_anti_trump,Table S3,pipeline,"Table S3, August 01, Anti Trump",668,668,1,668,1,NA,The article prints 668 and the pipeline gives 668.
+coppock_hill_vavreck_2020,table_s3_august_01_total,Table S3,pipeline,"Table S3, August 01, Total",2000,2000,1,2000,1,NA,The article prints 2000 and the pipeline gives 2000.
+coppock_hill_vavreck_2020,table_s3_august_15_control,Table S3,pipeline,"Table S3, August 15, Control",657,657,1,657,1,NA,The article prints 657 and the pipeline gives 657.
+coppock_hill_vavreck_2020,table_s3_august_15_anti_trump,Table S3,pipeline,"Table S3, August 15, Anti Trump",1343,1343,1,1343,1,NA,The article prints 1343 and the pipeline gives 1343.
+coppock_hill_vavreck_2020,table_s3_august_15_total,Table S3,pipeline,"Table S3, August 15, Total",2000,2000,1,2000,1,NA,The article prints 2000 and the pipeline gives 2000.
+coppock_hill_vavreck_2020,table_s3_august_22_control,Table S3,pipeline,"Table S3, August 22, Control",340,340,1,340,1,NA,The article prints 340 and the pipeline gives 340.
+coppock_hill_vavreck_2020,table_s3_august_22_pro_clinton,Table S3,pipeline,"Table S3, August 22, Pro Clinton",317,317,1,317,1,NA,The article prints 317 and the pipeline gives 317.
+coppock_hill_vavreck_2020,table_s3_august_22_anti_clinton,Table S3,pipeline,"Table S3, August 22, Anti Clinton",343,343,1,343,1,NA,The article prints 343 and the pipeline gives 343.
+coppock_hill_vavreck_2020,table_s3_august_22_total,Table S3,pipeline,"Table S3, August 22, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_august_29_control,Table S3,pipeline,"Table S3, August 29, Control",334,334,1,334,1,NA,The article prints 334 and the pipeline gives 334.
+coppock_hill_vavreck_2020,table_s3_august_29_anti_clinton,Table S3,pipeline,"Table S3, August 29, Anti Clinton",333,333,1,333,1,NA,The article prints 333 and the pipeline gives 333.
+coppock_hill_vavreck_2020,table_s3_august_29_anti_trump,Table S3,pipeline,"Table S3, August 29, Anti Trump",333,333,1,333,1,NA,The article prints 333 and the pipeline gives 333.
+coppock_hill_vavreck_2020,table_s3_august_29_total,Table S3,pipeline,"Table S3, August 29, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_september_05_control,Table S3,pipeline,"Table S3, September 05, Control",338,338,1,338,1,NA,The article prints 338 and the pipeline gives 338.
+coppock_hill_vavreck_2020,table_s3_september_05_anti_trump,Table S3,pipeline,"Table S3, September 05, Anti Trump",662,662,1,662,1,NA,The article prints 662 and the pipeline gives 662.
+coppock_hill_vavreck_2020,table_s3_september_05_total,Table S3,pipeline,"Table S3, September 05, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_september_12_control,Table S3,pipeline,"Table S3, September 12, Control",337,337,1,337,1,NA,The article prints 337 and the pipeline gives 337.
+coppock_hill_vavreck_2020,table_s3_september_12_anti_clinton,Table S3,pipeline,"Table S3, September 12, Anti Clinton",336,336,1,336,1,NA,The article prints 336 and the pipeline gives 336.
+coppock_hill_vavreck_2020,table_s3_september_12_anti_trump,Table S3,pipeline,"Table S3, September 12, Anti Trump",327,327,1,327,1,NA,The article prints 327 and the pipeline gives 327.
+coppock_hill_vavreck_2020,table_s3_september_12_total,Table S3,pipeline,"Table S3, September 12, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_september_19_control,Table S3,pipeline,"Table S3, September 19, Control",321,321,1,321,1,NA,The article prints 321 and the pipeline gives 321.
+coppock_hill_vavreck_2020,table_s3_september_19_pro_trump,Table S3,pipeline,"Table S3, September 19, Pro Trump",342,342,1,342,1,NA,The article prints 342 and the pipeline gives 342.
+coppock_hill_vavreck_2020,table_s3_september_19_anti_trump,Table S3,pipeline,"Table S3, September 19, Anti Trump",337,337,1,337,1,NA,The article prints 337 and the pipeline gives 337.
+coppock_hill_vavreck_2020,table_s3_september_19_total,Table S3,pipeline,"Table S3, September 19, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_september_26_control,Table S3,pipeline,"Table S3, September 26, Control",262,262,1,262,1,NA,The article prints 262 and the pipeline gives 262.
+coppock_hill_vavreck_2020,table_s3_september_26_anti_clinton,Table S3,pipeline,"Table S3, September 26, Anti Clinton",255,255,1,255,1,NA,The article prints 255 and the pipeline gives 255.
+coppock_hill_vavreck_2020,table_s3_september_26_anti_trump,Table S3,pipeline,"Table S3, September 26, Anti Trump",242,242,1,242,1,NA,The article prints 242 and the pipeline gives 242.
+coppock_hill_vavreck_2020,table_s3_september_26_two_ads,Table S3,pipeline,"Table S3, September 26, Two Ads",241,241,1,241,1,NA,The article prints 241 and the pipeline gives 241.
+coppock_hill_vavreck_2020,table_s3_september_26_total,Table S3,pipeline,"Table S3, September 26, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_october_03_control,Table S3,pipeline,"Table S3, October 03, Control",246,246,1,246,1,NA,The article prints 246 and the pipeline gives 246.
+coppock_hill_vavreck_2020,table_s3_october_03_anti_clinton,Table S3,pipeline,"Table S3, October 03, Anti Clinton",255,255,1,255,1,NA,The article prints 255 and the pipeline gives 255.
+coppock_hill_vavreck_2020,table_s3_october_03_anti_trump,Table S3,pipeline,"Table S3, October 03, Anti Trump",244,244,1,244,1,NA,The article prints 244 and the pipeline gives 244.
+coppock_hill_vavreck_2020,table_s3_october_03_two_ads,Table S3,pipeline,"Table S3, October 03, Two Ads",255,255,1,255,1,NA,The article prints 255 and the pipeline gives 255.
+coppock_hill_vavreck_2020,table_s3_october_03_total,Table S3,pipeline,"Table S3, October 03, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_october_10_control,Table S3,pipeline,"Table S3, October 10, Control",331,331,1,331,1,NA,The article prints 331 and the pipeline gives 331.
+coppock_hill_vavreck_2020,table_s3_october_10_anti_trump,Table S3,pipeline,"Table S3, October 10, Anti Trump",669,669,1,669,1,NA,The article prints 669 and the pipeline gives 669.
+coppock_hill_vavreck_2020,table_s3_october_10_total,Table S3,pipeline,"Table S3, October 10, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_october_17_control,Table S3,pipeline,"Table S3, October 17, Control",256,256,1,256,1,NA,The article prints 256 and the pipeline gives 256.
+coppock_hill_vavreck_2020,table_s3_october_17_anti_clinton,Table S3,pipeline,"Table S3, October 17, Anti Clinton",245,245,1,245,1,NA,The article prints 245 and the pipeline gives 245.
+coppock_hill_vavreck_2020,table_s3_october_17_anti_trump,Table S3,pipeline,"Table S3, October 17, Anti Trump",248,248,1,248,1,NA,The article prints 248 and the pipeline gives 248.
+coppock_hill_vavreck_2020,table_s3_october_17_two_ads,Table S3,pipeline,"Table S3, October 17, Two Ads",251,251,1,251,1,NA,The article prints 251 and the pipeline gives 251.
+coppock_hill_vavreck_2020,table_s3_october_17_total,Table S3,pipeline,"Table S3, October 17, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_october_24_control,Table S3,pipeline,"Table S3, October 24, Control",235,235,1,235,1,NA,The article prints 235 and the pipeline gives 235.
+coppock_hill_vavreck_2020,table_s3_october_24_anti_clinton,Table S3,pipeline,"Table S3, October 24, Anti Clinton",259,259,1,259,1,NA,The article prints 259 and the pipeline gives 259.
+coppock_hill_vavreck_2020,table_s3_october_24_anti_trump,Table S3,pipeline,"Table S3, October 24, Anti Trump",245,245,1,245,1,NA,The article prints 245 and the pipeline gives 245.
+coppock_hill_vavreck_2020,table_s3_october_24_two_ads,Table S3,pipeline,"Table S3, October 24, Two Ads",261,261,1,261,1,NA,The article prints 261 and the pipeline gives 261.
+coppock_hill_vavreck_2020,table_s3_october_24_total,Table S3,pipeline,"Table S3, October 24, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_october_31_control,Table S3,pipeline,"Table S3, October 31, Control",275,275,1,275,1,NA,The article prints 275 and the pipeline gives 275.
+coppock_hill_vavreck_2020,table_s3_october_31_pro_trump,Table S3,pipeline,"Table S3, October 31, Pro Trump",233,233,1,233,1,NA,The article prints 233 and the pipeline gives 233.
+coppock_hill_vavreck_2020,table_s3_october_31_anti_trump,Table S3,pipeline,"Table S3, October 31, Anti Trump",250,250,1,250,1,NA,The article prints 250 and the pipeline gives 250.
+coppock_hill_vavreck_2020,table_s3_october_31_two_ads,Table S3,pipeline,"Table S3, October 31, Two Ads",242,242,1,242,1,NA,The article prints 242 and the pipeline gives 242.
+coppock_hill_vavreck_2020,table_s3_october_31_total,Table S3,pipeline,"Table S3, October 31, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_november_07_control,Table S3,pipeline,"Table S3, November 07, Control",267,267,1,267,1,NA,The article prints 267 and the pipeline gives 267.
+coppock_hill_vavreck_2020,table_s3_november_07_anti_clinton,Table S3,pipeline,"Table S3, November 07, Anti Clinton",243,243,1,243,1,NA,The article prints 243 and the pipeline gives 243.
+coppock_hill_vavreck_2020,table_s3_november_07_anti_trump,Table S3,pipeline,"Table S3, November 07, Anti Trump",240,240,1,240,1,NA,The article prints 240 and the pipeline gives 240.
+coppock_hill_vavreck_2020,table_s3_november_07_two_ads,Table S3,pipeline,"Table S3, November 07, Two Ads",250,250,1,250,1,NA,The article prints 250 and the pipeline gives 250.
+coppock_hill_vavreck_2020,table_s3_november_07_total,Table S3,pipeline,"Table S3, November 07, Total",1000,1000,1,1000,1,NA,The article prints 1000 and the pipeline gives 1000.
+coppock_hill_vavreck_2020,table_s3_total_control,Table S3,pipeline,"Table S3, Total, Control",9642,9642,1,9642,1,NA,The article prints 9642 and the pipeline gives 9642.
+coppock_hill_vavreck_2020,table_s3_total_pro_clinton,Table S3,pipeline,"Table S3, Total, Pro Clinton",2403,2403,1,2403,1,NA,The article prints 2403 and the pipeline gives 2403.
+coppock_hill_vavreck_2020,table_s3_total_anti_clinton,Table S3,pipeline,"Table S3, Total, Anti Clinton",4240,4240,1,4240,1,NA,The article prints 4240 and the pipeline gives 4240.
+coppock_hill_vavreck_2020,table_s3_total_pro_trump,Table S3,pipeline,"Table S3, Total, Pro Trump",764,764,1,764,1,NA,The article prints 764 and the pipeline gives 764.
+coppock_hill_vavreck_2020,table_s3_total_anti_trump,Table S3,pipeline,"Table S3, Total, Anti Trump",10285,10285,1,10285,1,NA,The article prints 10285 and the pipeline gives 10285.
+coppock_hill_vavreck_2020,table_s3_total_pro_cruz,Table S3,pipeline,"Table S3, Total, Pro Cruz",459,459,1,459,1,NA,The article prints 459 and the pipeline gives 459.
+coppock_hill_vavreck_2020,table_s3_total_pro_kasich,Table S3,pipeline,"Table S3, Total, Pro Kasich",250,250,1,250,1,NA,The article prints 250 and the pipeline gives 250.
+coppock_hill_vavreck_2020,table_s3_total_pro_sanders,Table S3,pipeline,"Table S3, Total, Pro Sanders",880,880,1,880,1,NA,The article prints 880 and the pipeline gives 880.
+coppock_hill_vavreck_2020,table_s3_total_two_ads,Table S3,pipeline,"Table S3, Total, Two Ads",5077,5077,1,5077,1,NA,The article prints 5077 and the pipeline gives 5077.
+coppock_hill_vavreck_2020,table_s3_total_total,Table S3,pipeline,"Table S3, Total, Total",34000,34000,1,34000,1,NA,The article prints 34000 and the pipeline gives 34000.

@@ -31,8 +31,12 @@ latex_out <- knitr::is_latex_output()
 
 latex_only <- function(k, f) if (latex_out) f(k) else k
 
+# value_paper is the string the article prints, including a cell printed as -0.00, so it
+# is read as text rather than let readr guess a double and lose the printed precision.
 gt <- read_csv(here::here("ground_truth", "coppock_hill_vavreck_2020_ground_truth.csv"),
-               show_col_types = FALSE)
+               col_types = cols(value_paper = col_character(), .default = col_guess()))
+published_claims <- read_csv(here::here("ground_truth", "published_claims.csv"),
+                             show_col_types = FALSE)
 manifest <- read_csv(here::here("original_manifest.csv"), show_col_types = FALSE)
 agreement <- read_csv(here::here("maintained", "output", "text_archive_agreement.csv"),
                       show_col_types = FALSE)
@@ -53,7 +57,7 @@ This repository holds the actively maintained replication code for Coppock, Hill
 
 **The data are not redistributed here.** The deposit is `r round(sum(manifest$bytes) / 1e6, 1)` MB across `r nrow(manifest)` files and lives at Harvard Dataverse, which is the only copy this repository points at. `download_original.R` fetches it and verifies every file; `original_manifest.csv` pins the file identifiers, sizes and checksums, so the exact bytes this code was written against are recorded in version control even though the bytes themselves are not.
 
-**Repository layout.** `maintained/` is the maintained rewrite: one script per published table or figure, writing to `output/`, which is committed so a reader can compare a fresh run against it without downloading anything. `ground_truth/` ties every published number to the code that produces it. `original/` is created by the download script and is deliberately absent from the repository. This file is the reproducibility report, also available as a PDF in `report/`.
+**Repository layout.** `maintained/` is the maintained rewrite: one script per published table or figure, writing to `output/`, which is committed so a reader can compare a fresh run against it without downloading anything. `ground_truth/` ties every published number to the code that produces it: `published_claims.csv` is the hand-reviewed extraction of every numeric token in the article and its supplementary materials, and the comparison table is built against it. `errata.qmd` at the root renders `coppock_hill_vavreck_2020_errata.pdf`, a note listing the sentences in the article whose numbers are wrong. `original/` is created by the download script and is deliberately absent from the repository. This file is the reproducibility report, also available as a PDF in `report/`.
 
 **License.** CC0 1.0 Universal, matching the terms of the deposit this repository maintains. See `LICENSE`.
 
@@ -69,10 +73,15 @@ That fetches the deposit, verifies its `r nrow(manifest)` files, produces every 
 
 ```{r summary_setup, include=FALSE}
 n_claims <- nrow(gt)
-n_archive_match <- sum(gt$match == 1)
-n_archive_fail <- sum(gt$match == 0)
-n_rewrite_match <- sum(gt$match_rewrite == 1)
-n_rewrite_fail <- sum(gt$match_rewrite == 0)
+n_archive_match <- sum(gt$match == 1, na.rm = TRUE)
+n_archive_fail <- sum(gt$match == 0, na.rm = TRUE)
+n_rewrite_match <- sum(gt$match_rewrite == 1, na.rm = TRUE)
+n_rewrite_fail <- sum(gt$match_rewrite == 0, na.rm = TRUE)
+n_no_verdict <- sum(is.na(gt$match_rewrite))
+n_extraction <- nrow(published_claims)
+n_s3 <- sum(gt$table_figure == "Table S3")
+n_scripts <- length(list.files(here::here("maintained"), pattern = "\\.R$"))
+n_errata <- sum(gt$table_figure != "Table 1" & !is.na(gt$defect_locus))
 ```
 
 Two questions, answered before the detail.
@@ -83,7 +92,7 @@ Not any more, and the failure is silent about how much it costs. The four `estim
 
 What makes the failure quiet is that the eight downstream scripts do not notice. The archive deposits the four `.rds` estimate files alongside the code that makes them, so `table_1.R`, `figure_1.R`, `figure_2.R`, `table_S2.R` and the rest read the deposited objects and run clean whether or not the estimation step succeeded. An archive that ships its own intermediates can look healthy while the half of it that does the work has stopped executing.
 
-Reproducing is a different question from running, and here the archive does reproduce. Of the `r n_claims` published quantities recorded in the ground truth, `r n_archive_match` are reproduced exactly by the deposited code once the four `path =` calls are repaired. The `r n_archive_fail` that do not match are not failures of the code: they are places where the article or its appendix states something the code does not produce, listed under the errata section below.
+Reproducing is a different question from running, and here the archive does reproduce. Of the `r n_claims` published quantities recorded in the ground truth, `r n_archive_match` are reproduced exactly by the deposited code once the four `path =` calls are repaired. The `r n_archive_fail` that do not match are not failures of the code: they are places where the article or its supplementary materials state something the code does not produce, listed under the errata section below. A further `r n_no_verdict` are claims about shape whose wording sets no threshold, so no verdict is computed for them.
 
 ## Does the maintained rewrite reproduce the paper?
 
@@ -196,11 +205,15 @@ All `r nrow(manifest)` published checksums agree with the bytes `?format=origina
 
 # Errata in the published article
 
-`r n_archive_fail` recorded quantities do not match. None of them is a defect in the code: in every case the deposited script and the maintained rewrite agree with each other, and the article or its appendix states something else. That is what `defect_locus` records in the ground truth, and every failing row carries the same value.
+`r n_archive_fail` recorded quantities do not match. None of them is a defect in the code: in every case the deposited script and the maintained rewrite agree with each other, and the article or its supplementary materials state something else. That is what `defect_locus` records in the ground truth, and every failing row carries the same value.
+
+`r n_errata` of the `r n_archive_fail` are sentences a reader would quote, and those are collected in `coppock_hill_vavreck_2020_errata.pdf` at the root of this repository, rendered from `errata.qmd` with every corrected value computed from the deposit at render time. The remaining one is a table cell rather than a sentence and is described below.
 
 ```{r errata_table}
 gt |>
-  filter(match == 0) |>
+  filter(!is.na(match), match == 0) |>
+  mutate(value_paper = replace_na(value_paper, ""),
+         value_script = signif(value_script, 4)) |>
   select(table_figure, claim, value_paper, value_script, defect_locus, notes) |>
   kable(
     booktabs = TRUE,
@@ -213,7 +226,7 @@ gt |>
     column_spec(5, width = "7cm"))
 ```
 
-Four of these are worth stating in prose.
+Six of these are worth stating in prose.
 
 **The vote choice CATE homogeneity test.** The Results section reports "For the set of conditional average treatment effects (CATEs), P values are 0.0002 and 0.96." Table S2 of the same paper reports 0.0961 for the vote choice CATEs, which is what the code produces. The main text figure is off by a factor of ten, and it is the one that reads as decisive evidence of homogeneity.
 
@@ -223,12 +236,17 @@ Four of these are worth stating in prose.
 
 **The appendix's advertisement counts.** Appendix section A says Table S1 shows "50 unique advertisements" and that, "including the ads we deployed more than once," the study tested 28 anti-Trump, nine anti-Clinton, nine pro-Clinton and three pro-Trump advertisements. The data hold 49 distinct campaign advertisements and one placebo, and the main text's 49 is right. The four counts match neither the distinct-advertisement counts (24, 11, 6, 3) nor the deployment counts (30, 11, 8, 3); the main text's own breakdown, 30/11/8/3, is the deployment count and is correct. Appendix section A also names eight advertisements as having run in multiple weeks; seven did, and "Man of People" ran once, on 14 March. Section B and Figure S1 both use the correct seven.
 
-The manipulation check range is a fifth, smaller case. The article says treated respondents claiming to have seen a campaign advertisement ranged from 92 to 95 percent. The unweighted range across the ten waves in which the question was asked is 91.4 to 95.5 percent, and weighting by the survey weights widens it to 90.2 to 95.9. The control range, stated as 2 to 4 percent, is right.
+**The largest estimate in the study.** The Results section asks the reader to imagine what a significance filter would leave, and describes "one large positive result toward the end of the campaign in October (more than +0.5 points)." No estimate anywhere in the study reaches half a scale point. The largest is `r sprintf("%.3f", gt$value_rewrite[gt$claim_id == "desc_large_positive_october"])`, on the advertisement "Example" in the week of 31 October, and it is in the right place on the right date. The passage's point survives; the number does not.
+
+**Standard errors and the partisanship coefficients.** The Results section says the differences in treatment response across Democrats, Independents and Republicans are "small, with SEs greater than coefficients." That holds in `r gt$value_rewrite[gt$claim_id == "desc_partisan_ses_exceed_coefficients"]` of the 8 partisanship cells in Table 1. The exceptions are the Democratic respondent coefficients in columns 1 and 3, and the second is visible on the published page: 0.011 with a standard error of 0.010. Neither is distinguishable from zero, so the claim the sentence supports is unaffected.
+
+The manipulation check range is a seventh, smaller case. The article says treated respondents claiming to have seen a campaign advertisement ranged from 92 to 95 percent. The unweighted range across the ten waves in which the question was asked is 91.4 to 95.5 percent, and weighting by the survey weights widens it to 90.2 to 95.9. The control range, stated as 2 to 4 percent, is right.
 
 # Number-by-number comparison
 
 ```{r gt_table}
 gt |>
+  filter(table_figure != "Table S3") |>
   mutate(across(everything(), \(x) replace_na(as.character(x), ""))) |>
   select(table_figure, claim, value_paper, value_script, match) |>
   kable(
@@ -241,13 +259,21 @@ gt |>
     column_spec(2, width = "5cm"))
 ```
 
-Every quantity the article or its appendix states is recorded: `r n_claims` of them, covering the abstract, the design description, the manipulation and attrition checks, both annotations on Figure 1, all twelve annotations on Figure 2, all 76 cells of Table 1, all 20 cells of Table S2, and the appendix's own design counts.
+The table above omits the `r n_s3` cells of Table S3, which would swamp it. All `r n_s3` reproduce exactly, and they are in the ground truth CSV.
 
-Every published float is represented. The two tables and two figures that print coefficients are covered cell by cell. The other three print none, so each is checked on what it does state: Table S1 on the shape of the advertisement list, Table S3 on its ten published column totals, and Figure S1 on its seven panels and seventeen plotted estimates. The table is built by `ground_truth/build_ground_truth.R`, which reads every comparison value back out of `maintained/output/` and refuses to write a failing row that carries no `defect_locus`.
+The starting point is `ground_truth/published_claims.csv`, an extraction of every numeric token in the article and its supplementary materials, classified by hand into the ones the pipeline can reach and the ones nothing in it can move. It holds `r n_extraction` entries; `r n_claims` of them are quantities the pipeline produces or claims about shape it can settle, and each of those has a row in the ground truth. The rest are scale endpoints, an IRB number, section and question numbering, and the two numbers the supplementary materials quote from outside the study, and giving one of those a row would mean typing a published number into the code.
+
+Every published float is represented. The two tables and two figures that print coefficients are covered cell by cell, as is Table S3. The other two print none, so each is checked on what it does state: Table S1 on the shape of the advertisement list, and Figure S1 on its seven panels and seventeen plotted estimates. The table is built by `ground_truth/build_ground_truth.R`, which reads every comparison value back out of `maintained/output/` and refuses to write a failing row that carries no `defect_locus`.
+
+## Two instruments, checked against each other
+
+`maintained/in_text_claims.R` carries one block per claim: the sentence the article prints, verbatim, and the value this pipeline gives for it in the article's own units and rounding. It reads the same files in `output/` that the ground truth reads, and does its own selection, unit conversion and rounding, so the two arrive at each number by separate paths.
+
+`build_ground_truth.R` runs that file non-interactively, counts the claims it printed, checks the set against the extraction, and compares every printed value against the one it derived for itself. A block that errors, or that quietly stops printing, fails that check; a comment saying a claim is covered would not. A disagreement between the two is a finding rather than a coincidence, and the build stops on one.
 
 # Maintained rewrite
 
-The rewrite lives in `maintained/`: fourteen scripts covering four estimation steps, four published tables, three figures, the in-text quantities, and the comparison against the deposit. It is a translation, not a reanalysis. Every estimator, specification and sample restriction is the one the paper used, including the two places where the archive's choices are not what a rule would predict: Figure S1 scores the pro-Clinton advertisement "Real Life" against Trump favorability while scoring the pro-Clinton advertisement "Love/Kindness" against Clinton favorability, and the rewrite keeps both.
+The rewrite lives in `maintained/`: `r n_scripts` scripts covering four estimation steps, four published tables, three figures, the in-text quantities, the claims about shape and count, the comparison against the deposit, and the in-text claims audit. It is a translation, not a reanalysis. Every estimator, specification and sample restriction is the one the paper used, including the two places where the archive's choices are not what a rule would predict: Figure S1 scores the pro-Clinton advertisement "Real Life" against Trump favorability while scoring the pro-Clinton advertisement "Love/Kindness" against Clinton favorability, and the rewrite keeps both.
 
 ## Architecture
 
@@ -372,7 +398,7 @@ Both main-text figures carry their estimates as printed annotations, and every o
 
 ```{r fig_annotation_table}
 gt |>
-  filter(table_figure %in% c("figure_1", "figure_2")) |>
+  filter(table_figure %in% c("Figure 1", "Figure 2")) |>
   select(table_figure, claim, value_paper, value_rewrite, match_rewrite) |>
   kable(
     booktabs = TRUE,
@@ -425,6 +451,7 @@ knitr::include_graphics(
 
 ```{r rewrite_verify}
 gt |>
+  filter(table_figure != "Table S3") |>
   mutate(across(everything(), \(x) replace_na(as.character(x), ""))) |>
   select(table_figure, claim, value_paper, value_rewrite, match_rewrite, defect_locus) |>
   kable(

@@ -13,6 +13,8 @@
   - [Checksums](#checksums)
 - [Errata in the published article](#errata-in-the-published-article)
 - [Number-by-number comparison](#number-by-number-comparison)
+  - [Two instruments, checked against each
+    other](#two-instruments-checked-against-each-other)
 - [Maintained rewrite](#maintained-rewrite)
   - [Architecture](#architecture)
   - [Confidence bounds that lost their
@@ -54,9 +56,14 @@ in version control even though the bytes themselves are not.
 script per published table or figure, writing to `output/`, which is
 committed so a reader can compare a fresh run against it without
 downloading anything. `ground_truth/` ties every published number to the
-code that produces it. `original/` is created by the download script and
-is deliberately absent from the repository. This file is the
-reproducibility report, also available as a PDF in `report/`.
+code that produces it: `published_claims.csv` is the hand-reviewed
+extraction of every numeric token in the article and its supplementary
+materials, and the comparison table is built against it. `errata.qmd` at
+the root renders `coppock_hill_vavreck_2020_errata.pdf`, a note listing
+the sentences in the article whose numbers are wrong. `original/` is
+created by the download script and is deliberately absent from the
+repository. This file is the reproducibility report, also available as a
+PDF in `report/`.
 
 **License.** CC0 1.0 Universal, matching the terms of the deposit this
 repository maintains. See `LICENSE`.
@@ -104,17 +111,18 @@ own intermediates can look healthy while the half of it that does the
 work has stopped executing.
 
 Reproducing is a different question from running, and here the archive
-does reproduce. Of the 175 published quantities recorded in the ground
-truth, 165 are reproduced exactly by the deposited code once the four
-`path =` calls are repaired. The 10 that do not match are not failures
-of the code: they are places where the article or its appendix states
-something the code does not produce, listed under the errata section
-below.
+does reproduce. Of the 342 published quantities recorded in the ground
+truth, 326 are reproduced exactly by the deposited code once the four
+`path =` calls are repaired. The 12 that do not match are not failures
+of the code: they are places where the article or its supplementary
+materials state something the code does not produce, listed under the
+errata section below. A further 4 are claims about shape whose wording
+sets no threshold, so no verdict is computed for them.
 
 ## Does the maintained rewrite reproduce the paper?
 
-Yes. All 165 reproducible quantities match the published values to
-reported precision, and the 10 that do not are the same published errata
+Yes. All 326 reproducible quantities match the published values to
+reported precision, and the 12 that do not are the same published errata
 the archive fails on. The rewrite also agrees with the deposit itself.
 Its four per-week estimate files are the objects the archive deposits
 alongside its code, and they are the input to every published table and
@@ -239,28 +247,36 @@ and sizes of the derived file.
 
 # Errata in the published article
 
-10 recorded quantities do not match. None of them is a defect in the
+12 recorded quantities do not match. None of them is a defect in the
 code: in every case the deposited script and the maintained rewrite
-agree with each other, and the article or its appendix states something
-else. That is what `defect_locus` records in the ground truth, and every
-failing row carries the same value.
+agree with each other, and the article or its supplementary materials
+state something else. That is what `defect_locus` records in the ground
+truth, and every failing row carries the same value.
+
+11 of the 12 are sentences a reader would quote, and those are collected
+in `coppock_hill_vavreck_2020_errata.pdf` at the root of this
+repository, rendered from `errata.qmd` with every corrected value
+computed from the deposit at render time. The remaining one is a table
+cell rather than a sentence and is described below.
 
 | Location | Quantity | Published | Code | Locus | Note |
-|:---|:---|---:|---:|:---|:---|
-| methods | manip_check_treated_min | 0.920 | 0.9141566 | paper_internal | The unweighted range across waves 21 to 30 is 0.914 to 0.955, so the stated 92 to 95 per cent is one point narrow at each end. Weighting by the survey weights gives 0.902 to 0.959, wider still. |
-| methods | manip_check_treated_max | 0.950 | 0.9554318 | paper_internal | NA |
-| text | vc_cate_homogeneity_pval | 0.960 | 0.0961039 | paper_internal | The Results section reports 0.96 for this test. Table S2 of the same article reports 0.0961, which is what the code produces, so the main text figure is off by a factor of ten. |
-| text | general_election_coefficient | 0.121 | 0.1226243 | paper_internal | The Results section says 0.121 scale points. Table 1 of the same article prints 0.123, which is what the code produces. |
-| table_1 | m1_battleground_d_est | 0.000 | -0.0076809 | paper_internal | The published table prints -0.00 in this cell. The code gives -0.008, and the Results section quotes the magnitude correctly as 0.008. |
-| appendix_a | n_unique_ads_stated | 50.000 | 49.0000000 | paper_internal | Appendix section A says Table S1 shows 50 unique advertisements. The data hold 49 campaign advertisements plus the placebo, and the main text’s 49 is right. |
-| appendix_a | n_anti_trump_stated | 28.000 | 30.0000000 | paper_internal | Appendix section A gives 28, 9, 9 and 3 for anti-Trump, anti-Clinton, pro-Clinton and pro-Trump advertisements ‘including the ads we deployed more than once’. The deployment counts are 30, 11, 8 and 3 and the distinct-advertisement counts are 24, 11, 6 and 3, so the appendix breakdown matches neither. |
-| appendix_a | n_anti_clinton_stated | 9.000 | 11.0000000 | paper_internal | NA |
-| appendix_a | n_pro_clinton_stated | 9.000 | 8.0000000 | paper_internal | NA |
-| appendix_a | n_repeat_ads_named | 8.000 | 7.0000000 | paper_internal | Appendix section A names eight advertisements as shown in multiple weeks. Seven were: ‘Man of People’ was fielded only in the week of 14 March. |
+|:---|:---|:---|---:|:---|:---|
+| Materials and Methods | Treatment group manipulation check, minimum (%) | 92 | 91.420000 | paper_internal | The article prints 92 and the pipeline gives 91. Unweighted, as in the deposited code. Weighting by the survey weights widens the range to 90.2 to 95.9 per cent. |
+| Materials and Methods | Treatment group manipulation check, maximum (%) | 95 | 95.540000 | paper_internal | The article prints 95 and the pipeline gives 96. |
+| Results | Largest significant positive favorability estimate in October | 0.5 | 0.432000 | paper_internal | The article prints 0.5 and the pipeline gives 0.4. Example, week of 2016-10-31, 0.432 \[0.152, 0.712\]. The largest favorability estimate anywhere in the study is 0.432 |
+| Results | Partisanship cells of Table 1 whose standard error exceeds the coefficient |  | 6.000000 | paper_internal | The pipeline does not support this claim. Candidate favorability (1) democrat_d: 0.0352 (0.0347); Candidate favorability (1) independent_d: 0.0231 (0.0515); Candidate favorability (2) democrat_d: 0.0218 (0.0361); Candidate favorability (2) independent_d: 0.0149 (0.0518); Vote choice (3) democrat_d: 0.0108 (0.0100); Vote choice (3) independent_d: 0.0088 (0.0197); Vote choice (4) democrat_d: 0.0061 (0.0112); Vote choice (4) independent_d: 0.0066 (0.0199) |
+| Results | General election coefficient (scale points) | 0.121 | 0.122600 | paper_internal | The article prints 0.121 and the pipeline gives 0.123. Table 1 of the same article prints 0.123, which is what the code produces. |
+| Results | CATE vote choice homogeneity p-value | 0.96 | 0.096100 | paper_internal | The article prints 0.96 and the pipeline gives 0.10. Table S2 of the same article prints 0.0961 for this test, which is what the code produces, so the Results section is off by a factor of ten. |
+| Table 1 | Table 1, model 1, battleground_d, estimate | -0.00 | -0.007681 | paper_internal | The article prints -0.00 and the pipeline gives -0.01. The published table prints -0.00 in this cell. The code gives -0.008, and the Results section quotes the magnitude correctly as 0.008. |
+| Appendix A | Distinct campaign advertisements | 50 | 49.000000 | paper_internal | The article prints 50 and the pipeline gives 49. Appendix section A says Table S1 shows 50 unique advertisements. The data hold 49 campaign advertisements plus the placebo, and the main text’s 49 is right. Two of the 49 share the title Sacrifice and the week of 5 September, so the table’s body carries 48 distinct names. |
+| Appendix A | Advertisements fielded in more than one week | 8 | 7.000000 | paper_internal | The article prints 8 and the pipeline gives 7. Appendix section A names eight advertisements as shown in multiple weeks. Seven were: Man of People was fielded only in the week of 14 March. |
+| Appendix A | Anti-Trump deployments | 28 | 30.000000 | paper_internal | The article prints 28 and the pipeline gives 30. Appendix section A gives 28, 9, 9 and 3 for anti-Trump, anti-Clinton, pro-Clinton and pro-Trump advertisements ‘including the ads we deployed more than once’. The deployment counts are 30, 11, 8 and 3, which is what the main text states, and the distinct-advertisement counts are 24, 11, 6 and 3. |
+| Appendix A | Anti-Clinton deployments | 9 | 11.000000 | paper_internal | The article prints 9 and the pipeline gives 11. |
+| Appendix A | Pro-Clinton deployments | 9 | 8.000000 | paper_internal | The article prints 9 and the pipeline gives 8. |
 
 Published values the code does not produce.
 
-Four of these are worth stating in prose.
+Six of these are worth stating in prose.
 
 **The vote choice CATE homogeneity test.** The Results section reports
 “For the set of conditional average treatment effects (CATEs), P values
@@ -294,8 +310,25 @@ advertisements as having run in multiple weeks; seven did, and “Man of
 People” ran once, on 14 March. Section B and Figure S1 both use the
 correct seven.
 
-The manipulation check range is a fifth, smaller case. The article says
-treated respondents claiming to have seen a campaign advertisement
+**The largest estimate in the study.** The Results section asks the
+reader to imagine what a significance filter would leave, and describes
+“one large positive result toward the end of the campaign in October
+(more than +0.5 points).” No estimate anywhere in the study reaches half
+a scale point. The largest is 0.432, on the advertisement “Example” in
+the week of 31 October, and it is in the right place on the right date.
+The passage’s point survives; the number does not.
+
+**Standard errors and the partisanship coefficients.** The Results
+section says the differences in treatment response across Democrats,
+Independents and Republicans are “small, with SEs greater than
+coefficients.” That holds in 6 of the 8 partisanship cells in Table 1.
+The exceptions are the Democratic respondent coefficients in columns 1
+and 3, and the second is visible on the published page: 0.011 with a
+standard error of 0.010. Neither is distinguishable from zero, so the
+claim the sentence supports is unaffected.
+
+The manipulation check range is a seventh, smaller case. The article
+says treated respondents claiming to have seen a campaign advertisement
 ranged from 92 to 95 percent. The unweighted range across the ten waves
 in which the question was asked is 91.4 to 95.5 percent, and weighting
 by the survey weights widens it to 90.2 to 95.9. The control range,
@@ -303,213 +336,268 @@ stated as 2 to 4 percent, is right.
 
 # Number-by-number comparison
 
-| Location   | Quantity                      | Paper  | Archive              | Match |
-|:-----------|:------------------------------|:-------|:---------------------|:------|
-| abstract   | n_advertisements_tested       | 49     | 49                   | 1     |
-| abstract   | n_experiments                 | 59     | 59                   | 1     |
-| abstract   | n_respondents                 | 34000  | 34000                | 1     |
-| methods    | n_weeks                       | 29     | 29                   | 1     |
-| methods    | n_deployments_anti_trump      | 30     | 30                   | 1     |
-| methods    | n_deployments_anti_clinton    | 11     | 11                   | 1     |
-| methods    | n_deployments_pro_clinton     | 8      | 8                    | 1     |
-| methods    | n_deployments_pro_trump       | 3      | 3                    | 1     |
-| methods    | manip_check_control_min       | 0.02   | 0.015625             | 1     |
-| methods    | manip_check_control_max       | 0.04   | 0.0401459854014598   | 1     |
-| methods    | manip_check_treated_min       | 0.92   | 0.914156626506024    | 0     |
-| methods    | manip_check_treated_max       | 0.95   | 0.955431754874652    | 0     |
-| methods    | attrition_rate                | 0.42   | 0.424450688966381    | 1     |
-| methods    | n_attrition_tests             | 29     | 29                   | 1     |
-| methods    | n_sig_unadjusted              | 3      | 3                    | 1     |
-| methods    | n_sig_holm                    | 0      | 0                    | 1     |
-| methods    | n_sig_benjamini_hochberg      | 0      | 0                    | 1     |
-| figure_1   | fav_sate_meta_estimate        | 0.049  | 0.0492278297226765   | 1     |
-| figure_1   | fav_sate_meta_se              | 0.02   | 0.0200009449806686   | 1     |
-| figure_1   | vc_sate_meta_estimate         | 0.007  | 0.00718114897405215  | 1     |
-| figure_1   | vc_sate_meta_se               | 0.007  | 0.00732724536941071  | 1     |
-| text       | fav_sate_avg_scale_points     | 0.049  | 0.0492278297226765   | 1     |
-| text       | fav_sate_sd_scale_points      | 0.07   | 0.0681856141500511   | 1     |
-| text       | vc_sate_avg_percentage_points | 0.007  | 0.00718114897405215  | 1     |
-| text       | vc_sate_sd_percentage_points  | 0.02   | 0.0221866535171719   | 1     |
-| text       | fav_cate_sd_scale_points      | 0.15   | 0.147422967808586    | 1     |
-| text       | vc_cate_sd_percentage_points  | 0.02   | 0.0232088109488414   | 1     |
-| text       | fav_sate_homogeneity_pval     | 0.09   | 0.0919044204718372   | 1     |
-| text       | vc_sate_homogeneity_pval      | 0.07   | 0.0699520982406857   | 1     |
-| text       | fav_cate_homogeneity_pval     | 2e-04  | 0.000165056906355207 | 1     |
-| text       | vc_cate_homogeneity_pval      | 0.96   | 0.0961039371758419   | 0     |
-| text       | general_election_coefficient  | 0.121  | 0.122624298396105    | 0     |
-| text       | general_election_ci_upper     | 0.25   | 0.253750226781251    | 1     |
-| text       | battleground_difference       | 0.008  | 0.00768087181979859  | 1     |
-| table_1    | m1_intrcpt_est                | 0.056  | 0.0559513746296691   | 1     |
-| table_1    | m1_intrcpt_se                 | 0.02   | 0.0203091094511682   | 1     |
-| table_1    | m2_intrcpt_est                | 0.062  | 0.0619557871802226   | 1     |
-| table_1    | m2_intrcpt_se                 | 0.02   | 0.0204550273103208   | 1     |
-| table_1    | m3_intrcpt_est                | 0.007  | 0.00717343917312331  | 1     |
-| table_1    | m3_intrcpt_se                 | 0.007  | 0.0071442025839593   | 1     |
-| table_1    | m4_intrcpt_est                | 0.008  | 0.00761340879292043  | 1     |
-| table_1    | m4_intrcpt_se                 | 0.007  | 0.00721776470356415  | 1     |
-| table_1    | m1_democrat_d_est             | 0.035  | 0.035239216310936    | 1     |
-| table_1    | m1_democrat_d_se              | 0.035  | 0.0346822419625252   | 1     |
-| table_1    | m2_democrat_d_est             | 0.022  | 0.0217616219401437   | 1     |
-| table_1    | m2_democrat_d_se              | 0.036  | 0.0361069235707198   | 1     |
-| table_1    | m3_democrat_d_est             | 0.011  | 0.010806619726571    | 1     |
-| table_1    | m3_democrat_d_se              | 0.01   | 0.010032366314141    | 1     |
-| table_1    | m4_democrat_d_est             | 0.006  | 0.00607624424823846  | 1     |
-| table_1    | m4_democrat_d_se              | 0.011  | 0.0111901459055996   | 1     |
-| table_1    | m1_independent_d_est          | 0.023  | 0.0230994168403523   | 1     |
-| table_1    | m1_independent_d_se           | 0.051  | 0.0514908172832446   | 1     |
-| table_1    | m2_independent_d_est          | 0.015  | 0.0148795264572917   | 1     |
-| table_1    | m2_independent_d_se           | 0.052  | 0.0518214653308673   | 1     |
-| table_1    | m3_independent_d_est          | 0.009  | 0.00882756839601489  | 1     |
-| table_1    | m3_independent_d_se           | 0.02   | 0.0196989007331031   | 1     |
-| table_1    | m4_independent_d_est          | 0.007  | 0.00662959611432707  | 1     |
-| table_1    | m4_independent_d_se           | 0.02   | 0.0199216048048094   | 1     |
-| table_1    | m1_battleground_d_est         | 0      | -0.00768087181979859 | 0     |
-| table_1    | m1_battleground_d_se          | 0.033  | 0.0330993309997604   | 1     |
-| table_1    | m2_battleground_d_est         | -0.007 | -0.0072889741172583  | 1     |
-| table_1    | m2_battleground_d_se          | 0.033  | 0.0331245308366241   | 1     |
-| table_1    | m3_battleground_d_est         | -0.017 | -0.0169737781355814  | 1     |
-| table_1    | m3_battleground_d_se          | 0.01   | 0.00982144227142085  | 1     |
-| table_1    | m4_battleground_d_est         | -0.017 | -0.0170054042184294  | 1     |
-| table_1    | m4_battleground_d_se          | 0.01   | 0.00996790251931272  | 1     |
-| table_1    | m1_pac_d_est                  | -0.012 | -0.0124947275778725  | 1     |
-| table_1    | m1_pac_d_se                   | 0.043  | 0.0426308784476082   | 1     |
-| table_1    | m2_pac_d_est                  | 0.026  | 0.0256893089604675   | 1     |
-| table_1    | m2_pac_d_se                   | 0.047  | 0.0469851815197418   | 1     |
-| table_1    | m3_pac_d_est                  | -0.023 | -0.0231494095931858  | 1     |
-| table_1    | m3_pac_d_se                   | 0.013  | 0.0128349559721876   | 1     |
-| table_1    | m4_pac_d_est                  | -0.016 | -0.0156649998403321  | 1     |
-| table_1    | m4_pac_d_se                   | 0.014  | 0.0144268706850987   | 1     |
-| table_1    | m1_date_d_est                 | -0.023 | -0.0230094166284181  | 1     |
-| table_1    | m1_date_d_se                  | 0.014  | 0.0140563401835011   | 1     |
-| table_1    | m2_date_d_est                 | 0.005  | 0.00455623211451787  | 1     |
-| table_1    | m2_date_d_se                  | 0.01   | 0.0101010468834039   | 1     |
-| table_1    | m3_date_d_est                 | -0.009 | -0.00937763297831399 | 1     |
-| table_1    | m3_date_d_se                  | 0.004  | 0.00379382342908776  | 1     |
-| table_1    | m4_date_d_est                 | -0.008 | -0.00774541926272451 | 1     |
-| table_1    | m4_date_d_se                  | 0.004  | 0.00426985776830752  | 1     |
-| table_1    | m1_attack_d_est               | -0.017 | -0.0171013743308075  | 1     |
-| table_1    | m1_attack_d_se                | 0.046  | 0.0462370739155849   | 1     |
-| table_1    | m3_attack_d_est               | 0.028  | 0.0279600502401837   | 1     |
-| table_1    | m3_attack_d_se                | 0.016  | 0.0163558547902618   | 1     |
-| table_1    | m1_general_d_est              | 0.123  | 0.122624298396105    | 1     |
-| table_1    | m1_general_d_se               | 0.067  | 0.0669022132138403   | 1     |
-| table_1    | m2_pro_trump_d_est            | -0.124 | -0.123836901513909   | 1     |
-| table_1    | m2_pro_trump_d_se             | 0.101  | 0.101118675428876    | 1     |
-| table_1    | m4_pro_trump_d_est            | -0.016 | -0.0157727126722737  | 1     |
-| table_1    | m4_pro_trump_d_se             | 0.034  | 0.0337767139387826   | 1     |
-| table_1    | m2_anti_clinton_d_est         | -0.105 | -0.105067385465675   | 1     |
-| table_1    | m2_anti_clinton_d_se          | 0.07   | 0.0698886090607598   | 1     |
-| table_1    | m4_anti_clinton_d_est         | 0.012  | 0.0115687385179081   | 1     |
-| table_1    | m4_anti_clinton_d_se          | 0.023  | 0.02296757258421     | 1     |
-| table_1    | m2_anti_trump_d_est           | -0.041 | -0.0413676950109046  | 1     |
-| table_1    | m2_anti_trump_d_se            | 0.058  | 0.0579066875305162   | 1     |
-| table_1    | m4_anti_trump_d_est           | 0.026  | 0.0261014333861311   | 1     |
-| table_1    | m4_anti_trump_d_se            | 0.021  | 0.0214091583815356   | 1     |
-| table_1    | m2_pro_sanders_d_est          | -0.075 | -0.0749244096818966  | 1     |
-| table_1    | m2_pro_sanders_d_se           | 0.089  | 0.0885300550768094   | 1     |
-| table_1    | m2_pro_cruz_d_est             | 0.047  | 0.0470694919223397   | 1     |
-| table_1    | m2_pro_cruz_d_se              | 0.116  | 0.116193805568345    | 1     |
-| table_1    | m2_pro_kasich_d_est           | -0.182 | -0.181777858909213   | 1     |
-| table_1    | m2_pro_kasich_d_se            | 0.145  | 0.14476493785976     | 1     |
-| table_1    | m1_nobs                       | 354    | 354                  | 1     |
-| table_1    | m2_nobs                       | 354    | 354                  | 1     |
-| table_1    | m3_nobs                       | 204    | 204                  | 1     |
-| table_1    | m4_nobs                       | 204    | 204                  | 1     |
-| table_s2   | sates_favorability_est        | 0.0492 | 0.0492278297226765   | 1     |
-| table_s2   | sates_favorability_se         | 0.02   | 0.0200009449806686   | 1     |
-| table_s2   | sates_favorability_p          | 0.0919 | 0.0919044204718372   | 1     |
-| table_s2   | sates_favorability_tau2       | 0.0046 | 0.00464927797701965  | 1     |
-| table_s2   | sates_favorability_tau        | 0.0682 | 0.0681856141500511   | 1     |
-| table_s2   | sates_votechoice_est          | 0.0072 | 0.00718114897405215  | 1     |
-| table_s2   | sates_votechoice_se           | 0.0073 | 0.00732724536941071  | 1     |
-| table_s2   | sates_votechoice_p            | 0.07   | 0.0699520982406857   | 1     |
-| table_s2   | sates_votechoice_tau2         | 5e-04  | 0.000492247594291038 | 1     |
-| table_s2   | sates_votechoice_tau          | 0.0222 | 0.0221866535171719   | 1     |
-| table_s2   | cates_favorability_est        | 0.0585 | 0.0584522714979407   | 1     |
-| table_s2   | cates_favorability_se         | 0.0178 | 0.0178394276247739   | 1     |
-| table_s2   | cates_favorability_p          | 2e-04  | 0.000165056906355207 | 1     |
-| table_s2   | cates_favorability_tau2       | 0.0217 | 0.0217335314374913   | 1     |
-| table_s2   | cates_favorability_tau        | 0.1474 | 0.147422967808586    | 1     |
-| table_s2   | cates_votechoice_est          | 0.0083 | 0.00826356365738539  | 1     |
-| table_s2   | cates_votechoice_se           | 0.0051 | 0.00514489865140912  | 1     |
-| table_s2   | cates_votechoice_p            | 0.0961 | 0.0961039371758419   | 1     |
-| table_s2   | cates_votechoice_tau2         | 5e-04  | 0.00053864890565906  | 1     |
-| table_s2   | cates_votechoice_tau          | 0.0232 | 0.0232088109488414   | 1     |
-| figure_2   | fav_democratic_prodem_est     | 0.106  | 0.106476573620707    | 1     |
-| figure_2   | fav_democratic_prodem_se      | 0.027  | 0.0274578187061506   | 1     |
-| figure_2   | fav_democratic_prorep_est     | -0.026 | -0.0263833309845451  | 1     |
-| figure_2   | fav_democratic_prorep_se      | 0.049  | 0.0494319844445353   | 1     |
-| figure_2   | fav_independent_prodem_est    | 0.07   | 0.0699932736594406   | 1     |
-| figure_2   | fav_independent_prodem_se     | 0.068  | 0.0678203342309326   | 1     |
-| figure_2   | fav_independent_prorep_est    | 0.012  | 0.0121099394831963   | 1     |
-| figure_2   | fav_independent_prorep_se     | 0.087  | 0.0871736863408394   | 1     |
-| figure_2   | fav_republican_prodem_est     | 0.039  | 0.0386595396179065   | 1     |
-| figure_2   | fav_republican_prodem_se      | 0.036  | 0.035658160167125    | 1     |
-| figure_2   | fav_republican_prorep_est     | 0.048  | 0.0480196665227286   | 1     |
-| figure_2   | fav_republican_prorep_se      | 0.039  | 0.0389230315207782   | 1     |
-| figure_2   | vc_democratic_prodem_est      | 0.027  | 0.0271759277742814   | 1     |
-| figure_2   | vc_democratic_prodem_se       | 0.008  | 0.00801715594366604  | 1     |
-| figure_2   | vc_democratic_prorep_est      | -0.023 | -0.0233960926436279  | 1     |
-| figure_2   | vc_democratic_prorep_se       | 0.015  | 0.0147860283788054   | 1     |
-| figure_2   | vc_independent_prodem_est     | 0.005  | 0.00506265749355459  | 1     |
-| figure_2   | vc_independent_prodem_se      | 0.024  | 0.0237475886684295   | 1     |
-| figure_2   | vc_independent_prorep_est     | 0.027  | 0.0271627314372247   | 1     |
-| figure_2   | vc_independent_prorep_se      | 0.029  | 0.0291458503455212   | 1     |
-| figure_2   | vc_republican_prodem_est      | 0.007  | 0.0069909232014625   | 1     |
-| figure_2   | vc_republican_prodem_se       | 0.014  | 0.0139356630863744   | 1     |
-| figure_2   | vc_republican_prorep_est      | -0.002 | -0.00216608514888706 | 1     |
-| figure_2   | vc_republican_prorep_se       | 0.009  | 0.00912830313876472  | 1     |
-| table_s1   | n_weeks_listed                | 29     | 29                   | 1     |
-| table_s1   | n_ad_entries                  | 58     | 58                   | 1     |
-| table_s3   | total_control                 | 9642   | 9642                 | 1     |
-| table_s3   | total_pro_clinton             | 2403   | 2403                 | 1     |
-| table_s3   | total_anti_clinton            | 4240   | 4240                 | 1     |
-| table_s3   | total_pro_trump               | 764    | 764                  | 1     |
-| table_s3   | total_anti_trump              | 10285  | 10285                | 1     |
-| table_s3   | total_pro_cruz                | 459    | 459                  | 1     |
-| table_s3   | total_pro_kasich              | 250    | 250                  | 1     |
-| table_s3   | total_pro_sanders             | 880    | 880                  | 1     |
-| table_s3   | total_two_ads                 | 5077   | 5077                 | 1     |
-| table_s3   | total_all                     | 34000  | 34000                | 1     |
-| figure_s1  | n_panels                      | 7      | 7                    | 1     |
-| figure_s1  | n_weekly_estimates            | 17     | 17                   | 1     |
-| appendix_a | n_unique_ads_stated           | 50     | 49                   | 0     |
-| appendix_a | n_anti_trump_stated           | 28     | 30                   | 0     |
-| appendix_a | n_anti_clinton_stated         | 9      | 11                   | 0     |
-| appendix_a | n_pro_clinton_stated          | 9      | 8                    | 0     |
-| appendix_a | n_pro_trump_stated            | 3      | 3                    | 1     |
-| appendix_a | n_repeat_ads_named            | 8      | 7                    | 0     |
-| appendix_b | n_repeat_ads_stated           | 7      | 7                    | 1     |
+| Location | Quantity | Paper | Archive | Match |
+|:---|:---|:---|:---|:---|
+| Title | Advertisement-week experiments | 59 | 59 | 1 |
+| Abstract | Distinct campaign advertisements tested | 49 | 49 | 1 |
+| Abstract | Advertisement-week experiments | 59 | 59 | 1 |
+| Abstract | Respondents completing a survey | 34000 | 34000 | 1 |
+| Introduction | Months spanned by the fielding period | 8 | 7.81930184804928 | 1 |
+| Introduction | Distinct campaign advertisements tested | 49 | 49 | 1 |
+| Introduction | Distinct campaign advertisements, restated | 49 | 49 | 1 |
+| Introduction | Pooled favorability effect (scale points) | 0.05 | 0.0492278297226765 | 1 |
+| Introduction | SD of favorability effects across experiments (scale points) | 0.07 | 0.0681856141500511 | 1 |
+| Introduction | Pooled vote choice effect (percentage points) | 0.7 | 0.718114897405215 | 1 |
+| Introduction | SD of vote choice effects (percentage points) | 2 | 2.21866535171719 | 1 |
+| Introduction | Weekly estimates exclude large persuasive effects |  |  |  |
+| Materials and Methods | Weeks of fielding | 29 | 29 | 1 |
+| Materials and Methods | Smallest weekly sample | 1000 | 1000 | 1 |
+| Materials and Methods | Largest weekly sample | 2000 | 2000 | 1 |
+| Materials and Methods | Share starting but not finishing (%) | 42 | 42.4450688966381 | 1 |
+| Materials and Methods | Attrition tests conducted | 29 | 29 | 1 |
+| Materials and Methods | Attrition tests significant unadjusted | 3 | 3 | 1 |
+| Materials and Methods | Attrition tests significant after Holm | 0 | 0 | 1 |
+| Materials and Methods | Attrition tests significant after Benjamini-Hochberg | 0 | 0 | 1 |
+| Materials and Methods | Anti-Trump advertisement deployments | 30 | 30 | 1 |
+| Materials and Methods | Anti-Clinton advertisement deployments | 11 | 11 | 1 |
+| Materials and Methods | Pro-Clinton advertisement deployments | 8 | 8 | 1 |
+| Materials and Methods | Pro-Trump advertisement deployments | 3 | 3 | 1 |
+| Materials and Methods | Control group manipulation check, minimum (%) | 2 | 1.5625 | 1 |
+| Materials and Methods | Control group manipulation check, maximum (%) | 4 | 4.01459854014598 | 1 |
+| Materials and Methods | Treatment group manipulation check, minimum (%) | 92 | 91.4156626506024 | 0 |
+| Materials and Methods | Treatment group manipulation check, maximum (%) | 95 | 95.5431754874652 | 0 |
+| Materials and Methods | Respondents in a single weekly study | 1000 | 1000 | 1 |
+| Results | Experimental comparisons plotted in Figure 1 | 59 | 59 | 1 |
+| Results | Pooled favorability effect (scale points) | 0.049 | 0.0492278297226765 | 1 |
+| Results | The pooled favorability effect is statistically significant |  | 1 | 1 |
+| Results | Pooled vote choice effect (percentage points) | 0.7 | 0.718114897405215 | 1 |
+| Results | The pooled vote choice effect is not statistically significant |  | 1 | 1 |
+| Results | Favorability SATE homogeneity p-value | 0.09 | 0.0919044204718372 | 1 |
+| Results | Vote choice SATE homogeneity p-value | 0.07 | 0.0699520982406857 | 1 |
+| Results | Largest significant negative favorability estimate in May | -0.5 | -0.520943603069463 | 1 |
+| Results | Largest significant positive favorability estimate in October | 0.5 | 0.43202600389018 | 0 |
+| Results | Other significant negative favorability estimates in October | 2 | 2 | 1 |
+| Results | Smallest weekly sample | 1000 | 1000 | 1 |
+| Results | Largest weekly sample | 2000 | 2000 | 1 |
+| Results | Partisanship cells of Table 1 whose standard error exceeds the coefficient |  | 6 | 0 |
+| Results | No partisanship coefficient in Table 1 is distinguishable from zero |  | 0 | 1 |
+| Results | Specifications in which the time slope is negative | 3 | 3 | 1 |
+| Results | Specifications in which the time slope is distinguishable from zero | 1 | 1 | 1 |
+| Results | Battleground difference in favorability, magnitude | 0.008 | 0.00768087181979859 | 1 |
+| Results | General election coefficient (scale points) | 0.121 | 0.122624298396105 | 0 |
+| Results | The general election coefficient is not statistically significant |  | 1 | 1 |
+| Results | Upper bound of the general election interval | 0.25 | 0.253750226781251 | 1 |
+| Results | No tone or sponsor coefficient in Table 1 is distinguishable from zero |  | 0 | 1 |
+| Results | Target candidate coefficients relative to the omitted pro-Clinton category |  | 6 |  |
+| Results | No target candidate coefficient in Table 1 is distinguishable from zero |  | 0 | 1 |
+| Results | Democratic respondents respond more strongly to pro-Democratic than pro-Republican advertisements |  | 1 | 1 |
+| Results | Republican respondents respond similarly to pro-Democratic and pro-Republican advertisements |  |  |  |
+| Results | SATE favorability homogeneity p-value, restated | 0.09 | 0.0919044204718372 | 1 |
+| Results | SATE vote choice homogeneity p-value, restated | 0.07 | 0.0699520982406857 | 1 |
+| Results | CATE favorability homogeneity p-value | 0.0002 | 0.000165056906355207 | 1 |
+| Results | CATE vote choice homogeneity p-value | 0.96 | 0.0961039371758419 | 0 |
+| Results | Homogeneity tests in Table S2 that fail to reject at the 5 per cent level | 3 | 3 | 1 |
+| Results | Tau, favorability SATEs | 0.07 | 0.0681856141500511 | 1 |
+| Results | Tau, favorability CATEs | 0.15 | 0.147422967808586 | 1 |
+| Results | Tau, vote choice SATEs | 0.02 | 0.0221866535171719 | 1 |
+| Results | Tau, vote choice CATEs | 0.02 | 0.0232088109488414 | 1 |
+| Discussion | Advertisement-week experiments | 59 | 59 | 1 |
+| Discussion | Respondents completing a survey | 34000 | 34000 | 1 |
+| Discussion | Distinct campaign advertisements tested | 49 | 49 | 1 |
+| Figure 1 | Favorability meta-analytic estimate | 0.049 | 0.0492278297226765 | 1 |
+| Figure 1 | Favorability meta-analytic standard error | 0.020 | 0.0200009449806686 | 1 |
+| Figure 1 | Vote choice meta-analytic estimate | 0.007 | 0.00718114897405215 | 1 |
+| Figure 1 | Vote choice meta-analytic standard error | 0.007 | 0.00732724536941071 | 1 |
+| Table 1 | Table 1, model 1, intrcpt, estimate | 0.056 | 0.0559513746296691 | 1 |
+| Table 1 | Table 1, model 1, intrcpt, std.error | 0.020 | 0.0203091094511682 | 1 |
+| Table 1 | Table 1, model 2, intrcpt, estimate | 0.062 | 0.0619557871802226 | 1 |
+| Table 1 | Table 1, model 2, intrcpt, std.error | 0.020 | 0.0204550273103208 | 1 |
+| Table 1 | Table 1, model 3, intrcpt, estimate | 0.007 | 0.00717343917312331 | 1 |
+| Table 1 | Table 1, model 3, intrcpt, std.error | 0.007 | 0.0071442025839593 | 1 |
+| Table 1 | Table 1, model 4, intrcpt, estimate | 0.008 | 0.00761340879292043 | 1 |
+| Table 1 | Table 1, model 4, intrcpt, std.error | 0.007 | 0.00721776470356415 | 1 |
+| Table 1 | Table 1, model 1, democrat_d, estimate | 0.035 | 0.035239216310936 | 1 |
+| Table 1 | Table 1, model 1, democrat_d, std.error | 0.035 | 0.0346822419625252 | 1 |
+| Table 1 | Table 1, model 2, democrat_d, estimate | 0.022 | 0.0217616219401437 | 1 |
+| Table 1 | Table 1, model 2, democrat_d, std.error | 0.036 | 0.0361069235707198 | 1 |
+| Table 1 | Table 1, model 3, democrat_d, estimate | 0.011 | 0.010806619726571 | 1 |
+| Table 1 | Table 1, model 3, democrat_d, std.error | 0.010 | 0.010032366314141 | 1 |
+| Table 1 | Table 1, model 4, democrat_d, estimate | 0.006 | 0.00607624424823846 | 1 |
+| Table 1 | Table 1, model 4, democrat_d, std.error | 0.011 | 0.0111901459055996 | 1 |
+| Table 1 | Table 1, model 1, independent_d, estimate | 0.023 | 0.0230994168403523 | 1 |
+| Table 1 | Table 1, model 1, independent_d, std.error | 0.051 | 0.0514908172832446 | 1 |
+| Table 1 | Table 1, model 2, independent_d, estimate | 0.015 | 0.0148795264572917 | 1 |
+| Table 1 | Table 1, model 2, independent_d, std.error | 0.052 | 0.0518214653308673 | 1 |
+| Table 1 | Table 1, model 3, independent_d, estimate | 0.009 | 0.00882756839601489 | 1 |
+| Table 1 | Table 1, model 3, independent_d, std.error | 0.020 | 0.0196989007331031 | 1 |
+| Table 1 | Table 1, model 4, independent_d, estimate | 0.007 | 0.00662959611432707 | 1 |
+| Table 1 | Table 1, model 4, independent_d, std.error | 0.020 | 0.0199216048048094 | 1 |
+| Table 1 | Table 1, model 1, battleground_d, estimate | -0.00 | -0.00768087181979859 | 0 |
+| Table 1 | Table 1, model 1, battleground_d, std.error | 0.033 | 0.0330993309997604 | 1 |
+| Table 1 | Table 1, model 2, battleground_d, estimate | -0.007 | -0.0072889741172583 | 1 |
+| Table 1 | Table 1, model 2, battleground_d, std.error | 0.033 | 0.0331245308366241 | 1 |
+| Table 1 | Table 1, model 3, battleground_d, estimate | -0.017 | -0.0169737781355814 | 1 |
+| Table 1 | Table 1, model 3, battleground_d, std.error | 0.010 | 0.00982144227142085 | 1 |
+| Table 1 | Table 1, model 4, battleground_d, estimate | -0.017 | -0.0170054042184294 | 1 |
+| Table 1 | Table 1, model 4, battleground_d, std.error | 0.010 | 0.00996790251931272 | 1 |
+| Table 1 | Table 1, model 1, pac_d, estimate | -0.012 | -0.0124947275778725 | 1 |
+| Table 1 | Table 1, model 1, pac_d, std.error | 0.043 | 0.0426308784476082 | 1 |
+| Table 1 | Table 1, model 2, pac_d, estimate | 0.026 | 0.0256893089604675 | 1 |
+| Table 1 | Table 1, model 2, pac_d, std.error | 0.047 | 0.0469851815197418 | 1 |
+| Table 1 | Table 1, model 3, pac_d, estimate | -0.023 | -0.0231494095931858 | 1 |
+| Table 1 | Table 1, model 3, pac_d, std.error | 0.013 | 0.0128349559721876 | 1 |
+| Table 1 | Table 1, model 4, pac_d, estimate | -0.016 | -0.0156649998403321 | 1 |
+| Table 1 | Table 1, model 4, pac_d, std.error | 0.014 | 0.0144268706850987 | 1 |
+| Table 1 | Table 1, model 1, date_d, estimate | -0.023 | -0.0230094166284181 | 1 |
+| Table 1 | Table 1, model 1, date_d, std.error | 0.014 | 0.0140563401835011 | 1 |
+| Table 1 | Table 1, model 2, date_d, estimate | 0.005 | 0.00455623211451787 | 1 |
+| Table 1 | Table 1, model 2, date_d, std.error | 0.010 | 0.0101010468834039 | 1 |
+| Table 1 | Table 1, model 3, date_d, estimate | -0.009 | -0.00937763297831399 | 1 |
+| Table 1 | Table 1, model 3, date_d, std.error | 0.004 | 0.00379382342908776 | 1 |
+| Table 1 | Table 1, model 4, date_d, estimate | -0.008 | -0.00774541926272451 | 1 |
+| Table 1 | Table 1, model 4, date_d, std.error | 0.004 | 0.00426985776830752 | 1 |
+| Table 1 | Table 1, model 1, attack_d, estimate | -0.017 | -0.0171013743308075 | 1 |
+| Table 1 | Table 1, model 1, attack_d, std.error | 0.046 | 0.0462370739155849 | 1 |
+| Table 1 | Table 1, model 3, attack_d, estimate | 0.028 | 0.0279600502401837 | 1 |
+| Table 1 | Table 1, model 3, attack_d, std.error | 0.016 | 0.0163558547902618 | 1 |
+| Table 1 | Table 1, model 1, general_d, estimate | 0.123 | 0.122624298396105 | 1 |
+| Table 1 | Table 1, model 1, general_d, std.error | 0.067 | 0.0669022132138403 | 1 |
+| Table 1 | Table 1, model 2, pro_trump_d, estimate | -0.124 | -0.123836901513909 | 1 |
+| Table 1 | Table 1, model 2, pro_trump_d, std.error | 0.101 | 0.101118675428876 | 1 |
+| Table 1 | Table 1, model 4, pro_trump_d, estimate | -0.016 | -0.0157727126722737 | 1 |
+| Table 1 | Table 1, model 4, pro_trump_d, std.error | 0.034 | 0.0337767139387826 | 1 |
+| Table 1 | Table 1, model 2, anti_clinton_d, estimate | -0.105 | -0.105067385465675 | 1 |
+| Table 1 | Table 1, model 2, anti_clinton_d, std.error | 0.070 | 0.0698886090607598 | 1 |
+| Table 1 | Table 1, model 4, anti_clinton_d, estimate | 0.012 | 0.0115687385179081 | 1 |
+| Table 1 | Table 1, model 4, anti_clinton_d, std.error | 0.023 | 0.02296757258421 | 1 |
+| Table 1 | Table 1, model 2, anti_trump_d, estimate | -0.041 | -0.0413676950109046 | 1 |
+| Table 1 | Table 1, model 2, anti_trump_d, std.error | 0.058 | 0.0579066875305162 | 1 |
+| Table 1 | Table 1, model 4, anti_trump_d, estimate | 0.026 | 0.0261014333861311 | 1 |
+| Table 1 | Table 1, model 4, anti_trump_d, std.error | 0.021 | 0.0214091583815356 | 1 |
+| Table 1 | Table 1, model 2, pro_sanders_d, estimate | -0.075 | -0.0749244096818966 | 1 |
+| Table 1 | Table 1, model 2, pro_sanders_d, std.error | 0.089 | 0.0885300550768094 | 1 |
+| Table 1 | Table 1, model 2, pro_cruz_d, estimate | 0.047 | 0.0470694919223397 | 1 |
+| Table 1 | Table 1, model 2, pro_cruz_d, std.error | 0.116 | 0.116193805568345 | 1 |
+| Table 1 | Table 1, model 2, pro_kasich_d, estimate | -0.182 | -0.181777858909213 | 1 |
+| Table 1 | Table 1, model 2, pro_kasich_d, std.error | 0.145 | 0.14476493785976 | 1 |
+| Table 1 | Table 1, model 1, number of observations | 354 | 354 | 1 |
+| Table 1 | Table 1, model 2, number of observations | 354 | 354 | 1 |
+| Table 1 | Table 1, model 3, number of observations | 204 | 204 | 1 |
+| Table 1 | Table 1, model 4, number of observations | 204 | 204 | 1 |
+| Table 1 | Table 1 marks the model 1 average effect as significant at the 5 per cent level |  | 1 | 1 |
+| Table 1 | Table 1 marks the model 2 average effect as significant at the 5 per cent level |  | 1 | 1 |
+| Table 1 | Table 1 marks the model 3 time slope as significant at the 5 per cent level |  | 1 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Democratic ad, estimate | 0.039 | 0.0386595396179065 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Democratic ad, std.error | 0.036 | 0.035658160167125 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Republican ad, estimate | 0.048 | 0.0480196665227286 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Republican ad, std.error | 0.039 | 0.0389230315207782 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Democratic ad, estimate | 0.070 | 0.0699932736594406 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Democratic ad, std.error | 0.068 | 0.0678203342309326 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Republican ad, estimate | 0.012 | 0.0121099394831963 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Republican ad, std.error | 0.087 | 0.0871736863408394 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Democratic ad, estimate | 0.106 | 0.106476573620707 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Democratic ad, std.error | 0.027 | 0.0274578187061506 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Republican ad, estimate | -0.026 | -0.0263833309845451 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Republican ad, std.error | 0.049 | 0.0494319844445353 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Democratic ad, estimate | 0.007 | 0.0069909232014625 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Democratic ad, std.error | 0.014 | 0.0139356630863744 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Republican ad, estimate | -0.002 | -0.00216608514888706 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Republican ad, std.error | 0.009 | 0.00912830313876472 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Democratic ad, estimate | 0.005 | 0.00506265749355459 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Democratic ad, std.error | 0.024 | 0.0237475886684295 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Republican ad, estimate | 0.027 | 0.0271627314372247 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Republican ad, std.error | 0.029 | 0.0291458503455212 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, estimate | 0.027 | 0.0271759277742814 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, std.error | 0.008 | 0.00801715594366604 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Republican ad, estimate | -0.023 | -0.0233960926436279 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Republican ad, std.error | 0.015 | 0.0147860283788054 | 1 |
+| Appendix A | Distinct campaign advertisements | 50 | 49 | 0 |
+| Appendix A | Advertisements fielded in more than one week | 8 | 7 | 0 |
+| Appendix A | Anti-Trump deployments | 28 | 30 | 0 |
+| Appendix A | Anti-Clinton deployments | 9 | 11 | 0 |
+| Appendix A | Pro-Clinton deployments | 9 | 8 | 0 |
+| Appendix A | Pro-Trump deployments | 3 | 3 | 1 |
+| Table S1 | Weeks listed | 29 | 29 | 1 |
+| Table S1 | Advertisement-week entries | 58 | 58 | 1 |
+| Appendix B | Advertisements fielded more than once | 7 | 7 | 1 |
+| Appendix B | Repeat advertisements whose effect varies significantly across weeks |  | 0 | 1 |
+| Appendix B | Weekly estimates for the advertisement Quotes |  |  |  |
+| Figure S1 | Panels | 7 | 7 | 1 |
+| Figure S1 | Weekly estimates plotted | 17 | 17 | 1 |
+| Table S2 | Table S2, sates, Favorability, estimate | 0.0492 | 0.0492278297226765 | 1 |
+| Table S2 | Table S2, sates, Favorability, std.error | 0.0200 | 0.0200009449806686 | 1 |
+| Table S2 | Table S2, sates, Favorability, p.value | 0.0919 | 0.0919044204718372 | 1 |
+| Table S2 | Table S2, sates, Favorability, tau2 | 0.0046 | 0.00464927797701965 | 1 |
+| Table S2 | Table S2, sates, Favorability, tau | 0.0682 | 0.0681856141500511 | 1 |
+| Table S2 | Table S2, sates, Vote Choice, estimate | 0.0072 | 0.00718114897405215 | 1 |
+| Table S2 | Table S2, sates, Vote Choice, std.error | 0.0073 | 0.00732724536941071 | 1 |
+| Table S2 | Table S2, sates, Vote Choice, p.value | 0.0700 | 0.0699520982406857 | 1 |
+| Table S2 | Table S2, sates, Vote Choice, tau2 | 0.0005 | 0.000492247594291038 | 1 |
+| Table S2 | Table S2, sates, Vote Choice, tau | 0.0222 | 0.0221866535171719 | 1 |
+| Table S2 | Table S2, cates, Favorability, estimate | 0.0585 | 0.0584522714979407 | 1 |
+| Table S2 | Table S2, cates, Favorability, std.error | 0.0178 | 0.0178394276247739 | 1 |
+| Table S2 | Table S2, cates, Favorability, p.value | 0.0002 | 0.000165056906355207 | 1 |
+| Table S2 | Table S2, cates, Favorability, tau2 | 0.0217 | 0.0217335314374913 | 1 |
+| Table S2 | Table S2, cates, Favorability, tau | 0.1474 | 0.147422967808586 | 1 |
+| Table S2 | Table S2, cates, Vote Choice, estimate | 0.0083 | 0.00826356365738539 | 1 |
+| Table S2 | Table S2, cates, Vote Choice, std.error | 0.0051 | 0.00514489865140912 | 1 |
+| Table S2 | Table S2, cates, Vote Choice, p.value | 0.0961 | 0.0961039371758419 | 1 |
+| Table S2 | Table S2, cates, Vote Choice, tau2 | 0.0005 | 0.00053864890565906 | 1 |
+| Table S2 | Table S2, cates, Vote Choice, tau | 0.0232 | 0.0232088109488414 | 1 |
 
 Ground truth: published value against the value the deposited scripts
 produce on current R, once the four deprecated write calls are repaired.
 
-Every quantity the article or its appendix states is recorded: 175 of
-them, covering the abstract, the design description, the manipulation
-and attrition checks, both annotations on Figure 1, all twelve
-annotations on Figure 2, all 76 cells of Table 1, all 20 cells of Table
-S2, and the appendix’s own design counts.
+The table above omits the 136 cells of Table S3, which would swamp it.
+All 136 reproduce exactly, and they are in the ground truth CSV.
+
+The starting point is `ground_truth/published_claims.csv`, an extraction
+of every numeric token in the article and its supplementary materials,
+classified by hand into the ones the pipeline can reach and the ones
+nothing in it can move. It holds 390 entries; 342 of them are quantities
+the pipeline produces or claims about shape it can settle, and each of
+those has a row in the ground truth. The rest are scale endpoints, an
+IRB number, section and question numbering, and the two numbers the
+supplementary materials quote from outside the study, and giving one of
+those a row would mean typing a published number into the code.
 
 Every published float is represented. The two tables and two figures
-that print coefficients are covered cell by cell. The other three print
-none, so each is checked on what it does state: Table S1 on the shape of
-the advertisement list, Table S3 on its ten published column totals, and
-Figure S1 on its seven panels and seventeen plotted estimates. The table
-is built by `ground_truth/build_ground_truth.R`, which reads every
-comparison value back out of `maintained/output/` and refuses to write a
-failing row that carries no `defect_locus`.
+that print coefficients are covered cell by cell, as is Table S3. The
+other two print none, so each is checked on what it does state: Table S1
+on the shape of the advertisement list, and Figure S1 on its seven
+panels and seventeen plotted estimates. The table is built by
+`ground_truth/build_ground_truth.R`, which reads every comparison value
+back out of `maintained/output/` and refuses to write a failing row that
+carries no `defect_locus`.
+
+## Two instruments, checked against each other
+
+`maintained/in_text_claims.R` carries one block per claim: the sentence
+the article prints, verbatim, and the value this pipeline gives for it
+in the article’s own units and rounding. It reads the same files in
+`output/` that the ground truth reads, and does its own selection, unit
+conversion and rounding, so the two arrive at each number by separate
+paths.
+
+`build_ground_truth.R` runs that file non-interactively, counts the
+claims it printed, checks the set against the extraction, and compares
+every printed value against the one it derived for itself. A block that
+errors, or that quietly stops printing, fails that check; a comment
+saying a claim is covered would not. A disagreement between the two is a
+finding rather than a coincidence, and the build stops on one.
 
 # Maintained rewrite
 
-The rewrite lives in `maintained/`: fourteen scripts covering four
-estimation steps, four published tables, three figures, the in-text
-quantities, and the comparison against the deposit. It is a translation,
-not a reanalysis. Every estimator, specification and sample restriction
-is the one the paper used, including the two places where the archive’s
-choices are not what a rule would predict: Figure S1 scores the
-pro-Clinton advertisement “Real Life” against Trump favorability while
-scoring the pro-Clinton advertisement “Love/Kindness” against Clinton
-favorability, and the rewrite keeps both.
+The rewrite lives in `maintained/`: 17 scripts covering four estimation
+steps, four published tables, three figures, the in-text quantities, the
+claims about shape and count, the comparison against the deposit, and
+the in-text claims audit. It is a translation, not a reanalysis. Every
+estimator, specification and sample restriction is the one the paper
+used, including the two places where the archive’s choices are not what
+a rule would predict: Figure S1 scores the pro-Clinton advertisement
+“Real Life” against Trump favorability while scoring the pro-Clinton
+advertisement “Love/Kindness” against Clinton favorability, and the
+rewrite keeps both.
 
 ## Architecture
 
@@ -692,36 +780,36 @@ Both main-text figures carry their estimates as printed annotations, and
 every one of the fourteen reproduces: the two on Figure 1 and all twelve
 on Figure 2.
 
-| Figure   | Quantity                   |  Paper |    Rewrite | Match |
-|:---------|:---------------------------|-------:|-----------:|------:|
-| figure_1 | fav_sate_meta_estimate     |  0.049 |  0.0492278 |     1 |
-| figure_1 | fav_sate_meta_se           |  0.020 |  0.0200009 |     1 |
-| figure_1 | vc_sate_meta_estimate      |  0.007 |  0.0071811 |     1 |
-| figure_1 | vc_sate_meta_se            |  0.007 |  0.0073272 |     1 |
-| figure_2 | fav_democratic_prodem_est  |  0.106 |  0.1064766 |     1 |
-| figure_2 | fav_democratic_prodem_se   |  0.027 |  0.0274578 |     1 |
-| figure_2 | fav_democratic_prorep_est  | -0.026 | -0.0263833 |     1 |
-| figure_2 | fav_democratic_prorep_se   |  0.049 |  0.0494320 |     1 |
-| figure_2 | fav_independent_prodem_est |  0.070 |  0.0699933 |     1 |
-| figure_2 | fav_independent_prodem_se  |  0.068 |  0.0678203 |     1 |
-| figure_2 | fav_independent_prorep_est |  0.012 |  0.0121099 |     1 |
-| figure_2 | fav_independent_prorep_se  |  0.087 |  0.0871737 |     1 |
-| figure_2 | fav_republican_prodem_est  |  0.039 |  0.0386595 |     1 |
-| figure_2 | fav_republican_prodem_se   |  0.036 |  0.0356582 |     1 |
-| figure_2 | fav_republican_prorep_est  |  0.048 |  0.0480197 |     1 |
-| figure_2 | fav_republican_prorep_se   |  0.039 |  0.0389230 |     1 |
-| figure_2 | vc_democratic_prodem_est   |  0.027 |  0.0271759 |     1 |
-| figure_2 | vc_democratic_prodem_se    |  0.008 |  0.0080172 |     1 |
-| figure_2 | vc_democratic_prorep_est   | -0.023 | -0.0233961 |     1 |
-| figure_2 | vc_democratic_prorep_se    |  0.015 |  0.0147860 |     1 |
-| figure_2 | vc_independent_prodem_est  |  0.005 |  0.0050627 |     1 |
-| figure_2 | vc_independent_prodem_se   |  0.024 |  0.0237476 |     1 |
-| figure_2 | vc_independent_prorep_est  |  0.027 |  0.0271627 |     1 |
-| figure_2 | vc_independent_prorep_se   |  0.029 |  0.0291459 |     1 |
-| figure_2 | vc_republican_prodem_est   |  0.007 |  0.0069909 |     1 |
-| figure_2 | vc_republican_prodem_se    |  0.014 |  0.0139357 |     1 |
-| figure_2 | vc_republican_prorep_est   | -0.002 | -0.0021661 |     1 |
-| figure_2 | vc_republican_prorep_se    |  0.009 |  0.0091283 |     1 |
+| Figure | Quantity | Paper | Rewrite | Match |
+|:---|:---|:---|---:|---:|
+| Figure 1 | Favorability meta-analytic estimate | 0.049 | 0.0492278 | 1 |
+| Figure 1 | Favorability meta-analytic standard error | 0.020 | 0.0200009 | 1 |
+| Figure 1 | Vote choice meta-analytic estimate | 0.007 | 0.0071811 | 1 |
+| Figure 1 | Vote choice meta-analytic standard error | 0.007 | 0.0073272 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Democratic ad, estimate | 0.039 | 0.0386595 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Democratic ad, std.error | 0.036 | 0.0356582 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Republican ad, estimate | 0.048 | 0.0480197 | 1 |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Republican ad, std.error | 0.039 | 0.0389230 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Democratic ad, estimate | 0.070 | 0.0699933 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Democratic ad, std.error | 0.068 | 0.0678203 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Republican ad, estimate | 0.012 | 0.0121099 | 1 |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Republican ad, std.error | 0.087 | 0.0871737 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Democratic ad, estimate | 0.106 | 0.1064766 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Democratic ad, std.error | 0.027 | 0.0274578 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Republican ad, estimate | -0.026 | -0.0263833 | 1 |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Republican ad, std.error | 0.049 | 0.0494320 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Democratic ad, estimate | 0.007 | 0.0069909 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Democratic ad, std.error | 0.014 | 0.0139357 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Republican ad, estimate | -0.002 | -0.0021661 | 1 |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Republican ad, std.error | 0.009 | 0.0091283 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Democratic ad, estimate | 0.005 | 0.0050627 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Democratic ad, std.error | 0.024 | 0.0237476 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Republican ad, estimate | 0.027 | 0.0271627 | 1 |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Republican ad, std.error | 0.029 | 0.0291459 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, estimate | 0.027 | 0.0271759 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, std.error | 0.008 | 0.0080172 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Republican ad, estimate | -0.023 | -0.0233961 | 1 |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Republican ad, std.error | 0.015 | 0.0147860 | 1 |
 
 Figure annotations, transcribed from pages 3 and 5 of the article,
 against the maintained rewrite.
@@ -767,186 +855,217 @@ alt="Figure S1 as reproduced by the maintained rewrite." />
 
 | Location | Quantity | Paper | Rewrite | Match | Locus |
 |:---|:---|:---|:---|:---|:---|
-| abstract | n_advertisements_tested | 49 | 49 | 1 |  |
-| abstract | n_experiments | 59 | 59 | 1 |  |
-| abstract | n_respondents | 34000 | 34000 | 1 |  |
-| methods | n_weeks | 29 | 29 | 1 |  |
-| methods | n_deployments_anti_trump | 30 | 30 | 1 |  |
-| methods | n_deployments_anti_clinton | 11 | 11 | 1 |  |
-| methods | n_deployments_pro_clinton | 8 | 8 | 1 |  |
-| methods | n_deployments_pro_trump | 3 | 3 | 1 |  |
-| methods | manip_check_control_min | 0.02 | 0.015625 | 1 |  |
-| methods | manip_check_control_max | 0.04 | 0.0401459854014598 | 1 |  |
-| methods | manip_check_treated_min | 0.92 | 0.914156626506024 | 0 | paper_internal |
-| methods | manip_check_treated_max | 0.95 | 0.955431754874652 | 0 | paper_internal |
-| methods | attrition_rate | 0.42 | 0.424450688966381 | 1 |  |
-| methods | n_attrition_tests | 29 | 29 | 1 |  |
-| methods | n_sig_unadjusted | 3 | 3 | 1 |  |
-| methods | n_sig_holm | 0 | 0 | 1 |  |
-| methods | n_sig_benjamini_hochberg | 0 | 0 | 1 |  |
-| figure_1 | fav_sate_meta_estimate | 0.049 | 0.0492278297226765 | 1 |  |
-| figure_1 | fav_sate_meta_se | 0.02 | 0.0200009449806686 | 1 |  |
-| figure_1 | vc_sate_meta_estimate | 0.007 | 0.00718114897405215 | 1 |  |
-| figure_1 | vc_sate_meta_se | 0.007 | 0.00732724536941071 | 1 |  |
-| text | fav_sate_avg_scale_points | 0.049 | 0.0492278297226765 | 1 |  |
-| text | fav_sate_sd_scale_points | 0.07 | 0.0681856141500511 | 1 |  |
-| text | vc_sate_avg_percentage_points | 0.007 | 0.00718114897405215 | 1 |  |
-| text | vc_sate_sd_percentage_points | 0.02 | 0.0221866535171719 | 1 |  |
-| text | fav_cate_sd_scale_points | 0.15 | 0.147422967808586 | 1 |  |
-| text | vc_cate_sd_percentage_points | 0.02 | 0.0232088109488414 | 1 |  |
-| text | fav_sate_homogeneity_pval | 0.09 | 0.0919044204718372 | 1 |  |
-| text | vc_sate_homogeneity_pval | 0.07 | 0.0699520982406857 | 1 |  |
-| text | fav_cate_homogeneity_pval | 2e-04 | 0.000165056906355207 | 1 |  |
-| text | vc_cate_homogeneity_pval | 0.96 | 0.0961039371758419 | 0 | paper_internal |
-| text | general_election_coefficient | 0.121 | 0.122624298396105 | 0 | paper_internal |
-| text | general_election_ci_upper | 0.25 | 0.253750226781251 | 1 |  |
-| text | battleground_difference | 0.008 | 0.00768087181979859 | 1 |  |
-| table_1 | m1_intrcpt_est | 0.056 | 0.0559513746296691 | 1 |  |
-| table_1 | m1_intrcpt_se | 0.02 | 0.0203091094511682 | 1 |  |
-| table_1 | m2_intrcpt_est | 0.062 | 0.0619557871802226 | 1 |  |
-| table_1 | m2_intrcpt_se | 0.02 | 0.0204550273103208 | 1 |  |
-| table_1 | m3_intrcpt_est | 0.007 | 0.00717343917312331 | 1 |  |
-| table_1 | m3_intrcpt_se | 0.007 | 0.0071442025839593 | 1 |  |
-| table_1 | m4_intrcpt_est | 0.008 | 0.00761340879292043 | 1 |  |
-| table_1 | m4_intrcpt_se | 0.007 | 0.00721776470356415 | 1 |  |
-| table_1 | m1_democrat_d_est | 0.035 | 0.035239216310936 | 1 |  |
-| table_1 | m1_democrat_d_se | 0.035 | 0.0346822419625252 | 1 |  |
-| table_1 | m2_democrat_d_est | 0.022 | 0.0217616219401437 | 1 |  |
-| table_1 | m2_democrat_d_se | 0.036 | 0.0361069235707198 | 1 |  |
-| table_1 | m3_democrat_d_est | 0.011 | 0.010806619726571 | 1 |  |
-| table_1 | m3_democrat_d_se | 0.01 | 0.010032366314141 | 1 |  |
-| table_1 | m4_democrat_d_est | 0.006 | 0.00607624424823846 | 1 |  |
-| table_1 | m4_democrat_d_se | 0.011 | 0.0111901459055996 | 1 |  |
-| table_1 | m1_independent_d_est | 0.023 | 0.0230994168403523 | 1 |  |
-| table_1 | m1_independent_d_se | 0.051 | 0.0514908172832446 | 1 |  |
-| table_1 | m2_independent_d_est | 0.015 | 0.0148795264572917 | 1 |  |
-| table_1 | m2_independent_d_se | 0.052 | 0.0518214653308673 | 1 |  |
-| table_1 | m3_independent_d_est | 0.009 | 0.00882756839601489 | 1 |  |
-| table_1 | m3_independent_d_se | 0.02 | 0.0196989007331031 | 1 |  |
-| table_1 | m4_independent_d_est | 0.007 | 0.00662959611432707 | 1 |  |
-| table_1 | m4_independent_d_se | 0.02 | 0.0199216048048094 | 1 |  |
-| table_1 | m1_battleground_d_est | 0 | -0.00768087181979859 | 0 | paper_internal |
-| table_1 | m1_battleground_d_se | 0.033 | 0.0330993309997604 | 1 |  |
-| table_1 | m2_battleground_d_est | -0.007 | -0.0072889741172583 | 1 |  |
-| table_1 | m2_battleground_d_se | 0.033 | 0.0331245308366241 | 1 |  |
-| table_1 | m3_battleground_d_est | -0.017 | -0.0169737781355814 | 1 |  |
-| table_1 | m3_battleground_d_se | 0.01 | 0.00982144227142085 | 1 |  |
-| table_1 | m4_battleground_d_est | -0.017 | -0.0170054042184294 | 1 |  |
-| table_1 | m4_battleground_d_se | 0.01 | 0.00996790251931272 | 1 |  |
-| table_1 | m1_pac_d_est | -0.012 | -0.0124947275778725 | 1 |  |
-| table_1 | m1_pac_d_se | 0.043 | 0.0426308784476082 | 1 |  |
-| table_1 | m2_pac_d_est | 0.026 | 0.0256893089604675 | 1 |  |
-| table_1 | m2_pac_d_se | 0.047 | 0.0469851815197418 | 1 |  |
-| table_1 | m3_pac_d_est | -0.023 | -0.0231494095931858 | 1 |  |
-| table_1 | m3_pac_d_se | 0.013 | 0.0128349559721876 | 1 |  |
-| table_1 | m4_pac_d_est | -0.016 | -0.0156649998403321 | 1 |  |
-| table_1 | m4_pac_d_se | 0.014 | 0.0144268706850987 | 1 |  |
-| table_1 | m1_date_d_est | -0.023 | -0.0230094166284181 | 1 |  |
-| table_1 | m1_date_d_se | 0.014 | 0.0140563401835011 | 1 |  |
-| table_1 | m2_date_d_est | 0.005 | 0.00455623211451787 | 1 |  |
-| table_1 | m2_date_d_se | 0.01 | 0.0101010468834039 | 1 |  |
-| table_1 | m3_date_d_est | -0.009 | -0.00937763297831399 | 1 |  |
-| table_1 | m3_date_d_se | 0.004 | 0.00379382342908776 | 1 |  |
-| table_1 | m4_date_d_est | -0.008 | -0.00774541926272451 | 1 |  |
-| table_1 | m4_date_d_se | 0.004 | 0.00426985776830752 | 1 |  |
-| table_1 | m1_attack_d_est | -0.017 | -0.0171013743308075 | 1 |  |
-| table_1 | m1_attack_d_se | 0.046 | 0.0462370739155849 | 1 |  |
-| table_1 | m3_attack_d_est | 0.028 | 0.0279600502401837 | 1 |  |
-| table_1 | m3_attack_d_se | 0.016 | 0.0163558547902618 | 1 |  |
-| table_1 | m1_general_d_est | 0.123 | 0.122624298396105 | 1 |  |
-| table_1 | m1_general_d_se | 0.067 | 0.0669022132138403 | 1 |  |
-| table_1 | m2_pro_trump_d_est | -0.124 | -0.123836901513909 | 1 |  |
-| table_1 | m2_pro_trump_d_se | 0.101 | 0.101118675428876 | 1 |  |
-| table_1 | m4_pro_trump_d_est | -0.016 | -0.0157727126722737 | 1 |  |
-| table_1 | m4_pro_trump_d_se | 0.034 | 0.0337767139387826 | 1 |  |
-| table_1 | m2_anti_clinton_d_est | -0.105 | -0.105067385465675 | 1 |  |
-| table_1 | m2_anti_clinton_d_se | 0.07 | 0.0698886090607598 | 1 |  |
-| table_1 | m4_anti_clinton_d_est | 0.012 | 0.0115687385179081 | 1 |  |
-| table_1 | m4_anti_clinton_d_se | 0.023 | 0.02296757258421 | 1 |  |
-| table_1 | m2_anti_trump_d_est | -0.041 | -0.0413676950109046 | 1 |  |
-| table_1 | m2_anti_trump_d_se | 0.058 | 0.0579066875305162 | 1 |  |
-| table_1 | m4_anti_trump_d_est | 0.026 | 0.0261014333861311 | 1 |  |
-| table_1 | m4_anti_trump_d_se | 0.021 | 0.0214091583815356 | 1 |  |
-| table_1 | m2_pro_sanders_d_est | -0.075 | -0.0749244096818966 | 1 |  |
-| table_1 | m2_pro_sanders_d_se | 0.089 | 0.0885300550768094 | 1 |  |
-| table_1 | m2_pro_cruz_d_est | 0.047 | 0.0470694919223397 | 1 |  |
-| table_1 | m2_pro_cruz_d_se | 0.116 | 0.116193805568345 | 1 |  |
-| table_1 | m2_pro_kasich_d_est | -0.182 | -0.181777858909213 | 1 |  |
-| table_1 | m2_pro_kasich_d_se | 0.145 | 0.14476493785976 | 1 |  |
-| table_1 | m1_nobs | 354 | 354 | 1 |  |
-| table_1 | m2_nobs | 354 | 354 | 1 |  |
-| table_1 | m3_nobs | 204 | 204 | 1 |  |
-| table_1 | m4_nobs | 204 | 204 | 1 |  |
-| table_s2 | sates_favorability_est | 0.0492 | 0.0492278297226765 | 1 |  |
-| table_s2 | sates_favorability_se | 0.02 | 0.0200009449806686 | 1 |  |
-| table_s2 | sates_favorability_p | 0.0919 | 0.0919044204718372 | 1 |  |
-| table_s2 | sates_favorability_tau2 | 0.0046 | 0.00464927797701965 | 1 |  |
-| table_s2 | sates_favorability_tau | 0.0682 | 0.0681856141500511 | 1 |  |
-| table_s2 | sates_votechoice_est | 0.0072 | 0.00718114897405215 | 1 |  |
-| table_s2 | sates_votechoice_se | 0.0073 | 0.00732724536941071 | 1 |  |
-| table_s2 | sates_votechoice_p | 0.07 | 0.0699520982406857 | 1 |  |
-| table_s2 | sates_votechoice_tau2 | 5e-04 | 0.000492247594291038 | 1 |  |
-| table_s2 | sates_votechoice_tau | 0.0222 | 0.0221866535171719 | 1 |  |
-| table_s2 | cates_favorability_est | 0.0585 | 0.0584522714979407 | 1 |  |
-| table_s2 | cates_favorability_se | 0.0178 | 0.0178394276247739 | 1 |  |
-| table_s2 | cates_favorability_p | 2e-04 | 0.000165056906355207 | 1 |  |
-| table_s2 | cates_favorability_tau2 | 0.0217 | 0.0217335314374913 | 1 |  |
-| table_s2 | cates_favorability_tau | 0.1474 | 0.147422967808586 | 1 |  |
-| table_s2 | cates_votechoice_est | 0.0083 | 0.00826356365738539 | 1 |  |
-| table_s2 | cates_votechoice_se | 0.0051 | 0.00514489865140912 | 1 |  |
-| table_s2 | cates_votechoice_p | 0.0961 | 0.0961039371758419 | 1 |  |
-| table_s2 | cates_votechoice_tau2 | 5e-04 | 0.00053864890565906 | 1 |  |
-| table_s2 | cates_votechoice_tau | 0.0232 | 0.0232088109488414 | 1 |  |
-| figure_2 | fav_democratic_prodem_est | 0.106 | 0.106476573620707 | 1 |  |
-| figure_2 | fav_democratic_prodem_se | 0.027 | 0.0274578187061506 | 1 |  |
-| figure_2 | fav_democratic_prorep_est | -0.026 | -0.0263833309845451 | 1 |  |
-| figure_2 | fav_democratic_prorep_se | 0.049 | 0.0494319844445353 | 1 |  |
-| figure_2 | fav_independent_prodem_est | 0.07 | 0.0699932736594406 | 1 |  |
-| figure_2 | fav_independent_prodem_se | 0.068 | 0.0678203342309326 | 1 |  |
-| figure_2 | fav_independent_prorep_est | 0.012 | 0.0121099394831963 | 1 |  |
-| figure_2 | fav_independent_prorep_se | 0.087 | 0.0871736863408394 | 1 |  |
-| figure_2 | fav_republican_prodem_est | 0.039 | 0.0386595396179065 | 1 |  |
-| figure_2 | fav_republican_prodem_se | 0.036 | 0.035658160167125 | 1 |  |
-| figure_2 | fav_republican_prorep_est | 0.048 | 0.0480196665227286 | 1 |  |
-| figure_2 | fav_republican_prorep_se | 0.039 | 0.0389230315207782 | 1 |  |
-| figure_2 | vc_democratic_prodem_est | 0.027 | 0.0271759277742814 | 1 |  |
-| figure_2 | vc_democratic_prodem_se | 0.008 | 0.00801715594366604 | 1 |  |
-| figure_2 | vc_democratic_prorep_est | -0.023 | -0.0233960926436279 | 1 |  |
-| figure_2 | vc_democratic_prorep_se | 0.015 | 0.0147860283788054 | 1 |  |
-| figure_2 | vc_independent_prodem_est | 0.005 | 0.00506265749355459 | 1 |  |
-| figure_2 | vc_independent_prodem_se | 0.024 | 0.0237475886684295 | 1 |  |
-| figure_2 | vc_independent_prorep_est | 0.027 | 0.0271627314372247 | 1 |  |
-| figure_2 | vc_independent_prorep_se | 0.029 | 0.0291458503455212 | 1 |  |
-| figure_2 | vc_republican_prodem_est | 0.007 | 0.0069909232014625 | 1 |  |
-| figure_2 | vc_republican_prodem_se | 0.014 | 0.0139356630863744 | 1 |  |
-| figure_2 | vc_republican_prorep_est | -0.002 | -0.00216608514888706 | 1 |  |
-| figure_2 | vc_republican_prorep_se | 0.009 | 0.00912830313876472 | 1 |  |
-| table_s1 | n_weeks_listed | 29 | 29 | 1 |  |
-| table_s1 | n_ad_entries | 58 | 58 | 1 |  |
-| table_s3 | total_control | 9642 | 9642 | 1 |  |
-| table_s3 | total_pro_clinton | 2403 | 2403 | 1 |  |
-| table_s3 | total_anti_clinton | 4240 | 4240 | 1 |  |
-| table_s3 | total_pro_trump | 764 | 764 | 1 |  |
-| table_s3 | total_anti_trump | 10285 | 10285 | 1 |  |
-| table_s3 | total_pro_cruz | 459 | 459 | 1 |  |
-| table_s3 | total_pro_kasich | 250 | 250 | 1 |  |
-| table_s3 | total_pro_sanders | 880 | 880 | 1 |  |
-| table_s3 | total_two_ads | 5077 | 5077 | 1 |  |
-| table_s3 | total_all | 34000 | 34000 | 1 |  |
-| figure_s1 | n_panels | 7 | 7 | 1 |  |
-| figure_s1 | n_weekly_estimates | 17 | 17 | 1 |  |
-| appendix_a | n_unique_ads_stated | 50 | 49 | 0 | paper_internal |
-| appendix_a | n_anti_trump_stated | 28 | 30 | 0 | paper_internal |
-| appendix_a | n_anti_clinton_stated | 9 | 11 | 0 | paper_internal |
-| appendix_a | n_pro_clinton_stated | 9 | 8 | 0 | paper_internal |
-| appendix_a | n_pro_trump_stated | 3 | 3 | 1 |  |
-| appendix_a | n_repeat_ads_named | 8 | 7 | 0 | paper_internal |
-| appendix_b | n_repeat_ads_stated | 7 | 7 | 1 |  |
+| Title | Advertisement-week experiments | 59 | 59 | 1 |  |
+| Abstract | Distinct campaign advertisements tested | 49 | 49 | 1 |  |
+| Abstract | Advertisement-week experiments | 59 | 59 | 1 |  |
+| Abstract | Respondents completing a survey | 34000 | 34000 | 1 |  |
+| Introduction | Months spanned by the fielding period | 8 | 7.81930184804928 | 1 |  |
+| Introduction | Distinct campaign advertisements tested | 49 | 49 | 1 |  |
+| Introduction | Distinct campaign advertisements, restated | 49 | 49 | 1 |  |
+| Introduction | Pooled favorability effect (scale points) | 0.05 | 0.0492278297226765 | 1 |  |
+| Introduction | SD of favorability effects across experiments (scale points) | 0.07 | 0.0681856141500511 | 1 |  |
+| Introduction | Pooled vote choice effect (percentage points) | 0.7 | 0.718114897405215 | 1 |  |
+| Introduction | SD of vote choice effects (percentage points) | 2 | 2.21866535171719 | 1 |  |
+| Introduction | Weekly estimates exclude large persuasive effects |  |  |  |  |
+| Materials and Methods | Weeks of fielding | 29 | 29 | 1 |  |
+| Materials and Methods | Smallest weekly sample | 1000 | 1000 | 1 |  |
+| Materials and Methods | Largest weekly sample | 2000 | 2000 | 1 |  |
+| Materials and Methods | Share starting but not finishing (%) | 42 | 42.4450688966381 | 1 |  |
+| Materials and Methods | Attrition tests conducted | 29 | 29 | 1 |  |
+| Materials and Methods | Attrition tests significant unadjusted | 3 | 3 | 1 |  |
+| Materials and Methods | Attrition tests significant after Holm | 0 | 0 | 1 |  |
+| Materials and Methods | Attrition tests significant after Benjamini-Hochberg | 0 | 0 | 1 |  |
+| Materials and Methods | Anti-Trump advertisement deployments | 30 | 30 | 1 |  |
+| Materials and Methods | Anti-Clinton advertisement deployments | 11 | 11 | 1 |  |
+| Materials and Methods | Pro-Clinton advertisement deployments | 8 | 8 | 1 |  |
+| Materials and Methods | Pro-Trump advertisement deployments | 3 | 3 | 1 |  |
+| Materials and Methods | Control group manipulation check, minimum (%) | 2 | 1.5625 | 1 |  |
+| Materials and Methods | Control group manipulation check, maximum (%) | 4 | 4.01459854014598 | 1 |  |
+| Materials and Methods | Treatment group manipulation check, minimum (%) | 92 | 91.4156626506024 | 0 | paper_internal |
+| Materials and Methods | Treatment group manipulation check, maximum (%) | 95 | 95.5431754874652 | 0 | paper_internal |
+| Materials and Methods | Respondents in a single weekly study | 1000 | 1000 | 1 |  |
+| Results | Experimental comparisons plotted in Figure 1 | 59 | 59 | 1 |  |
+| Results | Pooled favorability effect (scale points) | 0.049 | 0.0492278297226765 | 1 |  |
+| Results | The pooled favorability effect is statistically significant |  | 1 | 1 |  |
+| Results | Pooled vote choice effect (percentage points) | 0.7 | 0.718114897405215 | 1 |  |
+| Results | The pooled vote choice effect is not statistically significant |  | 1 | 1 |  |
+| Results | Favorability SATE homogeneity p-value | 0.09 | 0.0919044204718372 | 1 |  |
+| Results | Vote choice SATE homogeneity p-value | 0.07 | 0.0699520982406857 | 1 |  |
+| Results | Largest significant negative favorability estimate in May | -0.5 | -0.520943603069463 | 1 |  |
+| Results | Largest significant positive favorability estimate in October | 0.5 | 0.43202600389018 | 0 | paper_internal |
+| Results | Other significant negative favorability estimates in October | 2 | 2 | 1 |  |
+| Results | Smallest weekly sample | 1000 | 1000 | 1 |  |
+| Results | Largest weekly sample | 2000 | 2000 | 1 |  |
+| Results | Partisanship cells of Table 1 whose standard error exceeds the coefficient |  | 6 | 0 | paper_internal |
+| Results | No partisanship coefficient in Table 1 is distinguishable from zero |  | 0 | 1 |  |
+| Results | Specifications in which the time slope is negative | 3 | 3 | 1 |  |
+| Results | Specifications in which the time slope is distinguishable from zero | 1 | 1 | 1 |  |
+| Results | Battleground difference in favorability, magnitude | 0.008 | 0.00768087181979859 | 1 |  |
+| Results | General election coefficient (scale points) | 0.121 | 0.122624298396105 | 0 | paper_internal |
+| Results | The general election coefficient is not statistically significant |  | 1 | 1 |  |
+| Results | Upper bound of the general election interval | 0.25 | 0.253750226781251 | 1 |  |
+| Results | No tone or sponsor coefficient in Table 1 is distinguishable from zero |  | 0 | 1 |  |
+| Results | Target candidate coefficients relative to the omitted pro-Clinton category |  | 6 |  |  |
+| Results | No target candidate coefficient in Table 1 is distinguishable from zero |  | 0 | 1 |  |
+| Results | Democratic respondents respond more strongly to pro-Democratic than pro-Republican advertisements |  | 1 | 1 |  |
+| Results | Republican respondents respond similarly to pro-Democratic and pro-Republican advertisements |  |  |  |  |
+| Results | SATE favorability homogeneity p-value, restated | 0.09 | 0.0919044204718372 | 1 |  |
+| Results | SATE vote choice homogeneity p-value, restated | 0.07 | 0.0699520982406857 | 1 |  |
+| Results | CATE favorability homogeneity p-value | 0.0002 | 0.000165056906355207 | 1 |  |
+| Results | CATE vote choice homogeneity p-value | 0.96 | 0.0961039371758419 | 0 | paper_internal |
+| Results | Homogeneity tests in Table S2 that fail to reject at the 5 per cent level | 3 | 3 | 1 |  |
+| Results | Tau, favorability SATEs | 0.07 | 0.0681856141500511 | 1 |  |
+| Results | Tau, favorability CATEs | 0.15 | 0.147422967808586 | 1 |  |
+| Results | Tau, vote choice SATEs | 0.02 | 0.0221866535171719 | 1 |  |
+| Results | Tau, vote choice CATEs | 0.02 | 0.0232088109488414 | 1 |  |
+| Discussion | Advertisement-week experiments | 59 | 59 | 1 |  |
+| Discussion | Respondents completing a survey | 34000 | 34000 | 1 |  |
+| Discussion | Distinct campaign advertisements tested | 49 | 49 | 1 |  |
+| Figure 1 | Favorability meta-analytic estimate | 0.049 | 0.0492278297226765 | 1 |  |
+| Figure 1 | Favorability meta-analytic standard error | 0.020 | 0.0200009449806686 | 1 |  |
+| Figure 1 | Vote choice meta-analytic estimate | 0.007 | 0.00718114897405215 | 1 |  |
+| Figure 1 | Vote choice meta-analytic standard error | 0.007 | 0.00732724536941071 | 1 |  |
+| Table 1 | Table 1, model 1, intrcpt, estimate | 0.056 | 0.0559513746296691 | 1 |  |
+| Table 1 | Table 1, model 1, intrcpt, std.error | 0.020 | 0.0203091094511682 | 1 |  |
+| Table 1 | Table 1, model 2, intrcpt, estimate | 0.062 | 0.0619557871802226 | 1 |  |
+| Table 1 | Table 1, model 2, intrcpt, std.error | 0.020 | 0.0204550273103208 | 1 |  |
+| Table 1 | Table 1, model 3, intrcpt, estimate | 0.007 | 0.00717343917312331 | 1 |  |
+| Table 1 | Table 1, model 3, intrcpt, std.error | 0.007 | 0.0071442025839593 | 1 |  |
+| Table 1 | Table 1, model 4, intrcpt, estimate | 0.008 | 0.00761340879292043 | 1 |  |
+| Table 1 | Table 1, model 4, intrcpt, std.error | 0.007 | 0.00721776470356415 | 1 |  |
+| Table 1 | Table 1, model 1, democrat_d, estimate | 0.035 | 0.035239216310936 | 1 |  |
+| Table 1 | Table 1, model 1, democrat_d, std.error | 0.035 | 0.0346822419625252 | 1 |  |
+| Table 1 | Table 1, model 2, democrat_d, estimate | 0.022 | 0.0217616219401437 | 1 |  |
+| Table 1 | Table 1, model 2, democrat_d, std.error | 0.036 | 0.0361069235707198 | 1 |  |
+| Table 1 | Table 1, model 3, democrat_d, estimate | 0.011 | 0.010806619726571 | 1 |  |
+| Table 1 | Table 1, model 3, democrat_d, std.error | 0.010 | 0.010032366314141 | 1 |  |
+| Table 1 | Table 1, model 4, democrat_d, estimate | 0.006 | 0.00607624424823846 | 1 |  |
+| Table 1 | Table 1, model 4, democrat_d, std.error | 0.011 | 0.0111901459055996 | 1 |  |
+| Table 1 | Table 1, model 1, independent_d, estimate | 0.023 | 0.0230994168403523 | 1 |  |
+| Table 1 | Table 1, model 1, independent_d, std.error | 0.051 | 0.0514908172832446 | 1 |  |
+| Table 1 | Table 1, model 2, independent_d, estimate | 0.015 | 0.0148795264572917 | 1 |  |
+| Table 1 | Table 1, model 2, independent_d, std.error | 0.052 | 0.0518214653308673 | 1 |  |
+| Table 1 | Table 1, model 3, independent_d, estimate | 0.009 | 0.00882756839601489 | 1 |  |
+| Table 1 | Table 1, model 3, independent_d, std.error | 0.020 | 0.0196989007331031 | 1 |  |
+| Table 1 | Table 1, model 4, independent_d, estimate | 0.007 | 0.00662959611432707 | 1 |  |
+| Table 1 | Table 1, model 4, independent_d, std.error | 0.020 | 0.0199216048048094 | 1 |  |
+| Table 1 | Table 1, model 1, battleground_d, estimate | -0.00 | -0.00768087181979859 | 0 | paper_internal |
+| Table 1 | Table 1, model 1, battleground_d, std.error | 0.033 | 0.0330993309997604 | 1 |  |
+| Table 1 | Table 1, model 2, battleground_d, estimate | -0.007 | -0.0072889741172583 | 1 |  |
+| Table 1 | Table 1, model 2, battleground_d, std.error | 0.033 | 0.0331245308366241 | 1 |  |
+| Table 1 | Table 1, model 3, battleground_d, estimate | -0.017 | -0.0169737781355814 | 1 |  |
+| Table 1 | Table 1, model 3, battleground_d, std.error | 0.010 | 0.00982144227142085 | 1 |  |
+| Table 1 | Table 1, model 4, battleground_d, estimate | -0.017 | -0.0170054042184294 | 1 |  |
+| Table 1 | Table 1, model 4, battleground_d, std.error | 0.010 | 0.00996790251931272 | 1 |  |
+| Table 1 | Table 1, model 1, pac_d, estimate | -0.012 | -0.0124947275778725 | 1 |  |
+| Table 1 | Table 1, model 1, pac_d, std.error | 0.043 | 0.0426308784476082 | 1 |  |
+| Table 1 | Table 1, model 2, pac_d, estimate | 0.026 | 0.0256893089604675 | 1 |  |
+| Table 1 | Table 1, model 2, pac_d, std.error | 0.047 | 0.0469851815197418 | 1 |  |
+| Table 1 | Table 1, model 3, pac_d, estimate | -0.023 | -0.0231494095931858 | 1 |  |
+| Table 1 | Table 1, model 3, pac_d, std.error | 0.013 | 0.0128349559721876 | 1 |  |
+| Table 1 | Table 1, model 4, pac_d, estimate | -0.016 | -0.0156649998403321 | 1 |  |
+| Table 1 | Table 1, model 4, pac_d, std.error | 0.014 | 0.0144268706850987 | 1 |  |
+| Table 1 | Table 1, model 1, date_d, estimate | -0.023 | -0.0230094166284181 | 1 |  |
+| Table 1 | Table 1, model 1, date_d, std.error | 0.014 | 0.0140563401835011 | 1 |  |
+| Table 1 | Table 1, model 2, date_d, estimate | 0.005 | 0.00455623211451787 | 1 |  |
+| Table 1 | Table 1, model 2, date_d, std.error | 0.010 | 0.0101010468834039 | 1 |  |
+| Table 1 | Table 1, model 3, date_d, estimate | -0.009 | -0.00937763297831399 | 1 |  |
+| Table 1 | Table 1, model 3, date_d, std.error | 0.004 | 0.00379382342908776 | 1 |  |
+| Table 1 | Table 1, model 4, date_d, estimate | -0.008 | -0.00774541926272451 | 1 |  |
+| Table 1 | Table 1, model 4, date_d, std.error | 0.004 | 0.00426985776830752 | 1 |  |
+| Table 1 | Table 1, model 1, attack_d, estimate | -0.017 | -0.0171013743308075 | 1 |  |
+| Table 1 | Table 1, model 1, attack_d, std.error | 0.046 | 0.0462370739155849 | 1 |  |
+| Table 1 | Table 1, model 3, attack_d, estimate | 0.028 | 0.0279600502401837 | 1 |  |
+| Table 1 | Table 1, model 3, attack_d, std.error | 0.016 | 0.0163558547902618 | 1 |  |
+| Table 1 | Table 1, model 1, general_d, estimate | 0.123 | 0.122624298396105 | 1 |  |
+| Table 1 | Table 1, model 1, general_d, std.error | 0.067 | 0.0669022132138403 | 1 |  |
+| Table 1 | Table 1, model 2, pro_trump_d, estimate | -0.124 | -0.123836901513909 | 1 |  |
+| Table 1 | Table 1, model 2, pro_trump_d, std.error | 0.101 | 0.101118675428876 | 1 |  |
+| Table 1 | Table 1, model 4, pro_trump_d, estimate | -0.016 | -0.0157727126722737 | 1 |  |
+| Table 1 | Table 1, model 4, pro_trump_d, std.error | 0.034 | 0.0337767139387826 | 1 |  |
+| Table 1 | Table 1, model 2, anti_clinton_d, estimate | -0.105 | -0.105067385465675 | 1 |  |
+| Table 1 | Table 1, model 2, anti_clinton_d, std.error | 0.070 | 0.0698886090607598 | 1 |  |
+| Table 1 | Table 1, model 4, anti_clinton_d, estimate | 0.012 | 0.0115687385179081 | 1 |  |
+| Table 1 | Table 1, model 4, anti_clinton_d, std.error | 0.023 | 0.02296757258421 | 1 |  |
+| Table 1 | Table 1, model 2, anti_trump_d, estimate | -0.041 | -0.0413676950109046 | 1 |  |
+| Table 1 | Table 1, model 2, anti_trump_d, std.error | 0.058 | 0.0579066875305162 | 1 |  |
+| Table 1 | Table 1, model 4, anti_trump_d, estimate | 0.026 | 0.0261014333861311 | 1 |  |
+| Table 1 | Table 1, model 4, anti_trump_d, std.error | 0.021 | 0.0214091583815356 | 1 |  |
+| Table 1 | Table 1, model 2, pro_sanders_d, estimate | -0.075 | -0.0749244096818966 | 1 |  |
+| Table 1 | Table 1, model 2, pro_sanders_d, std.error | 0.089 | 0.0885300550768094 | 1 |  |
+| Table 1 | Table 1, model 2, pro_cruz_d, estimate | 0.047 | 0.0470694919223397 | 1 |  |
+| Table 1 | Table 1, model 2, pro_cruz_d, std.error | 0.116 | 0.116193805568345 | 1 |  |
+| Table 1 | Table 1, model 2, pro_kasich_d, estimate | -0.182 | -0.181777858909213 | 1 |  |
+| Table 1 | Table 1, model 2, pro_kasich_d, std.error | 0.145 | 0.14476493785976 | 1 |  |
+| Table 1 | Table 1, model 1, number of observations | 354 | 354 | 1 |  |
+| Table 1 | Table 1, model 2, number of observations | 354 | 354 | 1 |  |
+| Table 1 | Table 1, model 3, number of observations | 204 | 204 | 1 |  |
+| Table 1 | Table 1, model 4, number of observations | 204 | 204 | 1 |  |
+| Table 1 | Table 1 marks the model 1 average effect as significant at the 5 per cent level |  | 1 | 1 |  |
+| Table 1 | Table 1 marks the model 2 average effect as significant at the 5 per cent level |  | 1 | 1 |  |
+| Table 1 | Table 1 marks the model 3 time slope as significant at the 5 per cent level |  | 1 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Democratic ad, estimate | 0.039 | 0.0386595396179065 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Democratic ad, std.error | 0.036 | 0.035658160167125 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Republican ad, estimate | 0.048 | 0.0480196665227286 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Republican respondents, pro-Republican ad, std.error | 0.039 | 0.0389230315207782 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Democratic ad, estimate | 0.070 | 0.0699932736594406 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Democratic ad, std.error | 0.068 | 0.0678203342309326 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Republican ad, estimate | 0.012 | 0.0121099394831963 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Independent respondents, pro-Republican ad, std.error | 0.087 | 0.0871736863408394 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Democratic ad, estimate | 0.106 | 0.106476573620707 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Democratic ad, std.error | 0.027 | 0.0274578187061506 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Republican ad, estimate | -0.026 | -0.0263833309845451 | 1 |  |
+| Figure 2 | Figure 2, Favorability, Democratic respondents, pro-Republican ad, std.error | 0.049 | 0.0494319844445353 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Democratic ad, estimate | 0.007 | 0.0069909232014625 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Democratic ad, std.error | 0.014 | 0.0139356630863744 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Republican ad, estimate | -0.002 | -0.00216608514888706 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Republican respondents, pro-Republican ad, std.error | 0.009 | 0.00912830313876472 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Democratic ad, estimate | 0.005 | 0.00506265749355459 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Democratic ad, std.error | 0.024 | 0.0237475886684295 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Republican ad, estimate | 0.027 | 0.0271627314372247 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Independent respondents, pro-Republican ad, std.error | 0.029 | 0.0291458503455212 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, estimate | 0.027 | 0.0271759277742814 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Democratic ad, std.error | 0.008 | 0.00801715594366604 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Republican ad, estimate | -0.023 | -0.0233960926436279 | 1 |  |
+| Figure 2 | Figure 2, Vote choice, Democratic respondents, pro-Republican ad, std.error | 0.015 | 0.0147860283788054 | 1 |  |
+| Appendix A | Distinct campaign advertisements | 50 | 49 | 0 | paper_internal |
+| Appendix A | Advertisements fielded in more than one week | 8 | 7 | 0 | paper_internal |
+| Appendix A | Anti-Trump deployments | 28 | 30 | 0 | paper_internal |
+| Appendix A | Anti-Clinton deployments | 9 | 11 | 0 | paper_internal |
+| Appendix A | Pro-Clinton deployments | 9 | 8 | 0 | paper_internal |
+| Appendix A | Pro-Trump deployments | 3 | 3 | 1 |  |
+| Table S1 | Weeks listed | 29 | 29 | 1 |  |
+| Table S1 | Advertisement-week entries | 58 | 58 | 1 |  |
+| Appendix B | Advertisements fielded more than once | 7 | 7 | 1 |  |
+| Appendix B | Repeat advertisements whose effect varies significantly across weeks |  | 0 | 1 |  |
+| Appendix B | Weekly estimates for the advertisement Quotes |  |  |  |  |
+| Figure S1 | Panels | 7 | 7 | 1 |  |
+| Figure S1 | Weekly estimates plotted | 17 | 17 | 1 |  |
+| Table S2 | Table S2, sates, Favorability, estimate | 0.0492 | 0.0492278297226765 | 1 |  |
+| Table S2 | Table S2, sates, Favorability, std.error | 0.0200 | 0.0200009449806686 | 1 |  |
+| Table S2 | Table S2, sates, Favorability, p.value | 0.0919 | 0.0919044204718372 | 1 |  |
+| Table S2 | Table S2, sates, Favorability, tau2 | 0.0046 | 0.00464927797701965 | 1 |  |
+| Table S2 | Table S2, sates, Favorability, tau | 0.0682 | 0.0681856141500511 | 1 |  |
+| Table S2 | Table S2, sates, Vote Choice, estimate | 0.0072 | 0.00718114897405215 | 1 |  |
+| Table S2 | Table S2, sates, Vote Choice, std.error | 0.0073 | 0.00732724536941071 | 1 |  |
+| Table S2 | Table S2, sates, Vote Choice, p.value | 0.0700 | 0.0699520982406857 | 1 |  |
+| Table S2 | Table S2, sates, Vote Choice, tau2 | 0.0005 | 0.000492247594291038 | 1 |  |
+| Table S2 | Table S2, sates, Vote Choice, tau | 0.0222 | 0.0221866535171719 | 1 |  |
+| Table S2 | Table S2, cates, Favorability, estimate | 0.0585 | 0.0584522714979407 | 1 |  |
+| Table S2 | Table S2, cates, Favorability, std.error | 0.0178 | 0.0178394276247739 | 1 |  |
+| Table S2 | Table S2, cates, Favorability, p.value | 0.0002 | 0.000165056906355207 | 1 |  |
+| Table S2 | Table S2, cates, Favorability, tau2 | 0.0217 | 0.0217335314374913 | 1 |  |
+| Table S2 | Table S2, cates, Favorability, tau | 0.1474 | 0.147422967808586 | 1 |  |
+| Table S2 | Table S2, cates, Vote Choice, estimate | 0.0083 | 0.00826356365738539 | 1 |  |
+| Table S2 | Table S2, cates, Vote Choice, std.error | 0.0051 | 0.00514489865140912 | 1 |  |
+| Table S2 | Table S2, cates, Vote Choice, p.value | 0.0961 | 0.0961039371758419 | 1 |  |
+| Table S2 | Table S2, cates, Vote Choice, tau2 | 0.0005 | 0.00053864890565906 | 1 |  |
+| Table S2 | Table S2, cates, Vote Choice, tau | 0.0232 | 0.0232088109488414 | 1 |  |
 
 Maintained rewrite verification: published value against rewrite output.
 
-**165** of 175 published quantities are reproduced by the maintained
-rewrite to the precision the article reports. The 10 that are not are
+**326** of 342 published quantities are reproduced by the maintained
+rewrite to the precision the article reports. The 12 that are not are
 the errata above, where the archive and the rewrite agree with each
 other and the article says something else.
 
@@ -967,7 +1086,7 @@ because a PDF records the time it was written.
 |:----------|:-----------------------|
 | R version | 4.6.0                  |
 | Platform  | aarch64-apple-darwin23 |
-| Date run  | 2026-08-01             |
+| Date run  | 2026-08-03             |
 
 | Package      | Version |
 |:-------------|:--------|

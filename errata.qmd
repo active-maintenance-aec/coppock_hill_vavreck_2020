@@ -1,0 +1,180 @@
+---
+title: "Errata"
+subtitle: "On Coppock, Hill and Vavreck (2020), *Science Advances* 6(36)"
+format:
+  pdf:
+    output-file: coppock_hill_vavreck_2020_errata.pdf
+    geometry: margin=1in
+    fontsize: 11pt
+    include-in-header:
+      text: |
+        \usepackage{caption}
+        \captionsetup{labelformat=empty}
+        \usepackage{float}
+        \floatplacement{table}{H}
+        \floatplacement{figure}{H}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(here)
+library(tidyverse)
+here::i_am("errata.qmd")
+
+out <- function(f) read_csv(here("maintained", "output", f), show_col_types = FALSE)
+
+text_numbers <- out("text_in_text_numbers.csv")
+descriptive  <- out("text_descriptive_claims.csv")
+table_1      <- out("table_1_meta_regression.csv")
+table_s2     <- out("table_s2_heterogeneity.csv")
+repeat_ads   <- out("text_repeat_ad_homogeneity.csv")
+
+txt <- function(name) {
+  value <- text_numbers$value[text_numbers$claim == name]
+  stopifnot(length(value) == 1)
+  value
+}
+
+computed <- function(claim) {
+  value <- descriptive$computed[descriptive$claim_id == claim]
+  stopifnot(length(value) == 1)
+  value
+}
+
+cate_vote_choice_p <- table_s2$p.value[table_s2$estimand == "cates" &
+                                         table_s2$dv == "Vote Choice" &
+                                         table_s2$method == "DL (published)"]
+
+general_election <- table_1$estimate[table_1$model == "Candidate favorability (1)" &
+                                       table_1$term == "general_d"]
+
+partisanship <- table_1 |> filter(term %in% c("democrat_d", "independent_d"))
+
+# The article's "more than +0.5 points" is a lower bound on the largest positive
+# estimate, so the corrected bound is that estimate rounded down to the same precision.
+largest_october <- computed("desc_large_positive_october")
+october_bound <- floor(largest_october * 10) / 10
+
+# The published list quotes each title with the comma inside the quotation marks and none
+# after the last, so the corrected list is built the same way.
+repeat_ad_titles <- sort(unique(repeat_ads$ad_title))
+repeat_ad_list <- str_c(
+  str_c('"', head(repeat_ad_titles, -1), ',"', collapse = " "),
+  ' "', tail(repeat_ad_titles, 1), '"'
+)
+```
+
+This note lists eight errors in "The small effects of political advertising are small regardless of context, message, sender, or receiver: Evidence from 59 real-time randomized experiments," published in *Science Advances* 6(36), doi [10.1126/sciadv.abc4046](https://doi.org/10.1126/sciadv.abc4046). **None of them changes a conclusion of the paper.** They are recorded because the numbers themselves are wrong and a reader who quoted them would be misled.
+
+Items 1 through 4 are in the main text, items 5 through 7 in section A of the supplementary materials, and item 8 in Materials and Methods. Every corrected value below is computed from the deposited replication archive ([10.7910/DVN/TN7KWR](https://doi.org/10.7910/DVN/TN7KWR)) at the time this document is rendered. The maintained code is at [github.com/active-maintenance-aec/coppock_hill_vavreck_2020](https://github.com/active-maintenance-aec/coppock_hill_vavreck_2020).
+
+## 1. The CATE homogeneity p-value for vote choice is misstated by a factor of ten
+
+Published, Results:
+
+> For the set of conditional average treatment effects (CATEs), P values are 0.0002 and **0.96**.
+
+Corrected:
+
+> For the set of conditional average treatment effects (CATEs), P values are 0.0002 and **`r sprintf("%.4f", cate_vote_choice_p)`**.
+
+Table S2 of the same article reports `r sprintf("%.4f", cate_vote_choice_p)` for this test, which is what the deposited code produces. The test still fails to reject the null of homogeneity at conventional levels, so the sentence two paragraphs later, that homogeneity is not rejected in three of four opportunities, is unaffected.
+
+## 2. The general election coefficient disagrees with Table 1
+
+Published, Results:
+
+> On average, general election advertisements move candidate favorability by **0.121 scale points** more than primary advertisements, although the estimate is not precise enough to achieve statistical significance.
+
+Corrected:
+
+> On average, general election advertisements move candidate favorability by **`r sprintf("%.3f", general_election)` scale points** more than primary advertisements, although the estimate is not precise enough to achieve statistical significance.
+
+Table 1 of the same article prints `r sprintf("%.3f", general_election)` in this cell.
+
+Table 1 also prints the model 1 battleground coefficient as $-0.00$, where the deposited code gives $`r sprintf("%.3f", table_1$estimate[table_1$model == "Candidate favorability (1)" & table_1$term == "battleground_d"])`$; the facing text quotes its magnitude correctly as 0.008. The table is reprinted below with that cell at the three decimals the rest of the column carries. Every other cell is unchanged.
+
+```{r table-1}
+#| output: asis
+# The table as the pipeline writes it, scaled to the page. Nothing but the width is
+# touched: the cells come straight from maintained/output/table_1_meta_regression.tex.
+table_1_tex <- read_lines(here("maintained", "output", "table_1_meta_regression.tex"))
+table_1_tex <- str_replace(table_1_tex, fixed("\\begin{tabular}"),
+                           "\\resizebox{\\linewidth}{!}{\\begin{tabular}")
+table_1_tex <- str_replace(table_1_tex, fixed("\\end{tabular}"), "\\end{tabular}}")
+cat(table_1_tex, sep = "\n")
+```
+
+\parbox{\linewidth}{\footnotesize\raggedright \textit{Note:} Table 1 as published, with the model 1 battleground coefficient printed to three decimals. Standard errors in parentheses; $*$ denotes $p < 0.05$. Estimated from the deposited replication archive by \texttt{maintained/table\_1\_meta\_regression.R}.}
+
+## 3. No estimate in the study exceeds half a scale point
+
+Published, Results:
+
+> ...one large positive result toward the end of the campaign in October (**more than +0.5 points**), and two other negative results in October.
+
+Corrected:
+
+> ...one large positive result toward the end of the campaign in October (**more than +`r sprintf("%.1f", october_bound)` points**), and two other negative results in October.
+
+The largest positive weekly estimate anywhere in the study is `r sprintf("%.3f", largest_october)`, on the advertisement "Example" in the week of 31 October. The passage's point, that a significance filter applied to these experiments would leave a handful of results that look large, is unaffected.
+
+## 4. Standard errors do not exceed the coefficients in every partisanship cell
+
+Published, Results:
+
+> Turning first to features of receiver, we see that the differences in treatment response across Democrats, Independents, and Republicans are small, **with SEs greater than coefficients**.
+
+Corrected:
+
+> Turning first to features of receiver, we see that the differences in treatment response across Democrats, Independents, and Republicans are small, **with SEs greater than coefficients in `r computed("desc_partisan_ses_exceed_coefficients")` of the `r nrow(partisanship)` cells**.
+
+The two exceptions are the Democratic respondent coefficients in columns 1 and 3 of Table 1, and the second is visible on the printed page: 0.011 with a standard error of 0.010. Neither coefficient is distinguishable from zero, so the claim the sentence supports, that treatment response does not differ by respondent partisanship, is unaffected.
+
+## 5. The advertisement counts in section A disagree with the main text
+
+Published, supplementary materials, section A:
+
+> Including the ads we deployed more than once, we tested **28** ads that attacked Trump, **nine** attacks on Clinton, **nine** Clinton promotional ads, and three promotional Trump ads.
+
+Corrected:
+
+> Including the ads we deployed more than once, we tested **`r txt("n_deployments_anti_trump")`** ads that attacked Trump, **`r txt("n_deployments_anti_clinton")`** attacks on Clinton, **`r txt("n_deployments_pro_clinton")`** Clinton promotional ads, and three promotional Trump ads.
+
+Counted as the section says, over advertisement-week deployments rather than distinct advertisements, the breakdown is `r txt("n_deployments_anti_trump")`, `r txt("n_deployments_anti_clinton")`, `r txt("n_deployments_pro_clinton")` and `r txt("n_deployments_pro_trump")`, which is exactly what the main text states. Counted over distinct advertisements it is 24, 11, 6 and 3. The published breakdown matches neither.
+
+## 6. The number of unique advertisements in section A disagrees with the abstract
+
+Published, supplementary materials, section A:
+
+> Table S1 shows the name and target of the **50** unique advertisements and the week they were deployed.
+
+Corrected:
+
+> Table S1 shows the name and target of the **`r txt("n_unique_ads")`** unique advertisements and the week they were deployed.
+
+The deposited data hold `r txt("n_unique_ads")` campaign advertisements plus the placebo, and the abstract's `r txt("n_unique_ads")` is right. Table S1 itself carries 48 distinct names, because two of the `r txt("n_unique_ads")` advertisements share the title "Sacrifice" and the week of 5 September.
+
+## 7. Section A names eight advertisements shown in multiple weeks
+
+Published, supplementary materials, section A:
+
+> Some advertisements (**"America," "Love/Kindness," "Man of People," "Mirrors," "Quotes," "Real Life," "Role Model," "Speak"**) were shown in multiple weeks, enabling us to estimate how the effect of the same advertisement may vary with the changing electoral context.
+
+Corrected:
+
+> Some advertisements (**`r repeat_ad_list`**) were shown in multiple weeks, enabling us to estimate how the effect of the same advertisement may vary with the changing electoral context.
+
+"Man of People" was fielded once, in the week of 14 March. Section B and Figure S1 both use the correct count of `r nrow(repeat_ads)`.
+
+## 8. The manipulation check range is one point narrow at each end
+
+Published, Materials and Methods:
+
+> Tiny fractions of the control groups claimed to have seen campaign advertisements (2 to 4%) compared with large majorities of the treatment groups (**92 to 95%**).
+
+Corrected:
+
+> Tiny fractions of the control groups claimed to have seen campaign advertisements (2 to 4%) compared with large majorities of the treatment groups (**`r sprintf("%.0f", 100 * txt("manip_check_treated_min"))` to `r sprintf("%.0f", 100 * txt("manip_check_treated_max"))`%**).
+
+Across the ten waves in which the manipulation check was asked, the unweighted share of treated respondents reporting a campaign advertisement runs from `r sprintf("%.1f", 100 * txt("manip_check_treated_min"))` to `r sprintf("%.1f", 100 * txt("manip_check_treated_max"))` per cent, which is what the deposited script written for this sentence computes. Weighting by the survey weights widens the range further, to 90.2 to 95.9 per cent. The control group range is correct as published.

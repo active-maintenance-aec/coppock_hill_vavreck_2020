@@ -21,11 +21,16 @@ unique_ads <- distinct(deployments, ad_id, ad_title, ad_valence)
 
 repeat_ads <- deployments |> count(ad_id, ad_title) |> filter(n > 1)
 
+# Completed responses per week, and the span of the fielding period ----
+weekly_n <- count(exps, date)
+
 design_claims <- tibble(
   claim = c("n_respondents", "n_weeks", "n_unique_ads", "n_ad_week_deployments",
-            "n_ads_fielded_more_than_once"),
+            "n_ads_fielded_more_than_once", "weekly_n_min", "weekly_n_max",
+            "months_spanned"),
   value = c(nrow(exps), n_distinct(exps$date), nrow(unique_ads),
-            nrow(deployments), nrow(repeat_ads))
+            nrow(deployments), nrow(repeat_ads), min(weekly_n$n), max(weekly_n$n),
+            as.numeric(diff(range(exps$date))) / 30.4375)
 )
 
 valence_claims <-

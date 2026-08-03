@@ -4,6 +4,9 @@ n_weeks,29
 n_unique_ads,49
 n_ad_week_deployments,59
 n_ads_fielded_more_than_once,7
+weekly_n_min,1000
+weekly_n_max,2000
+months_spanned,7.819301848049282
 n_unique_ads_anti_clinton,11
 n_unique_ads_anti_trump,24
 n_unique_ads_pro_clinton,6

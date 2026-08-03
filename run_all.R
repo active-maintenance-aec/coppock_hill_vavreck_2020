@@ -32,12 +32,20 @@ source(here::here("maintained", "figure_s1_repeat_ads.R"))
 
 # In-text quantities ----
 source(here::here("maintained", "text_in_text_numbers.R"))
+source(here::here("maintained", "text_repeat_ad_homogeneity.R"))
+source(here::here("maintained", "text_descriptive_claims.R"))
 source(here::here("maintained", "text_archive_agreement.R"))
 
 # Ground truth ----
 # Reads the published values it compares against out of the outputs above, so the
 # table cannot drift from the pipeline. Runs last for that reason.
 source(here::here("ground_truth", "build_ground_truth.R"))
+
+# In-text claims ----
+# Every number the article prints, beside the sentence that prints it and the value this
+# pipeline gives for it. build_ground_truth.R has already run this file and gated on what
+# it printed; running it here again is what puts the audit trail in the run's own log.
+source(here::here("maintained", "in_text_claims.R"))
 
 # Deposited archive, again ----
 # The check at the top of this file is a precondition: it says original/ was intact
