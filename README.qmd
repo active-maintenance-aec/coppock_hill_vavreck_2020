@@ -82,6 +82,12 @@ n_extraction <- nrow(published_claims)
 n_s3 <- sum(gt$table_figure == "Table S3")
 n_scripts <- length(list.files(here::here("maintained"), pattern = "\\.R$"))
 n_errata <- sum(gt$table_figure != "Table 1" & !is.na(gt$defect_locus))
+
+# The errata are defined once, in errata.qmd, which writes errata_entries.csv when it
+# renders. This report reads that file rather than keeping a second copy of the count or
+# the numbering, because a second copy is how the two would come to disagree.
+spine <- read_csv(here::here("errata_entries.csv"), show_col_types = FALSE)
+n_errata_entries <- nrow(spine)
 ```
 
 Two questions, answered before the detail.
@@ -226,21 +232,21 @@ gt |>
     column_spec(5, width = "7cm"))
 ```
 
-Six of these are worth stating in prose.
+They are set out as `r n_errata_entries` numbered entries in the note. The ones worth stating in prose here carry the note's numbering.
 
-**The vote choice CATE homogeneity test.** The Results section reports "For the set of conditional average treatment effects (CATEs), P values are 0.0002 and 0.96." Table S2 of the same paper reports 0.0961 for the vote choice CATEs, which is what the code produces. The main text figure is off by a factor of ten, and it is the one that reads as decisive evidence of homogeneity.
+**Entry 1, the vote choice CATE homogeneity test.** The Results section reports "For the set of conditional average treatment effects (CATEs), P values are 0.0002 and 0.96." Table S2 of the same paper reports 0.0961 for the vote choice CATEs, which is what the code produces. The main text figure is off by a factor of ten, and it is the one that reads as decisive evidence of homogeneity.
 
-**Table 1's battleground coefficient.** The published table prints `−0.00` for the battleground coefficient in the first favorability model. The code gives −0.008, and the Results section on the facing column quotes the magnitude correctly as 0.008. The table cell lost a digit in typesetting.
+**Table 1's battleground coefficient**, which the note folds into entry 2. The published table prints `−0.00` for the battleground coefficient in the first favorability model. The code gives −0.008, and the Results section on the facing column quotes the magnitude correctly as 0.008. The table cell lost a digit in typesetting.
 
-**The general election coefficient.** The Results section says general election advertisements move favorability "by 0.121 scale points more than primary advertisements." Table 1 prints 0.123, and 0.123 is what the code gives. The confidence bound quoted in the same sentence, "about 0.25," follows from 0.123 rather than from 0.121.
+**Entry 2, the general election coefficient.** The Results section says general election advertisements move favorability "by 0.121 scale points more than primary advertisements." Table 1 prints 0.123, and 0.123 is what the code gives. The confidence bound quoted in the same sentence, "about 0.25," follows from 0.123 rather than from 0.121.
 
-**The appendix's advertisement counts.** Appendix section A says Table S1 shows "50 unique advertisements" and that, "including the ads we deployed more than once," the study tested 28 anti-Trump, nine anti-Clinton, nine pro-Clinton and three pro-Trump advertisements. The data hold 49 distinct campaign advertisements and one placebo, and the main text's 49 is right. The four counts match neither the distinct-advertisement counts (24, 11, 6, 3) nor the deployment counts (30, 11, 8, 3); the main text's own breakdown, 30/11/8/3, is the deployment count and is correct. Appendix section A also names eight advertisements as having run in multiple weeks; seven did, and "Man of People" ran once, on 14 March. Section B and Figure S1 both use the correct seven.
+**Entries 5, 6 and 7, the appendix's advertisement counts.** Appendix section A says Table S1 shows "50 unique advertisements" and that, "including the ads we deployed more than once," the study tested 28 anti-Trump, nine anti-Clinton, nine pro-Clinton and three pro-Trump advertisements. The data hold 49 distinct campaign advertisements and one placebo, and the main text's 49 is right. The four counts match neither the distinct-advertisement counts (24, 11, 6, 3) nor the deployment counts (30, 11, 8, 3); the main text's own breakdown, 30/11/8/3, is the deployment count and is correct. Appendix section A also names eight advertisements as having run in multiple weeks; seven did, and "Man of People" ran once, on 14 March. Section B and Figure S1 both use the correct seven.
 
-**The largest estimate in the study.** The Results section asks the reader to imagine what a significance filter would leave, and describes "one large positive result toward the end of the campaign in October (more than +0.5 points)." No estimate anywhere in the study reaches half a scale point. The largest is `r sprintf("%.3f", gt$value_rewrite[gt$claim_id == "desc_large_positive_october"])`, on the advertisement "Example" in the week of 31 October, and it is in the right place on the right date. The passage's point survives; the number does not.
+**Entry 3, the largest estimate in the study.** The Results section asks the reader to imagine what a significance filter would leave, and describes "one large positive result toward the end of the campaign in October (more than +0.5 points)." No estimate anywhere in the study reaches half a scale point. The largest is `r sprintf("%.3f", gt$value_rewrite[gt$claim_id == "desc_large_positive_october"])`, on the advertisement "Example" in the week of 31 October, and it is in the right place on the right date. The passage's point survives; the number does not.
 
-**Standard errors and the partisanship coefficients.** The Results section says the differences in treatment response across Democrats, Independents and Republicans are "small, with SEs greater than coefficients." That holds in `r gt$value_rewrite[gt$claim_id == "desc_partisan_ses_exceed_coefficients"]` of the 8 partisanship cells in Table 1. The exceptions are the Democratic respondent coefficients in columns 1 and 3, and the second is visible on the published page: 0.011 with a standard error of 0.010. Neither is distinguishable from zero, so the claim the sentence supports is unaffected.
+**Entry 4, standard errors and the partisanship coefficients.** The Results section says the differences in treatment response across Democrats, Independents and Republicans are "small, with SEs greater than coefficients." That holds in `r gt$value_rewrite[gt$claim_id == "desc_partisan_ses_exceed_coefficients"]` of the 8 partisanship cells in Table 1. The exceptions are the Democratic respondent coefficients in columns 1 and 3, and the second is visible on the published page: 0.011 with a standard error of 0.010. Neither is distinguishable from zero, so the claim the sentence supports is unaffected.
 
-The manipulation check range is a seventh, smaller case. The article says treated respondents claiming to have seen a campaign advertisement ranged from 92 to 95 percent. The unweighted range across the ten waves in which the question was asked is 91.4 to 95.5 percent, and weighting by the survey weights widens it to 90.2 to 95.9. The control range, stated as 2 to 4 percent, is right.
+**Entry 8, the manipulation check range**, is a smaller case. The article says treated respondents claiming to have seen a campaign advertisement ranged from 92 to 95 percent. The unweighted range across the ten waves in which the question was asked is 91.4 to 95.5 percent, and weighting by the survey weights widens it to 90.2 to 95.9. The control range, stated as 2 to 4 percent, is right.
 
 # Number-by-number comparison
 
