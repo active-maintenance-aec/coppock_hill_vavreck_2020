@@ -83,8 +83,15 @@ spell <- function(n) {
 #
 # Numbering is the published note's and is APPEND-ONLY: an entry can already have been
 # cited, so a later finding is added at the end and never interleaved.
+#
+# claim_ids names the ground-truth rows an entry corrects, semicolon-separated, so that
+# "is this finding published?" is a query rather than a judgment. An entry that corrects
+# several numbers at once lists every one of them: entry 2 carries the Table 1 battleground
+# cell alongside the coefficient the sentence misstates, because the table is reprinted with
+# that cell fixed. It is empty where an entry has no ground-truth row at all. Every id
+# listed here is checked against the ground truth by build_ground_truth.R.
 entries <- tribble(
-  ~entry, ~class, ~source, ~form, ~title, ~location, ~published, ~corrected, ~note,
+  ~entry, ~class, ~source, ~form, ~title, ~location, ~published, ~corrected, ~note, ~claim_ids,
 
   1, "quantity", "pipeline", "full",
   "The CATE homogeneity p-value for vote choice is misstated by a factor of ten",
@@ -96,6 +103,7 @@ entries <- tribble(
     "test, which is what the deposited code produces. The test still fails to reject the ",
     "null of homogeneity at conventional levels, so the sentence two paragraphs later, that ",
     "homogeneity is not rejected in three of four opportunities, is unaffected."),
+  "results_s2_cate_vc_p",
 
   2, "quantity", "pipeline", "full",
   "The general election coefficient disagrees with Table 1",
@@ -111,6 +119,7 @@ entries <- tribble(
     "the facing text quotes its magnitude correctly as 0.008. The table is reprinted below ",
     "with that cell at the three decimals the rest of the column carries. Every other cell ",
     "is unchanged."),
+  "results_general_election_coefficient;table_1_m1_battleground_d_est",
 
   3, "quantity", "pipeline", "full",
   "No estimate in the study exceeds half a scale point",
@@ -122,6 +131,7 @@ entries <- tribble(
     "{sprintf('%.3f', largest_october)}, on the advertisement \"Example\" in the week of 31 ",
     "October. The passage's point, that a significance filter applied to these experiments ",
     "would leave a handful of results that look large, is unaffected."),
+  "desc_large_positive_october",
 
   4, "description", "pipeline", "full",
   "Standard errors do not exceed the coefficients in every partisanship cell",
@@ -134,6 +144,7 @@ entries <- tribble(
     "0.010. Neither coefficient is distinguishable from zero, so the claim the sentence",
     "supports, that treatment response does not differ by respondent partisanship, is",
     "unaffected."),
+  "desc_partisan_ses_exceed_coefficients",
 
   5, "quantity", "pipeline", "full",
   "The advertisement counts in section A disagree with the main text",
@@ -147,6 +158,7 @@ entries <- tribble(
     "{txt('n_deployments_pro_trump')}, which is exactly what the main text states. Counted ",
     "over distinct advertisements it is 24, 11, 6 and 3. The published breakdown matches ",
     "neither."),
+  "appendix_a_n_anti_trump;appendix_a_n_anti_clinton;appendix_a_n_pro_clinton",
 
   6, "quantity", "pipeline", "full",
   "The number of unique advertisements in section A disagrees with the abstract",
@@ -158,6 +170,7 @@ entries <- tribble(
     "and the abstract's {txt('n_unique_ads')} is right. Table S1 itself carries 48 distinct ",
     "names, because two of the {txt('n_unique_ads')} advertisements share the title ",
     "\"Sacrifice\" and the week of 5 September."),
+  "appendix_a_n_unique_ads",
 
   7, "label", "pipeline", "full",
   "Section A names eight advertisements shown in multiple weeks",
@@ -167,6 +180,7 @@ entries <- tribble(
   str_glue(
     "\"Man of People\" was fielded once, in the week of 14 March. Section B and Figure S1 ",
     "both use the correct count of {nrow(repeat_ads)}."),
+  "appendix_a_n_repeat_ads_named",
 
   8, "quantity", "pipeline", "full",
   "The manipulation check range is one point narrow at each end",
@@ -180,9 +194,10 @@ entries <- tribble(
     "{sprintf('%.1f', 100 * txt('manip_check_treated_max'))} per cent, which is what the ",
     "deposited script written for this sentence computes. Weighting by the survey weights ",
     "widens the range further, to 90.2 to 95.9 per cent. The control group range is correct ",
-    "as published.")
+    "as published."),
+  "methods_manip_treated_min;methods_manip_treated_max"
 ) |>
-  mutate(across(c(title, published, corrected, note), as.character))
+  mutate(across(c(title, published, corrected, note, claim_ids), as.character))
 
 stopifnot(nrow(entries) == max(entries$entry), !anyDuplicated(entries$entry))
 
