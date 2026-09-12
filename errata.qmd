@@ -195,7 +195,18 @@ entries <- tribble(
     "deposited script written for this sentence computes. Weighting by the survey weights ",
     "widens the range further, to 90.2 to 95.9 per cent. The control group range is correct ",
     "as published."),
-  "methods_manip_treated_min;methods_manip_treated_max"
+  "methods_manip_treated_min;methods_manip_treated_max",
+
+  9, "typographic", "remaster", "brief",
+  "\"treatmen\" for \"treatment\"",
+  "published, Materials and Methods",
+  "OLS is a consistent estimator of the average [[treatmen]] effect (ATE) under our design (35).",
+  "OLS is a consistent estimator of the average [[treatment]] effect (ATE) under our design (35).",
+  paste(
+    "A dropped letter, in the sentence that names the estimand. The article spells the term",
+    "correctly everywhere else, including in the sentence immediately before this one. Found",
+    "by the remaster, which carries the published text across word by word."),
+  ""
 ) |>
   mutate(across(c(title, published, corrected, note, claim_ids), as.character))
 
@@ -214,9 +225,9 @@ emit <- function(n) {
 }
 ```
 
-This note lists `r spell(nrow(entries))` errors in "The small effects of political advertising are small regardless of context, message, sender, or receiver: Evidence from 59 real-time randomized experiments," published in *Science Advances* 6(36), doi [10.1126/sciadv.abc4046](https://doi.org/10.1126/sciadv.abc4046). **None of them changes a conclusion of the paper.** They are recorded because the numbers themselves are wrong and a reader who quoted them would be misled.
+This note lists `r spell(nrow(entries))` errors in "The small effects of political advertising are small regardless of context, message, sender, or receiver: Evidence from 59 real-time randomized experiments," published in *Science Advances* 6(36), doi [10.1126/sciadv.abc4046](https://doi.org/10.1126/sciadv.abc4046). **None of them changes a conclusion of the paper.** The first eight are recorded because the numbers themselves are wrong and a reader who quoted them would be misled; the ninth is a dropped letter, recorded on the same principle.
 
-Items 1 through 4 are in the main text, items 5 through 7 in section A of the supplementary materials, and item 8 in Materials and Methods. Every corrected value below is computed from the deposited replication archive ([10.7910/DVN/TN7KWR](https://doi.org/10.7910/DVN/TN7KWR)) at the time this document is rendered. The maintained code is at [github.com/active-maintenance-aec/coppock_hill_vavreck_2020](https://github.com/active-maintenance-aec/coppock_hill_vavreck_2020).
+Items 1 through 4 are in the main text, items 5 through 7 in section A of the supplementary materials, and items 8 and 9 in Materials and Methods. Every corrected value below is computed from the deposited replication archive ([10.7910/DVN/TN7KWR](https://doi.org/10.7910/DVN/TN7KWR)) at the time this document is rendered. The maintained code is at [github.com/active-maintenance-aec/coppock_hill_vavreck_2020](https://github.com/active-maintenance-aec/coppock_hill_vavreck_2020).
 
 ```{r entries-1-2, results="asis"}
 walk(1:2, emit)
