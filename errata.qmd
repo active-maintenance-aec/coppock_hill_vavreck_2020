@@ -41,14 +41,70 @@ computed <- function(claim) {
   value
 }
 
-cate_vote_choice_p <- table_s2$p.value[table_s2$estimand == "cates" &
-                                         table_s2$dv == "Vote Choice" &
-                                         table_s2$method == "DL (published)"]
+s2_value <- function(estimand, dv, column) {
+  value <- table_s2[[column]][table_s2$estimand == estimand & table_s2$dv == dv &
+                                table_s2$method == "DL (published)"]
+  stopifnot(length(value) == 1)
+  value
+}
+
+cate_vote_choice_p <- s2_value("cates", "Vote Choice", "p.value")
 
 general_election <- table_1$estimate[table_1$model == "Candidate favorability (1)" &
                                        table_1$term == "general_d"]
 
 partisanship <- table_1 |> filter(term %in% c("democrat_d", "independent_d"))
+
+# R11, 2026-09-19. Each entry below is asked what its corrected cell was the WARRANT for:
+# which sentence a referee would have said rests on it, and whether that sentence survives
+# the corrected value. Every benchmark the notes quote is computed here rather than typed,
+# so a re-render moves it with the deposited data.
+
+# Entry 1. The three homogeneity tests the article does not reject. The published 0.96 was
+# the only one of the four no conventional threshold could touch.
+homogeneity_not_rejected <- sort(c(
+  s2_value("sates", "Favorability", "p.value"),
+  s2_value("sates", "Vote Choice", "p.value"),
+  cate_vote_choice_p
+))
+cate_vote_choice_tau <- s2_value("cates", "Vote Choice", "tau")
+
+# Entry 3. The set a significance filter would leave, which is what the passage inventories.
+weekly_favorability <-
+  out("figure_1_sate_time_series.csv") |>
+  filter(dv == "Favorability", est_type == "Weekly estimates")
+significant_weekly <- weekly_favorability |> filter(conf.low > 0 | conf.high < 0)
+
+# Entry 4. No partisanship cell reaches even 1.1 standard errors from zero, which is the
+# benchmark that says the claim the sentence supports survives its corrected count.
+partisan_max_ratio <- max(abs(partisanship$estimate) / partisanship$std.error)
+
+# Entry 5. The four counts the sentence gives are a partial inventory of the 59
+# advertisement-week experiments, and correcting them resizes the residual category.
+deployments_named <- sum(map_dbl(
+  c("n_deployments_anti_trump", "n_deployments_anti_clinton",
+    "n_deployments_pro_clinton", "n_deployments_pro_trump"),
+  txt))
+deployments_other <- txt("n_ad_week_deployments") - deployments_named
+
+# Entry 6. Table S1 is the stated roster, and it prints one cell per advertisement-week that
+# has a distinct title, so it reaches neither the 49 advertisements nor the 59 experiments.
+table_s1 <- out("table_s1_ad_list.csv")
+table_s1_cells <-
+  table_s1 |>
+  select(-date_formatted) |>
+  pivot_longer(everything()) |>
+  filter(!is.na(value)) |>
+  pull(value)
+
+# Entry 7. The corrected list is Figure S1's panel set, name for name, so section A's list
+# is the stated definition of what that figure shows.
+figure_s1 <- out("figure_s1_repeat_ads.csv")
+stopifnot(identical(sort(unique(figure_s1$ad_title)), sort(unique(repeat_ads$ad_title))))
+
+# Entry 8. What the manipulation check is the warrant for is the contrast with the control
+# groups, and the corrected low end is what that contrast is exposed on.
+manip_ratio <- txt("manip_check_treated_min") / txt("manip_check_control_max")
 
 # The article's "more than +0.5 points" is a lower bound on the largest positive
 # estimate, so the corrected bound is that estimate rounded down to the same precision.
@@ -101,8 +157,19 @@ entries <- tribble(
   str_glue(
     "Table S2 of the same article reports {sprintf('%.4f', cate_vote_choice_p)} for this ",
     "test, which is what the deposited code produces. The test still fails to reject the ",
-    "null of homogeneity at conventional levels, so the sentence two paragraphs later, that ",
-    "homogeneity is not rejected in three of four opportunities, is unaffected."),
+    "null of homogeneity at the 5 per cent level, so the sentence two paragraphs later, that ",
+    "homogeneity is not rejected in three of four opportunities, stands as published.",
+    "\n\n",
+    "What the correction changes is how much weight that sentence can carry. The three tests ",
+    "the article does not reject now run ",
+    "{str_c(sprintf('%.3f', homogeneity_not_rejected), collapse = ', ')}, so all three sit ",
+    "between 0.05 and 0.10 and the count would be none of four at the 10 per cent level. The ",
+    "published 0.96 was the only one of the four p-values no conventional threshold could ",
+    "touch. The passage does not rest on the tests: it says so itself, declining to affirm ",
+    "the null and relying instead on the random-effects estimate of the true standard ",
+    "deviation of the effects, which for these CATEs is ",
+    "{sprintf('%.1f', 100 * cate_vote_choice_tau)} percentage points on vote choice and is ",
+    "unchanged."),
   "results_s2_cate_vc_p",
 
   2, "quantity", "pipeline", "full",
@@ -118,11 +185,18 @@ entries <- tribble(
     "${sprintf('%.3f', table_1$estimate[table_1$model == 'Candidate favorability (1)' & table_1$term == 'battleground_d'])}$; ",
     "the facing text quotes its magnitude correctly as 0.008. The table is reprinted below ",
     "with that cell at the three decimals the rest of the column carries. Every other cell ",
-    "is unchanged."),
+    "is unchanged.",
+    "\n\n",
+    "The sentence carries one number downstream, three sentences later: the upper bound of ",
+    "the 95 per cent interval for the same difference, which the article gives as about 0.25. ",
+    "Computed from the corrected coefficient it is ",
+    "{sprintf('%.3f', table_1$conf.high[table_1$model == 'Candidate favorability (1)' & table_1$term == 'general_d'])}, ",
+    "so the bound and the reading built on it, that any heterogeneity by election phase is ",
+    "too small to matter politically, stand as published."),
   "results_general_election_coefficient;table_1_m1_battleground_d_est",
 
   3, "quantity", "pipeline", "full",
-  "No estimate in the study exceeds half a scale point",
+  "No positive estimate in the study exceeds half a scale point",
   "published, Results",
   "...one large positive result toward the end of the campaign in October ([[more than +0.5 points]]), and two other negative results in October.",
   str_glue("...one large positive result toward the end of the campaign in October ([[more than +{sprintf('%.1f', october_bound)} points]]), and two other negative results in October."),
@@ -130,7 +204,20 @@ entries <- tribble(
     "The largest positive weekly estimate anywhere in the study is ",
     "{sprintf('%.3f', largest_october)}, on the advertisement \"Example\" in the week of 31 ",
     "October. The passage's point, that a significance filter applied to these experiments ",
-    "would leave a handful of results that look large, is unaffected."),
+    "would leave a handful of results that look large, is unaffected.",
+    "\n\n",
+    "The filter is what the corrected number is the warrant for, and it can be applied: of ",
+    "the {nrow(weekly_favorability)} weekly favorability experiments, ",
+    "{spell(nrow(significant_weekly))} have an interval excluding zero, and they run from ",
+    "${sprintf('%.3f', min(significant_weekly$estimate))}$ to ",
+    "{sprintf('%.3f', max(significant_weekly$estimate))}. The passage names the four largest ",
+    "of those {spell(nrow(significant_weekly))} in magnitude. So a filtered literature drawn ",
+    "from this study would show a spread of about a fifth of the favorability scale, which is ",
+    "the appearance of heterogeneity the passage is describing, and the corrected bound does ",
+    "not soften it. The title of this entry says positive because the study's most extreme ",
+    "estimate of either sign is ",
+    "${sprintf('%.3f', min(significant_weekly$estimate))}$, the early May result the same ",
+    "sentence describes as nearly $-0.5$."),
   "desc_large_positive_october",
 
   4, "description", "pipeline", "full",
@@ -138,12 +225,19 @@ entries <- tribble(
   "published, Results",
   "Turning first to features of receiver, we see that the differences in treatment response across Democrats, Independents, and Republicans are small, [[with SEs greater than coefficients]].",
   str_glue("Turning first to features of receiver, we see that the differences in treatment response across Democrats, Independents, and Republicans are small, [[with SEs greater than coefficients in {computed('desc_partisan_ses_exceed_coefficients')} of the {nrow(partisanship)} cells]]."),
-  paste(
-    "The two exceptions are the Democratic respondent coefficients in columns 1 and 3 of",
-    "Table 1, and the second is visible on the printed page: 0.011 with a standard error of",
-    "0.010. Neither coefficient is distinguishable from zero, so the claim the sentence",
-    "supports, that treatment response does not differ by respondent partisanship, is",
-    "unaffected."),
+  str_glue(
+    "The two exceptions are the Democratic respondent coefficients in columns 1 and 3 of ",
+    "Table 1, and the second is visible on the printed page: 0.011 with a standard error of ",
+    "0.010. Neither coefficient is distinguishable from zero, so the claim the sentence ",
+    "supports, that treatment response does not differ by respondent partisanship, is ",
+    "unaffected.",
+    "\n\n",
+    "The count is a proxy and the quantity behind it is the better warrant: across all ",
+    "{nrow(partisanship)} cells the largest ratio of a coefficient to its own standard error ",
+    "is {sprintf('%.2f', partisan_max_ratio)}, so no partisanship difference in the table ",
+    "reaches even 1.1 standard errors from zero. Six of eight is what the published sentence ",
+    "would have read as a weaker version of its own claim; the ratio says the claim is as ",
+    "strong as the sentence makes it."),
   "desc_partisan_ses_exceed_coefficients",
 
   5, "quantity", "pipeline", "full",
@@ -157,7 +251,15 @@ entries <- tribble(
     "{txt('n_deployments_anti_clinton')}, {txt('n_deployments_pro_clinton')} and ",
     "{txt('n_deployments_pro_trump')}, which is exactly what the main text states. Counted ",
     "over distinct advertisements it is 24, 11, 6 and 3. The published breakdown matches ",
-    "neither."),
+    "neither.",
+    "\n\n",
+    "The four counts are a partial inventory, and correcting them resizes what is left. They ",
+    "now sum to {deployments_named} of the {txt('n_ad_week_deployments')} ",
+    "advertisement-week experiments, leaving {deployments_other} for the promotional ",
+    "advertisements for other primary candidates the next sentence calls the remainder, ",
+    "where the published counts left 10. Nothing estimated in the article is computed from ",
+    "this split: it is an inventory of the treatments, and its warrant is that a reader can ",
+    "reconcile section A with the main text, which the published version does not allow."),
   "appendix_a_n_anti_trump;appendix_a_n_anti_clinton;appendix_a_n_pro_clinton",
 
   6, "quantity", "pipeline", "full",
@@ -167,9 +269,19 @@ entries <- tribble(
   str_glue("Table S1 shows the name and target of the [[{txt('n_unique_ads')}]] unique advertisements and the week they were deployed."),
   str_glue(
     "The deposited data hold {txt('n_unique_ads')} campaign advertisements plus the placebo, ",
-    "and the abstract's {txt('n_unique_ads')} is right. Table S1 itself carries 48 distinct ",
-    "names, because two of the {txt('n_unique_ads')} advertisements share the title ",
-    "\"Sacrifice\" and the week of 5 September."),
+    "and the abstract's {txt('n_unique_ads')} is right. The abstract, the introduction and ",
+    "the discussion all say {txt('n_unique_ads')}, so section A was the one place in the ",
+    "paper that said 50.",
+    "\n\n",
+    "The sentence also defines Table S1, and the corrected number does not reach it. That ",
+    "table prints one cell per advertisement-week with a distinct title, which is ",
+    "{length(table_s1_cells)} cells carrying {n_distinct(table_s1_cells)} distinct names, so ",
+    "a reader who counts it recovers neither the {txt('n_unique_ads')} advertisements nor the ",
+    "{txt('n_ad_week_deployments')} experiments. Two of the {txt('n_unique_ads')} ",
+    "advertisements share the title \"Sacrifice\", the target Trump and the week of 5 ",
+    "September, and the table has no way to show them apart. The shortfall is in the table's ",
+    "presentation and not in the study: both advertisements are in the deposited data and ",
+    "both are in every estimate the article reports."),
   "appendix_a_n_unique_ads",
 
   7, "label", "pipeline", "full",
@@ -179,7 +291,17 @@ entries <- tribble(
   str_glue("Some advertisements ([[{repeat_ad_list}]]) were shown in multiple weeks, enabling us to estimate how the effect of the same advertisement may vary with the changing electoral context."),
   str_glue(
     "\"Man of People\" was fielded once, in the week of 14 March. Section B and Figure S1 ",
-    "both use the correct count of {nrow(repeat_ads)}."),
+    "both use the correct count of {nrow(repeat_ads)}.",
+    "\n\n",
+    "The list is not a label on the sentence: it is the stated roster of what Figure S1 ",
+    "shows. That figure carries one panel per advertisement fielded in more than one week, ",
+    "and its {spell(n_distinct(figure_s1$ad_title))} panels are the corrected ",
+    "{spell(nrow(repeat_ads))} names exactly, in order. The published eighth name therefore ",
+    "promises ",
+    "a panel that is not in the figure, and section B, two pages later, already says seven. ",
+    "The analysis is unaffected because the figure and the tests behind it were always the ",
+    "correct {spell(nrow(repeat_ads))}: what was wrong was the only place a reader is told which ",
+    "advertisements they are."),
   "appendix_a_n_repeat_ads_named",
 
   8, "quantity", "pipeline", "full",
@@ -194,7 +316,14 @@ entries <- tribble(
     "{sprintf('%.1f', 100 * txt('manip_check_treated_max'))} per cent, which is what the ",
     "deposited script written for this sentence computes. Weighting by the survey weights ",
     "widens the range further, to 90.2 to 95.9 per cent. The control group range is correct ",
-    "as published."),
+    "as published.",
+    "\n\n",
+    "The sentence is the article's warrant that treatments were delivered as intended, and ",
+    "what carries that claim is the low end rather than the range. Correcting it moves the ",
+    "worst wave down by one point, to ",
+    "{sprintf('%.1f', 100 * txt('manip_check_treated_min'))} per cent, which is still ",
+    "{sprintf('%.0f', manip_ratio)} times the highest rate any control group reported. ",
+    "Delivery is not in question in any wave."),
   "methods_manip_treated_min;methods_manip_treated_max",
 
   9, "typographic", "remaster", "brief",
@@ -205,7 +334,11 @@ entries <- tribble(
   paste(
     "A dropped letter, in the sentence that names the estimand. The article spells the term",
     "correctly everywhere else, including in the sentence immediately before this one. Found",
-    "by the remaster, which carries the published text across word by word."),
+    "by the remaster, which carries the published text across word by word. No quantity is",
+    "involved, so the question this note asks of the other eight entries, what the corrected",
+    "value was the warrant for, does not arise. What the correction restores is that the",
+    "sentence defining the estimand spells it, which is the one sentence in the article where",
+    "the term is doing definitional work rather than referring back."),
   ""
 ) |>
   mutate(across(c(title, published, corrected, note, claim_ids), as.character))
@@ -225,7 +358,7 @@ emit <- function(n) {
 }
 ```
 
-This note lists `r spell(nrow(entries))` errors in "The small effects of political advertising are small regardless of context, message, sender, or receiver: Evidence from 59 real-time randomized experiments," published in *Science Advances* 6(36), doi [10.1126/sciadv.abc4046](https://doi.org/10.1126/sciadv.abc4046). **None of them changes a conclusion of the paper.** The first eight are recorded because the numbers themselves are wrong and a reader who quoted them would be misled; the ninth is a dropped letter, recorded on the same principle.
+This note lists `r spell(nrow(entries))` errors in "The small effects of political advertising are small regardless of context, message, sender, or receiver: Evidence from 59 real-time randomized experiments," published in *Science Advances* 6(36), doi [10.1126/sciadv.abc4046](https://doi.org/10.1126/sciadv.abc4046). **None of them changes a conclusion of the paper.** That is an adjudication rather than an assurance: each entry below was taken back to the sentence a referee would have said rests on it, and each note says what the corrected value is now the warrant for. The first eight are recorded because the numbers themselves are wrong and a reader who quoted them would be misled; the ninth is a dropped letter, recorded on the same principle.
 
 Items 1 through 4 are in the main text, items 5 through 7 in section A of the supplementary materials, and items 8 and 9 in Materials and Methods. Every corrected value below is computed from the deposited replication archive ([10.7910/DVN/TN7KWR](https://doi.org/10.7910/DVN/TN7KWR)) at the time this document is rendered. The maintained code is at [github.com/active-maintenance-aec/coppock_hill_vavreck_2020](https://github.com/active-maintenance-aec/coppock_hill_vavreck_2020).
 
