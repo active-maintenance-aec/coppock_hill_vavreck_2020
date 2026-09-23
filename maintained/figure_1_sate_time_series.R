@@ -44,6 +44,9 @@ breaks <- as.Date(c(
   "2016-08-01", "2016-09-01", "2016-10-01", "2016-11-01"
 ))
 
+# The strip prints the published page's `Vote choice`; the `dv` key stays `Vote Choice` ----
+# because in_text_claims.R and text_descriptive_claims.R filter the csv on it.
+
 # The start of the general election campaign, drawn only in the weekly panel ----
 # The archive draws it with a bare geom_vline. Under ggplot2 4.x an unfaceted
 # annotation layer joins the free x scale of every panel, which stretches the
@@ -67,7 +70,10 @@ g <-
     aes(y = entry_y, label = est_entry),
     size = 2
   ) +
-  facet_grid(rows = vars(dv), cols = vars(est_type), scales = "free", space = "free_x") +
+  facet_grid(
+    rows = vars(dv), cols = vars(est_type), scales = "free", space = "free_x",
+    labeller = labeller(dv = c(Favorability = "Favorability", `Vote Choice` = "Vote choice"))
+  ) +
   scale_x_date(breaks = breaks, date_labels = "%B") +
   theme_bw() +
   theme(

@@ -34,13 +34,21 @@ gg_df <-
     se_entry = make_se_entry(estimate, std.error, digits = 3)
   )
 
+# The strips print the published page's labels; `ad_type` keeps the short key ----
+# that text_descriptive_claims.R filters on.
 g <-
   ggplot(gg_df, aes(x = estimate, y = respondent_pid)) +
   geom_vline(xintercept = 0, linetype = "dashed", alpha = 0.5) +
   geom_point() +
   geom_linerange(aes(xmin = conf.low, xmax = conf.high)) +
   geom_text(aes(label = se_entry), nudge_y = 0.3, size = 3) +
-  facet_grid(rows = vars(outcome_variable), cols = vars(ad_type)) +
+  facet_grid(
+    rows = vars(outcome_variable), cols = vars(ad_type),
+    labeller = labeller(ad_type = c(
+      `pro-Democratic ad` = "Pro-Democratic advertisement",
+      `pro-Republican ad` = "Pro-Republican advertisement"
+    ))
+  ) +
   theme_bw() +
   theme(
     axis.title.y     = element_blank(),
