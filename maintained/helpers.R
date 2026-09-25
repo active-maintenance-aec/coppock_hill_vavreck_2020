@@ -24,10 +24,21 @@ options(modelsummary_format_numeric_latex = "plain")
 # Fits the paper's covariate-adjusted OLS specification separately within each date
 # and returns one tidy row per coefficient. The survey weights live in a column
 # literally called weights, so lm_robust finds them in the data frame.
+#
+# The covariate list is pruned to the covariates that vary in the data handed in.
+# pid_3_pre == "Independent" is exactly pid_7_pre == 4, so in the CATE call sites,
+# which group by pid_3_pre, pid_7_pre is a constant inside the Independent subgroup:
+# collinear with the intercept, estimable in no specification, and returned as NA by
+# lm_robust (and silently by the archive's lm()). Pruning it moves no estimate and
+# no standard error; it only stops the fit from asking for a coefficient that cannot
+# exist. The SATE call sites hand in the whole sample, where all three covariates
+# vary, so they fit the full specification.
 estimate_ad_effects <- function(data, dv) {
-  fml <- formula(paste0(dv, " ~ ad_id_fac + pid_7_pre + ideo5_pre + female_pre"))
+  covariates <- c("pid_7_pre", "ideo5_pre", "female_pre")
+  data <- data |> filter(!is.na(.data[[dv]]))
+  varying <- covariates[map_lgl(covariates, \(v) n_distinct(data[[v]], na.rm = TRUE) > 1)]
+  fml <- formula(paste(dv, "~", paste(c("ad_id_fac", varying), collapse = " + ")))
   data |>
-    filter(!is.na(.data[[dv]])) |>
     group_by(date) |>
     reframe(tidy(lm_robust(fml, weights = weights, data = pick(everything()))))
 }

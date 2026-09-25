@@ -10,8 +10,9 @@ ad_df <- read_csv(here::here("original", "ad_df.csv"), show_col_types = FALSE)
 
 general_exps <- exps |> filter(election_phase == "General Election")
 
-# Rank-deficiency messages are expected here for the same reason as in the
-# favorability CATEs: some subgroup by week cells carry only one advertisement.
+# These fits are full rank, for the same reason as in the favorability CATEs: the only
+# rank deficiency was the Independent subgroup's constant pid_7_pre, which helpers.R
+# now prunes before fitting.
 cates <-
   bind_rows(
     general_exps |> group_by(pid_3_pre, battleground) |> reframe(estimate_ad_effects(pick(everything()), "general_vote_HC")),

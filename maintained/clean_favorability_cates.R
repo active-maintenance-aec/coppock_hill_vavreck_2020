@@ -8,9 +8,9 @@ source(here::here("maintained", "helpers.R"))
 exps  <- read_rds(here::here("original", "exps.rds"))
 ad_df <- read_csv(here::here("original", "ad_df.csv"), show_col_types = FALSE)
 
-# Some subgroup by week cells have a collinear design matrix, for instance when only
-# one advertisement valence was fielded in a battleground subgroup that week.
-# lm_robust drops the rank-deficient coefficient and says so; that is expected here.
+# These fits are full rank. Every one of the 242 rank-deficient fits this script used
+# to report was the Independent subgroup's constant pid_7_pre, never an advertisement
+# indicator, and helpers.R now prunes a constant covariate before fitting.
 cates <-
   bind_rows(
     exps |> group_by(pid_3_pre, battleground) |> reframe(estimate_ad_effects(pick(everything()), "favorDT_rev")),
