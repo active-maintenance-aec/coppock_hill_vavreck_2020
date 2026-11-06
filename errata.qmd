@@ -146,14 +146,29 @@ spell <- function(n) {
 # cell alongside the coefficient the sentence misstates, because the table is reprinted with
 # that cell fixed. It is empty where an entry has no ground-truth row at all. Every id
 # listed here is checked against the ground truth by build_ground_truth.R.
+#
+# corrected_values runs parallel to claim_ids, one value per id in the same order, carrying
+# the corrected quantity as a number rather than as a sentence. Each value is built from the
+# same expression that builds the marked span of the corrected sentence, so the two cannot be
+# written apart, and the gate below re-checks that each one is still inside its span. An
+# entry that changes no quantity carries NA, as does an entry whose ids are not all in its
+# corrected sentence (entry 2: the Table 1 battleground cell is reprinted in the table, not
+# in the sentence). Where the sentence prints a rounded or bounded token, the value is that
+# token: entry 3 gives the bound, not the 0.432 estimate behind it, and entry 8 gives the
+# rounded percentages.
+cv_cate_vc_p <- sprintf('%.4f', cate_vote_choice_p)
+cv_october   <- sprintf('%.1f', october_bound)
+cv_manip_min <- sprintf('%.0f', 100 * txt('manip_check_treated_min'))
+cv_manip_max <- sprintf('%.0f', 100 * txt('manip_check_treated_max'))
+
 entries <- tribble(
-  ~entry, ~class, ~source, ~form, ~title, ~location, ~published, ~corrected, ~note, ~claim_ids,
+  ~entry, ~class, ~source, ~form, ~title, ~location, ~published, ~corrected, ~note, ~claim_ids, ~corrected_values,
 
   1, "quantity", "pipeline", "full",
   "The CATE homogeneity p-value for vote choice is misstated by a factor of ten",
   "published, Results",
   "For the set of conditional average treatment effects (CATEs), P values are 0.0002 and [[0.96]].",
-  str_glue("For the set of conditional average treatment effects (CATEs), P values are 0.0002 and [[{sprintf('%.4f', cate_vote_choice_p)}]]."),
+  str_glue("For the set of conditional average treatment effects (CATEs), P values are 0.0002 and [[{cv_cate_vc_p}]]."),
   str_glue(
     "Table S2 of the same article reports {sprintf('%.4f', cate_vote_choice_p)} for this ",
     "test, which is what the deposited code produces. The test still fails to reject the ",
@@ -171,6 +186,7 @@ entries <- tribble(
     "{sprintf('%.1f', 100 * cate_vote_choice_tau)} percentage points on vote choice and is ",
     "unchanged."),
   "results_s2_cate_vc_p",
+  cv_cate_vc_p,
 
   2, "quantity", "pipeline", "full",
   "The general election coefficient disagrees with Table 1",
@@ -194,12 +210,13 @@ entries <- tribble(
     "so the bound and the reading built on it, that any heterogeneity by election phase is ",
     "too small to matter politically, stand as published."),
   "results_general_election_coefficient;table_1_m1_battleground_d_est",
+  NA_character_,
 
   3, "quantity", "pipeline", "full",
   "No positive estimate in the study exceeds half a scale point",
   "published, Results",
   "...one large positive result toward the end of the campaign in October ([[more than +0.5 points]]), and two other negative results in October.",
-  str_glue("...one large positive result toward the end of the campaign in October ([[more than +{sprintf('%.1f', october_bound)} points]]), and two other negative results in October."),
+  str_glue("...one large positive result toward the end of the campaign in October ([[more than +{cv_october} points]]), and two other negative results in October."),
   str_glue(
     "The largest positive weekly estimate anywhere in the study is ",
     "{sprintf('%.3f', largest_october)}, on the advertisement \"Example\" in the week of 31 ",
@@ -219,6 +236,7 @@ entries <- tribble(
     "${sprintf('%.3f', min(significant_weekly$estimate))}$, the early May result the same ",
     "sentence describes as nearly $-0.5$."),
   "desc_large_positive_october",
+  cv_october,
 
   4, "description", "pipeline", "full",
   "Standard errors do not exceed the coefficients in every partisanship cell",
@@ -239,6 +257,7 @@ entries <- tribble(
     "would have read as a weaker version of its own claim; the ratio says the claim is as ",
     "strong as the sentence makes it."),
   "desc_partisan_ses_exceed_coefficients",
+  NA_character_,
 
   5, "quantity", "pipeline", "full",
   "The advertisement counts in section A disagree with the main text",
@@ -261,6 +280,7 @@ entries <- tribble(
     "this split: it is an inventory of the treatments, and its warrant is that a reader can ",
     "reconcile section A with the main text, which the published version does not allow."),
   "appendix_a_n_anti_trump;appendix_a_n_anti_clinton;appendix_a_n_pro_clinton",
+  str_c(txt('n_deployments_anti_trump'), ";", txt('n_deployments_anti_clinton'), ";", txt('n_deployments_pro_clinton')),
 
   6, "quantity", "pipeline", "full",
   "The number of unique advertisements in section A disagrees with the abstract",
@@ -283,6 +303,7 @@ entries <- tribble(
     "presentation and not in the study: both advertisements are in the deposited data and ",
     "both are in every estimate the article reports."),
   "appendix_a_n_unique_ads",
+  as.character(txt('n_unique_ads')),
 
   7, "label", "pipeline", "full",
   "Section A names eight advertisements shown in multiple weeks",
@@ -303,12 +324,13 @@ entries <- tribble(
     "correct {spell(nrow(repeat_ads))}: what was wrong was the only place a reader is told which ",
     "advertisements they are."),
   "appendix_a_n_repeat_ads_named",
+  NA_character_,
 
   8, "quantity", "pipeline", "full",
   "The manipulation check range is one point narrow at each end",
   "published, Materials and Methods",
   "Tiny fractions of the control groups claimed to have seen campaign advertisements (2 to 4%) compared with large majorities of the treatment groups ([[92 to 95%]]).",
-  str_glue("Tiny fractions of the control groups claimed to have seen campaign advertisements (2 to 4%) compared with large majorities of the treatment groups ([[{sprintf('%.0f', 100 * txt('manip_check_treated_min'))} to {sprintf('%.0f', 100 * txt('manip_check_treated_max'))}%]])."),
+  str_glue("Tiny fractions of the control groups claimed to have seen campaign advertisements (2 to 4%) compared with large majorities of the treatment groups ([[{cv_manip_min} to {cv_manip_max}%]])."),
   str_glue(
     "Across the ten waves in which the manipulation check was asked, the unweighted share of ",
     "treated respondents reporting a campaign advertisement runs from ",
@@ -325,6 +347,7 @@ entries <- tribble(
     "{sprintf('%.0f', manip_ratio)} times the highest rate any control group reported. ",
     "Delivery is not in question in any wave."),
   "methods_manip_treated_min;methods_manip_treated_max",
+  str_c(cv_manip_min, ";", cv_manip_max),
 
   9, "typographic", "remaster", "brief",
   "\"treatmen\" for \"treatment\"",
@@ -339,11 +362,54 @@ entries <- tribble(
     "value was the warrant for, does not arise. What the correction restores is that the",
     "sentence defining the estimand spells it, which is the one sentence in the article where",
     "the term is doing definitional work rather than referring back."),
-  ""
+  "",
+  NA_character_
 ) |>
-  mutate(across(c(title, published, corrected, note, claim_ids), as.character))
+  mutate(across(c(title, published, corrected, note, claim_ids, corrected_values), as.character))
 
 stopifnot(nrow(entries) == max(entries$entry), !anyDuplicated(entries$entry))
+
+# Gate: corrected_values agrees with the sentence it was glued into ----
+# The column and the sentence are written from one expression, so they begin in agreement
+# and this gate exists for the edit that separates them: a value moved from one marked span
+# to another, a span reworded to carry a second number, a claim id appended without its
+# value. Each value has to be inside the span it belongs to, matched by position where the
+# counts line up, and inside SOME span where an entry marks a label as well as a number and
+# its spans outnumber its values.
+marked_spans <- function(x) str_match_all(x, "\\[\\[(.*?)\\]\\]")[[1]][, 2]
+
+quantified <- entries |>
+  filter(!is.na(corrected_values)) |>
+  mutate(ids = str_split(claim_ids, ";"), values = str_split(corrected_values, ";"),
+         spans = map(corrected, marked_spans))
+
+stopifnot(all(lengths(quantified$ids) == lengths(quantified$values)))
+
+value_placed <- pmap_lgl(quantified, function(...) {
+  e <- list(...)
+  if (length(e$values) == length(e$spans)) {
+    all(map2_lgl(e$values, e$spans, \(v, s) str_detect(s, fixed(v))))
+  } else {
+    all(map_lgl(e$values, \(v) any(map_lgl(e$spans, \(s) str_detect(s, fixed(v))))))
+  }
+})
+
+if (!all(value_placed)) {
+  print(quantified |> filter(!value_placed) |> select(entry, title, corrected_values, corrected))
+  stop("An entry's corrected_values are not in the spans of its corrected sentence.")
+}
+
+# A quantity entry that corrects something has to say which quantity, and an entry that
+# corrects none (any other class, or a note) may not carry a value. The class is the
+# declaration and this is where it binds. An empty claim_ids counts as missing. Entry 2 is exempt from the first line: one of its ids is a table cell that is not in its sentence.
+has_ids <- !is.na(entries$claim_ids) & nzchar(entries$claim_ids)
+no_value_ok <- 2
+stopifnot(
+  all(!is.na(entries$corrected_values[entries$class == "quantity" & entries$form != "note" &
+                                        has_ids & !entries$entry %in% no_value_ok])),
+  all(is.na(entries$corrected_values[entries$class != "quantity" | entries$form == "note"])),
+  all(is.na(entries$corrected_values) | has_ids)
+)
 
 # The spine's markup, resolved for this document. Another renderer resolves it differently.
 bold <- function(x) str_replace_all(x, "\\[\\[(.*?)\\]\\]", "**\\1**")
