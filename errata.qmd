@@ -236,7 +236,7 @@ entries <- tribble(
     "${sprintf('%.3f', min(significant_weekly$estimate))}$, the early May result the same ",
     "sentence describes as nearly $-0.5$."),
   "desc_large_positive_october",
-  cv_october,
+  sprintf('%.3f', largest_october),
 
   4, "description", "pipeline", "full",
   "Standard errors do not exceed the coefficients in every partisanship cell",
@@ -347,7 +347,8 @@ entries <- tribble(
     "{sprintf('%.0f', manip_ratio)} times the highest rate any control group reported. ",
     "Delivery is not in question in any wave."),
   "methods_manip_treated_min;methods_manip_treated_max",
-  str_c(cv_manip_min, ";", cv_manip_max),
+  str_c(sprintf('%.1f', 100 * txt('manip_check_treated_min')), ";",
+        sprintf('%.1f', 100 * txt('manip_check_treated_max'))),
 
   9, "typographic", "remaster", "brief",
   "\"treatmen\" for \"treatment\"",
@@ -372,7 +373,7 @@ stopifnot(nrow(entries) == max(entries$entry), !anyDuplicated(entries$entry))
 # values_in_spans is FALSE where the claim's scale is not the sentence's, under PROCEDURES'
 # rule that corrected_values is always on the claim's scale. A method row or other id with
 # no number on any scale stores NA in its position. Such an entry's note must say why.
-off_claim_scale <- c(2)
+off_claim_scale <- c(2, 3, 8)
 entries <- entries |>
   mutate(values_in_spans = case_when(
     is.na(corrected_values) ~ NA,
