@@ -298,7 +298,7 @@ more than primary advertisements.” Table 1 prints 0.123, and 0.123 is
 what the code gives. The confidence bound quoted in the same sentence,
 “about 0.25,” follows from 0.123 rather than from 0.121.
 
-**Entries 5, 6 and 7, the appendix’s advertisement counts.** Appendix
+**Entries 4, 5, and 8, the appendix’s advertisement counts.** Appendix
 section A says Table S1 shows “50 unique advertisements” and that,
 “including the ads we deployed more than once,” the study tested 28
 anti-Trump, nine anti-Clinton, nine pro-Clinton and three pro-Trump
@@ -319,7 +319,7 @@ reaches half a scale point. The largest is 0.432, on the advertisement
 “Example” in the week of 31 October, and it is in the right place on the
 right date. The passage’s point survives; the number does not.
 
-**Entry 4, standard errors and the partisanship coefficients.** The
+**Entry 7, standard errors and the partisanship coefficients.** The
 Results section says the differences in treatment response across
 Democrats, Independents and Republicans are “small, with SEs greater
 than coefficients.” That holds in 6 of the 8 partisanship cells in
@@ -328,7 +328,7 @@ columns 1 and 3, and the second is visible on the published page: 0.011
 with a standard error of 0.010. Neither is distinguishable from zero, so
 the claim the sentence supports is unaffected.
 
-**Entry 8, the manipulation check range**, is a smaller case. The
+**Entry 6, the manipulation check range**, is a smaller case. The
 article says treated respondents claiming to have seen a campaign
 advertisement ranged from 92 to 95 percent. The unweighted range across
 the ten waves in which the question was asked is 91.4 to 95.5 percent,
@@ -1085,13 +1085,13 @@ because a PDF records the time it was written.
 
 | Item      | Value                  |
 |:----------|:-----------------------|
-| R version | 4.6.0                  |
+| R version | 4.6.1                  |
 | Platform  | aarch64-apple-darwin23 |
-| Date run  | 2026-09-24             |
+| Date run  | 2026-11-07             |
 
 | Package      | Version    |
 |:-------------|:-----------|
-| estimatr     | 2.0.0.9000 |
+| estimatr     | 2.0.1.9000 |
 | metafor      | 5.0.1      |
 | modelsummary | 2.6.0      |
 | janitor      | 2.2.1      |
