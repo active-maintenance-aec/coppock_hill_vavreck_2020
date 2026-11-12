@@ -17,6 +17,12 @@
   ],
   "related_identifiers": [
     {
+      "identifier": "https://github.com/active-maintenance-aec/coppock_hill_vavreck_2020",
+      "relation": "isSupplementTo",
+      "scheme": "url",
+      "resource_type": "software"
+    },
+    {
       "identifier": "10.1126/sciadv.abc4046",
       "relation": "isSupplementTo",
       "scheme": "doi"
