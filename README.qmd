@@ -81,9 +81,9 @@ n_rewrite_match <- sum(gt$match_rewrite == 1, na.rm = TRUE)
 n_rewrite_fail <- sum(gt$match_rewrite == 0, na.rm = TRUE)
 n_no_verdict <- sum(is.na(gt$match_rewrite))
 n_extraction <- nrow(published_claims)
-n_s3 <- sum(gt$table_figure == "Table S3")
+n_s3 <- sum(gt$location == "Table S3")
 n_scripts <- length(list.files(here::here("maintained"), pattern = "\\.R$"))
-n_errata <- sum(gt$table_figure != "Table 1" & !is.na(gt$defect_locus))
+n_errata <- sum(gt$location != "Table 1" & !is.na(gt$defect_locus))
 
 # The errata are defined once, in errata.qmd, which writes errata_entries.csv when it
 # renders. This report reads that file rather than keeping a second copy of the count or
@@ -222,7 +222,7 @@ gt |>
   filter(!is.na(match), match == 0) |>
   mutate(value_paper = replace_na(value_paper, ""),
          value_script = signif(value_script, 4)) |>
-  select(table_figure, claim, value_paper, value_script, defect_locus, notes) |>
+  select(location, claim, value_paper, value_script, defect_locus, notes) |>
   kable(
     booktabs = TRUE,
     col.names = c("Location", "Quantity", "Published", "Code", "Locus", "Note"),
@@ -254,9 +254,10 @@ They are set out as `r n_errata_entries` numbered entries in the note. The ones 
 
 ```{r gt_table}
 gt |>
-  filter(table_figure != "Table S3") |>
-  mutate(across(everything(), \(x) replace_na(as.character(x), ""))) |>
-  select(table_figure, claim, value_paper, value_script, match) |>
+  filter(location != "Table S3") |>
+  mutate(match = as.integer(match),
+         across(everything(), \(x) replace_na(as.character(x), ""))) |>
+  select(location, claim, value_paper, value_script, match) |>
   kable(
     booktabs = TRUE,
     col.names = c("Location", "Quantity", "Paper", "Archive", "Match"),
@@ -406,8 +407,9 @@ Both main-text figures carry their estimates as printed annotations, and every o
 
 ```{r fig_annotation_table}
 gt |>
-  filter(table_figure %in% c("Figure 1", "Figure 2")) |>
-  select(table_figure, claim, value_paper, value_rewrite, match_rewrite) |>
+  filter(location %in% c("Figure 1", "Figure 2")) |>
+  mutate(match_rewrite = as.integer(match_rewrite)) |>
+  select(location, claim, value_paper, value_rewrite, match_rewrite) |>
   kable(
     booktabs = TRUE,
     col.names = c("Figure", "Quantity", "Paper", "Rewrite", "Match"),
@@ -459,9 +461,10 @@ knitr::include_graphics(
 
 ```{r rewrite_verify}
 gt |>
-  filter(table_figure != "Table S3") |>
-  mutate(across(everything(), \(x) replace_na(as.character(x), ""))) |>
-  select(table_figure, claim, value_paper, value_rewrite, match_rewrite, defect_locus) |>
+  filter(location != "Table S3") |>
+  mutate(match_rewrite = as.integer(match_rewrite),
+         across(everything(), \(x) replace_na(as.character(x), ""))) |>
+  select(location, claim, value_paper, value_rewrite, match_rewrite, defect_locus) |>
   kable(
     booktabs = TRUE,
     col.names = c("Location", "Quantity", "Paper", "Rewrite", "Match", "Locus"),

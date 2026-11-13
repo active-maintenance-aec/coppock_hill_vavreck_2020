@@ -29,7 +29,10 @@
 - [Maintained rewrite verification](#maintained-rewrite-verification)
 - [R environment](#r-environment)
 
-**Archived at Zenodo:** [doi:10.5281/zenodo.24168360](https://doi.org/10.5281/zenodo.24168360). This DOI always resolves to the latest release of the maintained version.
+**Archived at Zenodo:**
+[doi:10.5281/zenodo.24168360](https://doi.org/10.5281/zenodo.24168360).
+This DOI always resolves to the latest release of the maintained
+version.
 
 *Drafted by Claude Opus 5 under the supervision of Alex Coppock.*
 
@@ -1087,22 +1090,22 @@ because a PDF records the time it was written.
 
 | Item      | Value                  |
 |:----------|:-----------------------|
-| R version | 4.6.1                  |
+| R version | 4.6.2                  |
 | Platform  | aarch64-apple-darwin23 |
-| Date run  | 2026-11-07             |
+| Date run  | 2026-11-13             |
 
-| Package      | Version    |
-|:-------------|:-----------|
-| estimatr     | 2.0.1.9000 |
-| metafor      | 5.0.1      |
-| modelsummary | 2.6.0      |
-| janitor      | 2.2.1      |
-| broom        | 1.0.13     |
-| dplyr        | 1.2.1      |
-| ggplot2      | 4.0.3      |
-| tidyr        | 1.3.2      |
-| purrr        | 1.2.2      |
-| readr        | 2.2.0      |
-| here         | 1.0.2      |
+| Package      | Version |
+|:-------------|:--------|
+| estimatr     | 2.0.1   |
+| metafor      | 5.2.1   |
+| modelsummary | 2.6.0   |
+| janitor      | 2.2.1   |
+| broom        | 1.0.13  |
+| dplyr        | 1.2.1   |
+| ggplot2      | 4.0.3   |
+| tidyr        | 1.3.2   |
+| purrr        | 1.2.2   |
+| readr        | 2.2.0   |
+| here         | 1.0.2   |
 
 Package versions used for the run behind this report.

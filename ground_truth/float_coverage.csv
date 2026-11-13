@@ -1,0 +1,8 @@
+float,published_numbers,covered,reproduced_by_rewrite,reproduced_by_archive,plotted,plotted_reproduced,note
+Figure 1,4,4,4,4,95,95,"Prints two annotations per facet, an estimate and its standard error; plotted counts the weekly estimates for both outcomes and the two pooled estimates."
+Table 1,76,76,75,75,NA,NA,NA
+Figure 2,24,24,24,24,12,12,"Prints twelve annotations, each an estimate and its standard error; plotted counts the twelve estimates."
+Table S1,0,0,0,0,NA,NA,"Lists advertisement names by week and prints no estimates; checked on its shape, 29 weeks and 58 advertisement-week entries."
+Figure S1,0,0,0,0,17,17,"Prints no numbers; checked on its shape, seven panels and seventeen plotted estimates."
+Table S2,20,20,20,20,NA,NA,NA
+Table S3,136,136,136,136,NA,NA,NA

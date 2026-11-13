@@ -1,0 +1,25 @@
+pass,script,role,exit_status,outcome,stopped_at
+stripped,estimate_favorability_cates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+stripped,estimate_favorability_sates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+stripped,estimate_vote_choice_cates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+stripped,estimate_vote_choice_sates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+stripped,table_1.R,analysis,1,error,"Error in readRDS(con, refhook = refhook) : cannot open the connection Calls: source -> withVisible -> eval -> eval -> read_rds -> readRDS"
+stripped,figure_1.R,analysis,1,error,"Error in readRDS(con, refhook = refhook) : cannot open the connection Calls: source -> withVisible -> eval -> eval -> read_rds -> readRDS"
+stripped,figure_2.R,analysis,1,error,"Error in readRDS(con, refhook = refhook) : cannot open the connection Calls: source -> withVisible -> eval -> eval -> read_rds -> readRDS"
+stripped,in_text_numbers.R,analysis,0,clean,NA
+stripped,table_S1.R,analysis,0,clean,NA
+stripped,table_S2.R,analysis,1,error,"Error in readRDS(con, refhook = refhook) : cannot open the connection Calls: source -> withVisible -> eval -> eval -> read_rds -> readRDS"
+stripped,table_S3.R,analysis,0,clean,NA
+stripped,figure_S1.R,analysis,0,clean,NA
+as_shipped,estimate_favorability_cates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+as_shipped,estimate_favorability_sates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+as_shipped,estimate_vote_choice_cates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+as_shipped,estimate_vote_choice_sates.R,cleaning,1,error,"Error in file(file, ...) : argument ""file"" is missing, with no default Calls: source -> withVisible -> eval -> eval -> write_rds"
+as_shipped,table_1.R,analysis,0,clean,NA
+as_shipped,figure_1.R,analysis,0,clean,NA
+as_shipped,figure_2.R,analysis,0,clean,NA
+as_shipped,in_text_numbers.R,analysis,0,clean,NA
+as_shipped,table_S1.R,analysis,0,clean,NA
+as_shipped,table_S2.R,analysis,0,clean,NA
+as_shipped,table_S3.R,analysis,0,clean,NA
+as_shipped,figure_S1.R,analysis,0,clean,NA
